@@ -1,3 +1,9 @@
+##############################################
+##############################################
+DIMIOURGW REPOSYTORY KAI ANEVAZW TON FAKELO
+##############################################
+##############################################
+
 to initialize the repository
 # git init
 
@@ -10,6 +16,24 @@ to view all the files
 The HTTPS or URL is copied from the given GitHub accountThe HTTPS or URL is copied from the given GitHub account :Code --> HTTPS:
 https://github.com/giannismon/MY.git
 
+
+######################################################################
 # git remote add origin 'https://github.com/giannismon/MY.git'
+-----------------------------------------------------------------
+AN THELW NA ALAKSW APLOS REMOTE DIEFTHINSH 
+# git remote set-url origin 'https://github.com/giannismon/local'
+######################################################################
 # git push -u origin master
--------------------------------
+----------
+
+##############################################
+##############################################
+##############################################
+##############################################
+##############################################
+
+KATEVAZW APO TO GITHUB ENAN FAKELO TOPIKA
+
+cd /eki_pou_thelw_na_to_katevasw
+# to url tou fakelou sto git
+git clone https://github.com/giannismon/local
