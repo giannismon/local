@@ -1,13 +1,13 @@
 OTAN KATEVASW TO VISUAL STUDIO KAI TO GIT STON YPOLOGISTH MOU TO SETARW STH GRAMMH ENTOLWN ME TO 
-git config --global user.name "Το_όνομα_χρήστη_σας"
-git config --global user.email "το_email_σας"
+git config --global user.name "giannismon"
+git config --global user.email "mongiannis@gmail.com"
+git config --global --list
 
-
-##############################################
-##############################################
-DIMIOURGW REPOSYTORY KAI ANEVAZW TON FAKELO
-##############################################
-##############################################
+####################################################
+####################################################
+DIMIOURGW REPOSYTORY KAI ANEVAZW TON FAKELO github
+####################################################
+####################################################
 
 to initialize the repository
 # git init
@@ -28,7 +28,14 @@ https://github.com/giannismon/MY.git
 AN THELW NA ALAKSW APLOS DIEFTHINSH apo afthn pou exw
 # git remote set-url origin 'https://github.com/giannismon/local'
 ######################################################################
-# git push -u origin master
+
+
+Καταγραφή της Αλλαγής: 
+git commit -m "Περιγραφή της αλλαγής"
+---------------------------------------
+
+
+# git push origin master
 -----------------------------------------------------------------
 
 ##############################################
