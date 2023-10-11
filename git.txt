@@ -97,3 +97,15 @@ dilonw pou thelw na doulepsw sto github
 # git add .
 # git commit -m "Περιγραφή της αλλαγής"
 # git push origin master
+
+-----------------------------------------------------------
+ANEVAZW ENA FAKELO APLO sto github kai kanw alaget
+
+Kanoume apo to visual studio load ton fakelo
+
+anaferoume pou tha doulepsoume sto github
+# git remote add origin 'https://github.com/giannismon/local'
+
+# git add .
+# git commit -m "Περιγραφή της αλλαγής"
+# git push origin master
