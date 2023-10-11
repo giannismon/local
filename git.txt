@@ -25,11 +25,11 @@ https://github.com/giannismon/MY.git
 ######################################################################
 # git remote add origin 'https://github.com/giannismon/MY.git'
 -----------------------------------------------------------------
-AN THELW NA ALAKSW APLOS REMOTE DIEFTHINSH 
+AN THELW NA ALAKSW APLOS DIEFTHINSH apo afthn pou exw
 # git remote set-url origin 'https://github.com/giannismon/local'
 ######################################################################
 # git push -u origin master
-----------
+-----------------------------------------------------------------
 
 ##############################################
 ##############################################
@@ -53,3 +53,12 @@ BRANCHES
 Διαγραφή branch: Με την εντολή git branch -d branch_name
 Εναλλαγή σε διαφορετικό branch: Με την εντολή git checkout branch_name 
 Συγχώνευση branches: Με την εντολή git merge branch_name μπορείτε να συγχωνεύσετε τις αλλαγές από ένα branch στο τρέχον branch.
+
+
+####################################################################
+
+anevazw mia alagh sto github
+Προσθήκη της Αλλαγής στο Git: git add .
+Καταγραφή της Αλλαγής: git commit -m "Περιγραφή της αλλαγής"
+Ανεβάστε την Αλλαγή στο GitHub: git push origin (branch_name to vlepw kai apo katw aristera pou to lei) 
+#####################################################################
