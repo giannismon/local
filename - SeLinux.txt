@@ -1,0 +1,9 @@
+#########################################
+temporarily
+# sestatus
+# setenforce Permissive
+
+#########################################
+Permanent
+# vim /etc/selinux/config
+  SELINUX=permissive

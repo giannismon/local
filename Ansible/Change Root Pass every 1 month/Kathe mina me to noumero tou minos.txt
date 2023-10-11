@@ -1,0 +1,40 @@
+# vim play.yml
+---
+- name: change pass
+  hosts: servers
+  become: true
+
+  vars:
+    root_password: "{{ new_root_password }}"
+    root_password_salt: afEMnMOBZgYNhoqA
+
+  tasks:
+    - name: Change root password
+      user:
+        name: root
+        password: "{{ root_password | password_hash(salt=root_password_salt) }}"
+
+
+
+
+
+elenxoume an alazei ondos epitixos
+# ansible-playbook play.yml -e root_password=root1
+
+-----------------------------------------------------------------------------------
+
+
+# vim a.sh
+#!/bin/bash
+date1=$(date +"%m")
+x="root"$date1
+ansible-playbook play.yml -e root_password=$x
+
+
+-----------------------------------------------------------------------------------
+
+valta kalitera sto home kai to playbook kai to sh
+
+# vim /etc/crontab
+*  *  *  *  * root cd /home/ && sh a.sh
+

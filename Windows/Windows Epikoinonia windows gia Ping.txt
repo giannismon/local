@@ -1,0 +1,39 @@
+Paw sto
+Control Panel\Network and Internet\Network and Sharing Center\Advanced sharing settings
+Ta kanw kai ta 2 On 
+# Turn on network diskovery
+# Turn on file and printer sharing
+
+----------------------------------------------------------------------------------------
+
+Paw sto 
+Control Panel\System and Security\Windows Defender Firewall\Allowed apps
+Check to
+# File and Printer Sharing
+# File and Printer Sharing over SMBDirect
+
+-----------------------------------------------------------------------------------------
+
+Paw 
+Settings --> Remote Desktop
+On to
+# Enable Remote Desktop 
+
+-----------------------------------------------------------------------------------------
+
+Afto to kanw kai sta 2 pc pou thelw na epikoinonisoun
+kai
+Tsekarw an kanei to ena sto alo ping 
+
+An den doulevei akomi kanw to parakatw vima
+------------------------------------------------------------------------------------------
+
+Paw
+Control Panel\Network and Internet\Network Connections
+deksi clik sto Wi-Fi pou sindeomaste
+Properties
+Sharing
+# Allow other networks users to connect throught this computers Internet connection
+kai epilegw afto pou theloume na kanoume Share
+
+

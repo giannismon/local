@@ -1,0 +1,33 @@
+-----------------------------------------------------------------------------------------------------------
+CREATE CENTOS DOCKER
+---------------------
+Gia na kanw search an iparxei kapio images
+docker search centos
+me to pull travaei to image apo to internet
+# docker pull centos:7
+# docker images centos
+# docker run centos:7
+
+
+
+The combination of the -i and -t switches gives you interactive shell access into the container:
+pernoume shell mesa sto container
+#  docker run -it centos /bin/bash
+einai san na pira shell se ena alo mixanima centos einai container omos tou andikathistw thn maria db
+# yum install mariadb-server
+save to container 
+# exit
+
+
+# docker commit -m "What did you do to the image" -a "Author Name" container-id repository/new_image_name
+px
+# docker commit -m "added mariadb-server" -a "Sunday Ogwu-Chinuwa" 59839a1b7de2 finid/centos-mariadb
+
+Twra tha doume oti exei prostethei kai to image pou kaname prin
+# docker images
+
+Afta pou idi trexoun
+# docker ps
+
+Stop
+# docker stop container-id

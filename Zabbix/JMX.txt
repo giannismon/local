@@ -1,0 +1,60 @@
+
+
+
+   %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+   %%   Sto mixanaki tou Zabbix sto JMX einai ola afta   %%
+   %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+
+
+Gia na mporw na valw kai to JMX mesa prepi na energopiisw to StartJavaPoller kai to JavaGateWayPort=10052
+---------------------------------
+
+--> yum install zabbix-java-gateway-3.0.9-1.el7.x86_64.rpm
+
+--> netstat -antp | grep LISTEN
+--> vim /etc/zabbix/zabbix_server.conf                 //alazw ta StartJavaPoller sto (278) kai to JavaGateWayPort=10052 sto (262)
+--> service zabbix-server status
+--> chkconfig zabbix-java-gateway on
+--> service zabbix-java-gateway start
+--> service zabbix-server restart
+--> tail -f /var/log/zabbix/zabbix_server.log
+
+
+Telos prosthetw to RMI thn endolh gia na mpori na diavasei tis plirofories apo eky 
+
+---------------------------------------------------------------------------------------------------------------------------------------------------
+
+
+----------------------------------------------------------------------------------------------------------------------------------------------------
+Update ton agent 
+----------------------------------------------------------------------------------------------------------------------------------------------------
+
+1) klinw to service tou zabbix 
+
+2) kanw uninstall tou agent 
+   Me CMD
+
+--> cd C:\ZabbixAgent64
+
+--> zabbix_agentd.exe --uninstall
+
+3) kanw to arxeio config tropopiish
+
+-Kanw alages sto arxeio Conf kai vazw tin IP pou tha akouei to Zabbix mas
+
+  PidFile=/var/run/zabbix/zabbix_agentd.pid
+    LogFile=/var/log/zabbix/zabbix_agentd.log
+    LogFileSize=10
+    EnableRemoteCommands=1
+    LogRemoteCommands=1
+    Server=10.1.6.239,10.1.6.244  (to 239 einai tou proxy kai to 244 tou zabbix xriazonde kai ta dyo na mpoune)
+    ServerActive=10.1.6.239   (ìüíï ôïí proxy ãéá ðáñáìåôñïðïßçóç óôïí zabbix server)
+    Hostname=alfresco.ydt (ãéá ðáñáìåôñïðïßçóç óôïí zabbix server)
+    Timeout=10
+	
+-anoigw to CMD san Administrator kai grafw
+
+--> zabbix_agentd.exe -c zabbix_agentd.conf --install
+
+--> zabbix_agentd.exe -s

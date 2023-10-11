@@ -1,0 +1,56 @@
+yum install lsof 
+
+# gia na dw an akouei h porta 8080
+lsof -i :8080
+
+#giu na dw oles tis portes pou akoune twra 
+netstat -ntpu | grep LISTEN
+
+# gia tou firewall 
+firewall-cmd --list-ports
+
+#######################################################
+
+
+# yum install net-tools
+
+# systemctl start firewalld
+# systemctl stop firewalld
+
+# systemctl enable firewalld
+# systemctl disable firewalld
+############################################################################
+Check Ports
+-----------
+# netstat -ntpu | grep LISTEN
+# firewall-cmd --list-ports
+
+############################################################################
+Check Servises
+---------------
+#firewall-cmd --list-services
+
+############################################################################
+Add Port
+---------
+# firewall-cmd --zone=public --add-port=80/tcp --permanent
+# firewall-cmd --reload
+
+Remove Ports
+------------
+# firewall-cmd --zone=public --remove-port=80/tcp --permanent
+# firewall-cmd --reload
+
+############################################################################
+Add Service 
+------------
+# firewall-cmd --permanent --zone=public --add-service=http
+# firewall-cmd --reload
+
+
+Remove Services
+---------------
+# firewall-cmd --permanent --zone=public --remove-service=ftp
+# firewall-cmd --reload
+
+############################################################################

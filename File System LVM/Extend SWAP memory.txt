@@ -1,0 +1,11 @@
+swapoff -v /dev/my_vg/my_lv_swap
+lvresize /dev/my_vg/my_lv_swap -L +8G
+H
+lvextend -l +100%FREE /dev/centos/my_lv_swap
+
+mkswap /dev/my_vg/my_lv_swap
+
+vim /etc/fstab
+UUID=1987efa3-184a-436d-b609-51fe34317778 /xfs (h opou alou theloume na to kanoume mount)  xfs     defaults        0 0
+
+swapon -va

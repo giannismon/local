@@ -1,0 +1,33 @@
+https://www.tecmint.com/install-alfresco-community-edition-on-centos-debian-ubuntu/
+https://www.vultr.com/docs/how-to-install-alfresco-community-edition-on-centos-7/
+
+
+
+# yum install wget
+# hostnamectl set-hostname server.alfresco.lan
+# echo “192.168.1.102 server.alfresco.lan” >> /etc/hosts
+# yum remove postfix
+# yum install fontconfig libSM libICE libXrender libXext cups-libs
+
+# wget http://nchc.dl.sourceforge.net/project/alfresco/Alfresco%205.0.d%20Community/alfresco-community-5.0.d-installer-linux-x64.bin
+# chmod +x alfresco-community-5.0.d-installer-linux-x64.bin
+# ./alfresco-community-5.0.d-installer-linux-x64.bin
+
+
+
+
+# firewall-cmd --add-port=8080/tcp -permanent
+# firewall-cmd --add-port=8443/tcp -permanent
+# firewall-cmd --add-port=7070/tcp -permanent
+# firewall-cmd --reload
+
+# ss -tulpn
+
+
+
+http://192.168.1.102:8080/share/ 
+
+start
+# cd /opt/alfresco-5.0.d/
+# ./alfresco.sh start
+

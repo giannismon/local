@@ -1,0 +1,26 @@
+# groupadd -g 2000 users1
+# useradd john -u 2000 -g 2000 -m -s /bin/bash
+# passwd john
+
+delete
+# gpasswd -d john users1
+-------------------------------------------------------
+H
+# usermod -a -G users1 john
+# groupadd users1
+
+delete
+# gpasswd -d john users1
+-------------------------------------------------------
+
+# lid -g group2
+# lid user2
+
+-------------------------------------------------------
+
+# chown root:users2 /home/john/
+# chmod 770 /home/john
+
+-------------------------------------------------------
+
+# usermod --expiredate $(date -d "30 days" "+%Y-%m-%d") davis

@@ -1,0 +1,56 @@
+INSTALL MARIA DB
+-------------------------------
+# yum -y install epel-release
+# yum install http://rpms.remirepo.net/enterprise/remi-release-7.rpm
+# yum --enablerepo=remi install mariadb-server
+# systemctl start mariadb.service
+# systemctl enable mariadb
+# mysql_secure_installation
+# mysql -u root -p
+
+
+
+VERSION
+------------------
+# SELECT VERSION();
+
+
+
+##########################################################################################
+GIA NA PARW TH VASH REMOTE PX NA MPW APO TO WORKBENCH 
+-----------------------------------------------------------------------
+-----------------------------------------------------------------------
+GRANT ALL PRIVILEGES ON *.* TO 'root'@'%' IDENTIFIED BY 'root' WITH GRANT OPTION;
+-----------------------------------------------------------------------
+-----------------------------------------------------------------------
+###########################################################################################
+
+
+
+
+CREATE DB with USER 
+-----------------------------------------------------------------------
+# create database fosslinuxzabbix character set utf8 collate utf8_bin;
+# create user 'zabbixuser'@'localhost' identified BY 'dfEr234KliT90';
+# grant all privileges on fosslinuxzabbix.* to zabbixuser@localhost ;
+# flush privileges;
+
+
+
+
+CLASSIC COMANDS
+-------------------------------------------------------
+# mysql -u root -proot -e 'SHOW TABLES FROM mysql;'
+-------------------------------------------------------
+# create database fosslinuxzabbix character set utf8 collate utf8_bin;
+# create user 'zabbixuser'@'localhost' identified BY 'dfEr234KliT90';
+# drop user 'giannis'@'localhost';
+# SHOW DATABASES;
+# SHOW TABLES FROM myDB;
+# SELECT * FROM myDB.customer;
+# CREATE TABLE myDB.customer(id INT, name VARCHAR(20), email VARCHAR(20));
+# INSERT INTO myDB.customer(id, name, email) VALUES ('5', 'main', 'A');
+# UPDATE myDB.authors SET id = 10000, name = 'Giannis' WHERE id=1;
+# ALTER TABLE authors RENAME TO new_table_name;
+# DROP TABLE table_name;
+# DROP DATABASE databasename;

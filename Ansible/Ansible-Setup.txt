@@ -1,0 +1,41 @@
+# sudo yum -y update
+# sudo yum -y upgrade
+# yum install -y epel-release
+
+# sudo yum -y install epel-repo
+# sudo yum -y install ansible
+# ansible --version
+
+An oi server mas einai oi
+192.168.152.129
+192.168.152.130
+
+
+# vim /etc/ansible/hosts
+Add at the End
+[servers]
+server1 ansible_host=192.168.152.130 ansible_user=root
+server2 ansible_host=192.168.152.129 ansible_user=root
+
+# sudo yum –y install openssh-server openssh-clients
+# sudo systemctl start sshd
+# sudo systemctl enable sshd
+
+# ssh-keygen
+# ssh-copy-id root@192.168.152.130
+# ssh-copy-id root@192.168.152.129
+
+
+## [ Set up SSH agent to avoid retyping passwords ] ##
+$ ssh-agent bash
+$ ssh-add ~/.ssh/id_rsa
+
+
+
+# ansible -m ping all
+An einai olla OK
+
+
+
+
+

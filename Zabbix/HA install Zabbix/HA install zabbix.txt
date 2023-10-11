@@ -1,0 +1,186 @@
+https://yallalabs.com/linux/how-to-configure-a-high-availability-zabbi-server-using-pacemaker-on-centos-7-rhel-7/?fbclid=IwAR2zTHtyL4j-PjnLWLeIibvKDGt7pcbnV9PFGleXmEX0YhJUiVVj1K681N0
+
+--------------------------------------------------------
+ylplzbxmn01=192.168.1.160
+ylplzbxmn02=192.168.1.161
+VIP=192.168.1.162
+ylplzbxdb01=192.168.1.190
+
+
+--------------------------------------------------------
+# yum -y install epel-release
+
+# yum -y install httpd
+# systemctl enable httpd
+# systemctl start httpd
+
+yum install php php-pear php-cgi php-common php-mbstring php-snmp php-gd php-pecl-mysql php-xml php-mysql php-gettext php-bcmath
+--------------------------------------------------------
+###########################################################################
+1,2
+
+On both Zabbix Server nodes ylplzbxmn01 e ylplzbxmn02, 
+# vim /etc/selinux/config
+SELINUX=disabled
+# sed -i 's/^SELINUX=.*/SELINUX=disabled/g' /etc/sysconfig/selinux && reboot
+
+--------------------------------------------------------
+1,2
+
+On both Zabbix Server nodes ylplzbxmn01 e ylplzbxmn02, 
+[root@ylplzbxmn01 ~]# rpm --import http://repo.zabbix.com/RPM-GPG-KEY-ZABBIX
+[root@ylplzbxmn01 ~]# rpm -Uvh  rpm -ivh http://repo.zabbix.com/zabbix/3.4/rhel/7/x86_64/zabbix-release-3.4-2.el7.noarch.rpm
+
+[root@ylplzbxmn01 ~]# yum clean all
+[root@ylplzbxmn01 ~]# yum update -y
+[root@ylplzbxmn01 ~]# yum install zabbix-server-mysql zabbix-web-mysql zabbix-agent zabbix-get -y
+--------------------------------------------------------
+DB
+
+
+– On the Database Server ylplzbxdb01 Install the MariaDB Server
+[root@ylplzbxdb01 ~]# yum install mariadb-server -y
+[root@ylplzbxdb01 ~]# systemctl enable mariadb && systemctl start mariadb
+[root@ylplzbxdb01 ~]# mysql_secure_installation
+[root@ylplzbxdb01 ~]# mysql -u root -p
+MariaDB [(none)]> CREATE DATABASE zabbixdb CHARACTER SET utf8 COLLATE utf8_bin;
+MariaDB [(none)]> GRANT ALL PRIVILEGES ON zabbixdb.* TO zabbixuser@'%' IDENTIFIED BY "Password";
+MariaDB [(none)]> FLUSH PRIVILEGES;
+MariaDB [(none)]> exit
+
+--------------------------------------------------------
+1
+
+
+– On one of the nodes, use the scp tool to copy the create.sql.gz to your Database Server ylplzbxdb01:
+[root@ylplzbxmn01 ~]# scp /usr/share/doc/zabbix-server-mysql-5.0.1/create.sql.gz root@192.168.1.190:/root/
+
+
+
+--------------------------------------------------------
+DB
+Tha metaferw to sxima apo to zabbix tou server sth remote BD mas
+
+
+-On DB
+[root@ylplzbxdb01 ~]# zcat create.sql.gz | mysql -u zabbixuser -p zabbixdb
+
+--------------------------------------------------------
+1,2
+
+– On each node in the cluster,
+# vim /etc/zabbix/zabbix_server.conf
+[...]
+SourceIP=Virtual_IP_Address_Cluster
+DBHost=IP_Address_DataBase_Server
+DBName=zabbixdb
+DBUser=zabbixuser
+DBPassword=Password
+
+--------------------------------------------------------
+
+– On each node in the cluster
+# vim /etc/httpd/conf.d/zabbix.conf
+[...]
+php_value date.timezone Europe/Rome
+
+--------------------------------------------------------
+
+– On each node in the cluster
+# cat >> /etc/hosts << END
+> 192.168.1.160 ylplzbxmn01 ylplzbxmn01.yallalabs.local
+> 192.168.1.161 ylplzbxmn02 ylplzbxmn02.yallalabs.local
+> END
+
+--------------------------------------------------------
+On each node
+# firewall-cmd --permanent --add-service=high-availability
+success
+# firewall-cmd --permanent --add-service=http
+success
+# firewall-cmd --permanent --add-port=10051/tcp
+success
+# firewall-cmd --permanent --add-port=10050/tcp
+success
+# firewall-cmd --reload
+success
+
+--------------------------------------------------------
+1,2
+On each node
+[root@ylplzbxmn01 ~]# yum install pacemaker pcs -y
+# passwd hacluster
+Changing password for user hacluster.
+New password:
+Retype new password:
+passwd: all authentication tokens updated successfully.
+
+
+--------------------------------------------------------
+1,2
+– On each node in the cluster
+# systemctl start pcsd
+# systemctl enable pcsd
+Created symlink from /etc/systemd/system/multi-user.target.wants/pcsd.service to /usr/lib/systemd/system/pcsd.service.
+
+--------------------------------------------------------
+1
+– on the first node ylplzbxmn01
+[root@ylplzbxmn01 ~]# pcs cluster auth ylplzbxmn01 ylplzbxmn02
+Username: hacluster
+Password:
+ylplzbxmn01: Authorized
+ylplzbxmn02: Authorized
+
+
+--------------------------------------------------------
+
+– On the first node ylplzbxmn01
+[root@ylplzbxmn01 ~]# pcs cluster setup --name zabbixserver ylplzbxmn01 ylplzbxmn02
+
+--------------------------------------------------------
+
+– To start the cluster services on both nodes of the cluster, it’s engouh to execute the below command on the first node ylplzbxmn01:
+[root@ylplzbxmn01 ~]# pcs cluster start --all
+ylplzbxmn01: Starting Cluster...
+ylplzbxmn02: Starting Cluster...
+
+
+
+--------------------------------------------------------
+
+– On each node in the cluster
+# systemctl enable corosync
+# systemctl enable pacemaker
+
+--------------------------------------------------------
+
+– On each node in the cluster
+[root@ylplzbxmn01 ~]# pcs status cluster
+[root@ylplzbxmn01 ~]# pcs status nodes
+[root@ylplzbxmn01 ~]# pcs property set stonith-enabled=false
+[root@ylplzbxmn01 ~]# pcs property set no-quorum-policy=ignore
+
+--------------------------------------------------------
+
+– On the first node ylplzbxmn01
+[root@ylplzbxmn01 ~]# pcs resource create cluster_vip ocf:heartbeat:IPaddr2 ip=192.168.1.162 cidr_netmask=24 op monitor interval=20s
+[root@ylplzbxmn01 ~]# pcs resource create zabbix_server systemd:zabbix-server op monitor interval=10s
+[root@ylplzbxmn01 ~]# pcs resource create httpd systemd:httpd op monitor interval=10s
+[root@ylplzbxmn01 ~]# pcs resource group add grp_zabbix_httpd zabbix_server httpd
+[root@ylplzbxmn01 ~]# pcs constraint colocation add grp_zabbix_httpd cluster_vip INFINITY
+[root@ylplzbxmn01 ~]# pcs constraint order cluster_vip then grp_zabbix_httpd
+[root@ylplzbxmn01 ~]# pcs status
+
+
+--------------------------------------------------------
+
+-Check
+http://Float_IP_ADDRESS/zabbix/
+After set up when i open framework of zabbix
+– When you are done with the installation
+[root@ylplzbxmn01 ~]# scp /etc/zabbix/web/zabbix.conf.php root@192.168.1.161:/etc/zabbix/web/zabbix.conf.php
+TEST IT
+[root@ylplzbxmn01 ~]# pcs cluster standby ylplzbxmn01
+[root@ylplzbxsrv01 ~]# pcs status
+[root@ylplzbxmn01 ~]# pcs cluster unstandby ylplzbxmn01

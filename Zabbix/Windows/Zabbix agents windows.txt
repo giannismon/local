@@ -1,0 +1,59 @@
+https://www.youtube.com/watch?v=5ptN2_a4lq0
+
+    %%%%%%%%%%%%%%%%%%%%
+    %%  Gia windows   %%
+    %%%%%%%%%%%%%%%%%%%%
+
+
+
+- Tsekarw prota an kanoun oi dio server ping metaksi tous
+-----------------------------------------------------------------------------------------------------
+
+-Mpenw sto zabbix/downloads kai katevazw enan agent gia ta windows 
+# zabbix_server --version
+
+-----------------------------------------------------------------------------------------------------
+
+-ta petaw ta arxeia zabbix_agentd.conf kai /bin/zabbix_agentd.exe se enan fakelo ston C px zabbix
+
+ -----------------------------------------------------------------------------------------------------
+
+-Kanw alages sto arxeio zabbix_agentd.conf kai vazw tin IP pou tha akouei to Zabbix mas
+Server=10.1.6.20  
+ServerActive=10.1.6.20   you zabbix-server
+Hostname=Admin-PC
+ListenPort=10050
+LogFile=C:\Program Files\Zabbix\log\zabbix_agentd.log
+LogFileSize=10
+DebugLevel=4
+
+-----------------------------------------------------------------------------------------------------
+-anoigw to CMD san Administrator kai grafw
+--> cd C:\zabbix
+
+--> zabbix_agentd.exe -c zabbix_agentd.conf --install
+
+--> zabbix_agentd.exe -s
+
+tsekarw an ksekinise
+
+--> services.msc
+
+
+
+
+pigenw sto
+Control Panel\System and Security\Windows Defender Firewall\Allowed apps --> allow another App 
+kanw brose kai pigenw sto zabbix_agent arxeio pou kaname instal ston C:\zabbix/zabbix_agentd 
+epilegw ta tic gia na mporei na perasei to firewall
+
+- tsekare an kanei telnet apo to cmd sthn ip tou zabbix kai 10050 porta px ( telnet 192.168.1.11 10050 )
+Ankse thn porta 10050 apo to firewall inbound kai outbound
+
+- Prosthetw to zabbix.exe sto firewall
+
+
+-Prosthetw to Host mou kanonika sto zabbix meta kai trexei kanonika.
+
+
+

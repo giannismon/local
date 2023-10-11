@@ -1,0 +1,68 @@
+An to thelw kapou alou Vale to usb
+
+# mkdir -p /media/USB
+# lsblk
+# mkdir /USB
+# mount -t vfat /dev/sdb1 /USB
+
+
+An to thelw local aplos kanw ena fakelo kai to kanw mount eki h me NFS
+
+# yum install -y rsync
+# SELINUX=disabled
+
+
+
+epilegw afta p thelw na kanw buckup
+# rsync -aAXv --delete --exclude=/dev/* --exclude=/proc/* --exclude=/sys/* --exclude=/tmp/* --exclude=/run/* --exclude=/mnt/* --exclude=/media/* --exclude="swapfile" --exclude="lost+found" --exclude=".cache" --exclude="Downloads" --exclude=".VirtualBoxVMs" --exclude=".ecryptfs" /* /media/USB
+
+
+
+---------------------------------------------------
+an thelw na ta valw se usb kai na t kanw bootable 
+https://www.youtube.com/watch?v=rpGgTTFKwiU
+---------------------------------------------------
+
+SKEPTIKO
+	ta kanw unzip se ena fakelo pou dimiourgw kanw anmount to sistima apo to /boot kai sindew to fakelo pou kaname unzip gia na ksekinisei apo ekei 
+
+
+Alios to kanw tar arxeio
+# cd /USB
+kai to kanw tar
+# tar zcvf /USB/server-backup.tar ./
+-----------------------------------------
+
+-----------------------------------------------------------------------
+to stelnoume se enan alon ipologisth h alh epiogh einai me NFS
+scp /home/user/server-backup.tar user@ipaddress:/home/user/Desktop 
+kai exoume olo to buckup se enan alon ypologisth se morfh .tar
+-----------------------------------------------------------------------
+
+
+
+-----------------------------------------------------------------------
+Gia na to kanoume repair metaferw ta arxeia
+kanw enan fakelo na valw to systima kanw to arxeio mou tar unzip
+
+gia unzip 
+# tar xvzf /USB/server-backup.tar
+-------------------------------------------
+kanw unmount to /boot tou xalasmenou sistimatos
+# umount /boot
+
+Apo eki pou theloume na ksekinisei to sistima mas
+# mkdir /mount/system
+
+to kanw mout me to sistima pou eixame to boot
+# mount /dev/sda1 /mount/system
+Tou andigrafoume ola ta arxeia apo to backup arxeio pou exoume
+# rsync -aAXv --delete --exclude="lost+found" /mount/usb/ /mount/system
+Vlepoume oti exoun ginei kapies alages 
+# ls /mount/system
+
+kai to vazw sto fstab
+----------------------------------------------------------
+an kanoume restart prepi na treksei kanonika
+
+

@@ -1,0 +1,55 @@
+Modules/plugins are a bundles of classes/scripts/tools that can easily be added to 
+a project to provide INSTANT functionalitykernel module has the sufix (*.ko)
+#############################################
+ADD
+# yum install environment-modules -y
+
+----------------------------------------------------------------------------
+List Modules
+############
+# lsmod
+
+#############################################################################
+Information modules
+###################
+
+# modinfo (module name)
+
+#############################################################################
+Insert Module
+#############
+# insmod /lib/modules/`uname -r`/kernel/drivers/cpufreq/speedstep-lib.ko.xz
+
+
+#############################################################################
+Remuve Module
+#############
+
+# rmmod /lib/modules/`uname -r`/kernel/drivers/cpufreq/speedstep-lib.ko.xz
+
+
+#############################################################################
+
+
+				ENALAKTIKH KALITERH
+
+
+
+#############################################################################
+#############################################################################
+Add Modules
+#############
+# modprobe speedstep-lib
+
+#############################################################################
+Delete Modules
+##############
+# modprobe -r speedstep-lib
+
+#############################################################################
+Insert to Blacklist (For security reasons, it is necessary to prevent the system from using a certain kernel module)
+##############
+# cat /etc/modprobe.d/blacklist.conf
+blacklist speedstep-lib
+
+

@@ -1,0 +1,8 @@
+Afta pou idi trexoun
+# docker ps
+
+
+# docker stop container-id
+
+
+# docker images

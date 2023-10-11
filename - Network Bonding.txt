@@ -1,0 +1,65 @@
+Prosthetw axika 2 kartes diktiou gia na kanw to bond
+
+NIC(Network Interface Card)
+combination of multiple NIC  into a single bond interface
+provide high availability and redundancy.
+
+
+Oi tipou bond pou iparxoun.
+----------------------------------------------------------------------------------------------------------------
+mode=0 (round-robin)  Round-robin : It the default mode. provides load balancing and fault tolerance.
+mode=1 (active-backup) : Active-backup policy: only one slave in the bond is active when the active slave fails other one become active. This mode provides fault tolerance.
+mode=2 (balance-xor) : XOR policy:  This mode provides load balancing and fault tolerance.
+mode=3 (broadcast)  Broadcast policy: transmits everything on all slave interfaces. This mode provides fault tolerance.
+mode=4 (802.3ad)  : IEEE 802.3ad Dynamic link aggregation that share the same speed and duplex settings.
+mode=5 (balance-tlb) : Adaptive transmit load balancing
+mode=6 (balance-alb) : Adaptive load balancing:
+----------------------------------------------------------------------------------------------------------------
+
+Gia na dw ta conectios
+-----------------------
+# nmcli d
+
+Stinw to bond
+--------------
+Me allh ip oxi afth pou exoume sto sistimamas ala afth p theloume gia to bond
+# nmcli con add type bond con-name bond0 ifname bond0 mode active-backup ip4 192.168.1.11/24
+
+Vlepw an graftikan ola einai ok
+-------------------------------
+# nmcli d
+# cat /etc/sysconfig/network-scripts/ifcfg-bond0
+
+
+Stinw tous slaves
+-----------------
+# nmcli con add type bond-slave ifname ens37 master bond0
+# nmcli con add type bond-slave ifname ens38 master bond0
+
+Vlepw an graftikan ola einai ok
+--------------------------------
+# cat /etc/sysconfig/network-scripts/ifcfg-bond-slave-ens37
+# cat /etc/sysconfig/network-scripts/ifcfg-bond-slave-ens38
+
+Ta anevazw
+----------
+# nmcli connection up bond-slave-ens37
+# nmcli connection up bond-slave-ens38
+# nmcli connection up bond0
+# systemctl restart network
+
+# ifup ens37
+# ifup ens38
+# ifup bond0
+
+check if that works
+-------------------
+# ifdown ens37
+Vlepw oti aferethike to ens37 meta to down pou tou kaname
+# cat /proc/net/bonding/bond0
+# ifdown ens38
+# ifdown bond0
+
+--------------------------------------------
+# an kanei ping einai ok doulevei to ens37 an klisoume omos kai to ens38 
+stamataei telios to ping ifup ens37 h ens38 gia na ksanaksekinisei

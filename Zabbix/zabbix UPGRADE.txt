@@ -1,0 +1,117 @@
+
+------------------------------------------------------------------------------------
+UPGRADE TOU ZABBIX SE MEGALITERH VERSION
+------------------------------------------------------------------------------------
+
+Vima 1o
+
+Snapchot oloklirou tou VM 
+
+Klinw ola ta services ektos ths mariadb
+service zabbix-server stop
+service zabbix-agentd stop
+service httpd stop
+
+
+Download tou Version 
+
+Apo to site zou zabbix sta sourse katevazoume thn epomenh ekdosh 
+andigrafw to link kai vazw sto 
+
+cd /root/work
+--> wget https://vorboss.dl.sourceforge.net/project/zabbix/ZABBIX%20Latest%20Stable/3.2.11/zabbix-3.2.11.tar.gz
+
+-->tar -zxvf zabbix-3.2.11.tar.gz
+
+----------------------------------------------------------------------------------
+
+Vima 2o
+
+BackUp ths proigoumenhs ekdoshs olou tou zabbix 
+
+ths Vashs
+mysqldump -uzabbix -p  zabbix > backup_zabbix_040102018_1232.sql         (vazw thn imerominia pou exoume san onoma tou arxeiou)
+
+
+
+Twn Arxeiwn simpiezondas ta panda se ena arxeio  
+
+cd /usr/local/etc/
+tar cvzf zabbix-30-bkp.tar.gz *
+
+cd /usr/local/share/zabbix/ 
+tar cvzf zabbix-30-bkp.tar.gz *
+
+cd /var/www/html/
+tar cvzf zabbix-30-bkp.tar.gz *
+
+
+
+Vima 3o UPGRADE
+
+anoifw me tail -f /var/log/zabbix/zabbix_server.log
+
+anoigw me tail -f /var/log/mariadb/mariadb.log
+
+cd /root/work/zabbix-3.2.11
+
+Dinw tis rithmiseis gia to compile
+gia na dw an lipei kapio library
+
+./configure --enable-server --enable-proxy --enable-agent --enable-java --enable-ipv6 --with-mysql --with-net-snmp --with-openipmi --with-ssh2 --with-ldap --with-libcurl
+
+Kanoume compile 
+
+--> make
+
+
+--> make && make install
+
+
+Pernw backup ths selides ths palias ekdoshs 
+
+
+svinw tis silides tis palias ekdoshs
+
+cd /var/www/html/zabbix
+rm -rf *
+
+
+Antigrafw tis selides apo thn nea ekdosh
+
+/root/work/zabbix-3.2.11/frontends/php
+cp -a . /var/www/html/zabbix
+
+mkdir /var/www/html/zabbix
+cp -r * /var/www/html/zabbix
+
+
+
+
+Vima 4o 
+After UPGRADE
+
+chown -R zabbix:zabbix /var/log/zabbix
+chown -R zabbix:zabbix /usr/local/bin/*
+chown -R zabbix:zabbix /usr/local/bin/*
+chown -R zabbix:zabbix /usr/local/sbin/*
+chown -R zabbix:zabbix /usr/local/share/zabbix/
+
+
+Anoigoume ola ta services ksana
+
+service zabbix_server start
+service zabbix_agentd start
+service httpd start
+
+Vima 5o
+
+
+anoigw meta ton browser kai trexw kanonika to grafiko tou zabbix epita apo ta next pou pataw tha mou vgalei provlima oti lipei ena arxeio 
+
+epita katevazw to arxeio pou mou leei kai to kanw copy sto arxeio pou mou leei kai tou alazw owner kai trexei kanonika 
+
+cp zabbix.conf.php /var/www/html/zabbix/conf/zabbix.conf.php
+cd /var/www/html/zabbix/conf/
+chown zabbix:zabbix *
+

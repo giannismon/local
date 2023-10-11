@@ -1,0 +1,17 @@
+# sudo yum install tomcat
+# sudo yum install tomcat-webapps tomcat-admin-webapps tomcat-docs-webapp tomcat-javadoc
+# sudo systemctl stop httpd
+# sudo systemctl start tomcat
+# sudo systemctl enable tomcat
+
+# sudo nano /usr/share/tomcat/conf/tomcat-users.xml
+
+<tomcat-users>
+<user username="[username]" password="[password]" roles="manager-gui,admin-gui"/>
+px 
+<tomcat-users>
+<user username="jdoe" password="En4EW25eI0" roles="manager-gui,admin-gui"/>
+
+
+
+# sudo systemctl restart tomcat

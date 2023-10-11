@@ -1,0 +1,11 @@
+Paw sto 
+Control Panel\Network and Internet\Network Connections
+Deksi klik sto diktio pou theloume 
+# Properties --> diplo clik sto TCP/IPv4 --> 
+Vazw tis plirofories tou diktiou pou theloume
+
+
+Gia 2h Ip enalaktikh
+
+# Advanced 
+kai vazw thn defterh

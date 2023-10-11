@@ -1,0 +1,116 @@
+https://www.howtoforge.com/tutorial/how-to-set-up-nginx-high-availability-with-pacemaker-corosync-on-centos-7/
+
+
+Pacemaker is an open source cluster manager software that achieves maximum high availability of your services. 
+It's an advanced and scalable HA cluster manager distributed by ClusterLabs.
+
+
+Corosync Cluster Engine is an open source project derived from the OpenAIS project under new BSD License. 
+It's a group communication system with additional features for implementing High Availability within applications.
+
+
+There are some applications for the Pacemaker interfaces. 
+Pcsd is one of the Pacemaker command line interface and GUI for managing the Pacemaker. 
+We can create, configure, or add a new node to the cluster with the pcsd command pcs.
+
+
+cluster me 3 server Kai stous 3 server mas kanoume afth ti diadikasia
+##################################################################
+# vim /etc/hosts
+10.0.15.10      web01
+10.0.15.11      web02
+10.0.15.12      web03
+
+
+# ping -c 3 web01
+# ping -c 3 web02
+# ping -c 3 web03
+
+# yum -y install epel-release
+# yum -y install nginx
+
+
+
+After the installation is complete, change the default index.html page on each server with a new page.
+
+#Run Command on 'web01'
+echo '<h1>web01 - hakase-labs</h1>' > /usr/share/nginx/html/index.html
+
+#Run Command on 'web02'
+echo '<h1>web02 - hakase-labs</h1>' > /usr/share/nginx/html/index.html
+
+#Run Command on 'web03'
+echo '<h1>web03 - hakase-labs</h1>' > /usr/share/nginx/html/index.html
+
+
+
+###########################################################################
+Install and configure Pacemaker, Corosync, and Pcsd se olous tous server mas
+# yum -y install corosync pacemaker pcs
+# systemctl enable pcsd corosync pacemaker
+
+# systemctl start pcsd
+
+##################################################################
+Mono ston proto Server mas trexoume aftes tis endoles
+# passwd hacluster
+# pcs cluster auth web01 web02 web03
+Username: hacluster
+Password: root
+
+# pcs cluster setup --name hakase_cluster web01 web02 web03
+# pcs cluster start --all
+# pcs cluster enable --all
+
+# pcs status cluster
+
+# pcs property set stonith-enabled=false
+# pcs property set no-quorum-policy=ignore
+# pcs property list
+
+
+
+
+Add the new resource floating IP address 'virtual_ip' using the pcs command as shown below.
+Floating IP Address 192.168.1.45
+# pcs resource create virtual_ip ocf:heartbeat:IPaddr2 ip=192.168.1.45 cidr_netmask=32 op monitor interval=30s
+# pcs resource create webserver ocf:heartbeat:nginx configfile=/etc/nginx/nginx.conf op monitor timeout="5s" interval="5s"
+# pcs status resources
+# pcs constraint colocation add webserver virtual_ip INFINITY
+# pcs constraint order virtual_ip then webserver
+# pcs cluster stop --all
+# pcs cluster start --all
+# pcs status resources
+# yum -y install firewalld
+# systemctl start firewalld
+# systemctl enable firewalld
+
+
+# firewall-cmd --permanent --add-service=high-availability
+# firewall-cmd --permanent --add-service=http
+# firewall-cmd --permanent --add-service=https
+# firewall-cmd --reload
+# firewall-cmd --list-all
+
+# pcs status nodes
+# corosync-cmapctl | grep members
+# pcs status corosync
+
+##########################################################################
+##########################################################################
+
+# pcs cluster stop web01
+# pcs status
+# pcs cluster start web01
+
+
+
+###########
+Entoles sos
+
+# pcs cluster start --all
+# pcs cluster enable --all
+# pcs cluster stop web01
+# pcs status
+# pcs cluster start web01
+# systemctl enable corosync pacemaker pcsd

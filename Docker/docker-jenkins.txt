@@ -1,0 +1,19 @@
+sudo yum check-update
+curl -fsSL https://get.docker.com/ | sh
+sudo systemctl start docker
+sudo systemctl status docker
+sudo systemctl enable docker
+sudo usermod -aG docker $(whoami)
+
+  
+docker pull jenkins/jenkins
+cd ..
+mkdir jenkins
+chmod 777 jenkins
+  
+docker run -p 8080:8080 -p 50000:50000 -v /jenkins:/var/jenkins_home jenkins/jenkins
+
+container ps
+  
+#Enable the spesific container 
+docker update --restart unless-stopped container-name

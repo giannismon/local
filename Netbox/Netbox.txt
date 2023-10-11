@@ -1,0 +1,12 @@
+SERVER
+https://computingforgeeks.com/how-to-install-netbox-on-centos-7-with-apache-and-supervisord/
+
+DOCKER
+https://tweenpath.net/install-netbox-docker/
+
+
+# systemctl start docker
+# docker-compose up -d
+
+192.168.13:8000
+admin	admin

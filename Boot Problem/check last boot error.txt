@@ -1,0 +1,3 @@
+# mkdir -p 2775 /var/log/journal && chown :systemd-journal /var/log/journal
+# systemctl restart systemd-journald
+# journalctl -b-1 -p err

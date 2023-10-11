@@ -1,0 +1,11 @@
+Host --> epilegw ton host pou thelw --> 
+Application-->create aplication --> Vazw to onoma pou thelw na parakolouthisw
+
+Web scenario --> vazw to Application web check
+Steps--> sto URL vazw afto pou thelw na parakolouthisw
+
+
+
+Paw meta sta trigers
+create new triger
+Expression --> epilegw to Download speed for scenario me to onama pou valame

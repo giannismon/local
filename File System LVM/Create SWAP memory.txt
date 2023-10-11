@@ -1,0 +1,67 @@
+########################################################################################################################################################################
+SWAP MEMORY
+########################################################################################################################################################################
+
+
+# fdisk /dev/sdb
+Ksekinaw kai kanw ena neo partition
+# n
+# ENTER
+# ENTER
+# ENTER
+# +100M
+
+gia na to tsekarw ksana
+# p
+
+To sozw 
+# w
+
+# partprobe
+
+
+
+EDW KSEKINAME TO LVM
+##################################################################
+Dimiourgw PVolume
+----------------
+# pvcreate /dev/sdb1
+-------------------------------------------------------
+##################################################################
+Dimiourgw VG
+# vgcreate my_vg /dev/sdb1
+H
+Prosthetw ton to sdc1 sto volume group
+# vgextend vg_data /dev/sdb1
+
+##################################################################
+Gia na dw poso free exei mesa to VG
+# pvdisplay
+
+
+# lvcreate -L 100M -n my_lv_swap my_vg
+H an to kanw extend
+##############################################
+# lvextend -l +100%FREE /dev/centos/my_lv_swap
+H
+lvresize /dev/my_vg/my_lv -L +50M
+###############################################
+
+
+
+
+Format the space as swap
+# sudo mkswap /dev/my_vg/my_lv
+
+
+
+Oposdipote prepi afto gia na thn dei
+# vim /etc/fstab
+
+we add the following entry  
+UUID=1987efa3-184a-436d-b609-51fe34317778   swap     swap    defaults     0 0
+	
+
+
+Enable swap partition
+# swapon -va

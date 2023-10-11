@@ -1,0 +1,108 @@
+# lsblk
+# df -T
+
+# pvscan
+# vgscan
+# lvscan
+
+# pvdisplay
+# vgdisplay
+# lvdisplay 
+
+
+
+
+##############################################################################################################################
+DELETE
+##############################################################################################################################
+--------------------------
+the partition “/dev/sda1”
+and make new
+# fdisk /dev/sdc
+d
+partprobe(8)
+w
+
+dmsetup remove_all
+
+kai meta dimiourgw opws ta panw 
+pv
+vg
+lv
+kai to sindew me ena  fs
+telos to kanw mount h to denw sto fstab
+
+##################################################################
+SINDESH STO FSTAB
+##################################################################
+-------------------------
+# blkid
+/dev/mapper/my_vg-my_lv3: UUID="1987efa3-184a-436d-b609-51fe34317778" TYPE="xfs"
+
+# vim /etc/fstab
+UUID=1987efa3-184a-436d-b609-51fe34317778 /xfs (h opou alou theloume na to kanoume mount)  xfs     defaults        0 0
+
+# mkdir /xfs (eki pou to kaname mount to dimiourgoume an den iparxei aftos o fakelos)
+
+
+# mount /dev/my_vg/my_lv /xfs
+
+
+
+########################################################################################################################################################################
+Add a label called myFS
+########################################################################################################################################################################
+------------------------
+#  umount /dev/my_vg/my_lv3
+# xfs_admin -L myFS /dev/my_vg/my_lv3
+# mount /dev/my_vg/my_lv3 /xfs
+# xfs_admin -l /dev/my_vg/my_lv3
+
+
+
+
+#############################################################
+$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$
+##############################################################################################################################
+Afksish tou FS tou ROOT kai prosthikh LABEL se afto
+##############################################################################################################################
+# lsblk
+
+Tou kanw extend sto idi iparxon VG to centos sth prokimenh periptosh
+vgextend /dev/centos /dev/sda3
+
+To kanw episis kai sto Logical volume
+
+# lvresize /dev/my_vg/my_lv -L +50M
+
+To dinw olo ton xoro sto File system mas tou logical volume 
+# xfs_growfs /dev/centos/root
+
+Tou vazw ena label
+# xfs_io -c "label -s myFS" /
+
+Elegxos an egine mount 
+# xfs_admin -l /dev/centos/root
+
+######################################################################
+
+####################################################################################################################################################################################################
+Removing an existing LVM volume
+#####################################################################################################################################################################################################
+# umount /mnt 
+Open /etc/fstab and verify that there isn't an entry to automatically mount the filesystem.
+If there is, remove the entry, save your changes, and close the file.
+
+Use lvremove to delete the logical volume:
+# lvremove vg0/myvol
+# vgs
+
+######################################################################
+How to delete a volume group in LVM
+
+To remove the Volume group we have to deactivate it first with vgchange command :
+# vgchange -an my_vg
+You can remove the VG now.
+# vgremove my_vg
+# pvremove /dev/sdb1
+

@@ -1,0 +1,14 @@
+---
+- name: change pass
+  hosts: server11
+  become: true
+
+  vars:
+    root_password: "{{ new_root_password }}"
+    root_password_salt: afEMnMOBZgYNhoqA
+
+  tasks:
+    - name: Change root password
+      user:
+        name: root
+        password: "{{ root_password | password_hash(salt=root_password_salt) }}"

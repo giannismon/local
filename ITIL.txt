@@ -1,0 +1,146 @@
+Information Technology Infrastructure Library(ITIL) 
+----------------------------------------------------
+Is practices for IT alignment with the business needs.
+                ----                   --------
+
+
+
+
+######################################################################################
+Explain the benefits of ITIL.
+
+. alignment between the business and IT
+                        --------     --
+. Improves customer satisfaction and service delivery
+                    -------------
+. Lowering costs
+  --------------      
+. Better administration
+         --------------
+
+######################################################################################
+What are the benefits of implementing an ITIL service desk?
+
+. Increased first call resolution
+. Improved tracking
+. Improved employee satisfaction
+. Rapid restoration of service
+. Improved incident response time
+. Quick service restoration
+
+
+
+
+######################################################################################
+What processes are utilized by the Service Desk?
+
+. Workflow and procedures diagrams
+
+
+
+######################################################################################
+What is a Known Error?
+          -----------
+
+. A Known Error is a problem that we know the answer from previous time.
+
+
+
+
+######################################################################################
+What is the difference between a problem and an incident ITIL?
+                                 -------        --------
+
+. a problem it is from one or more incidents.
+. incident is a unplanned event.
+
+
+
+
+
+######################################################################################
+
+What is the purpose of Configuration Management in ITIL?
+                       ------------------------
+
+
+. The primary purpose of Configuration Management is to collect, store, manage, update, and verify data 
+  on IT .
+
+######################################################################################
+
+What is a plan–do–check–act (PDSA) cycle and define its phases?
+          -----------------
+
+Plan: Recognizing and analyzing the problem
+-----
+
+Do: Developing and testing a solution to the problem
+---
+
+Check: Checking solusion whether it could be improved.
+-----  
+
+Act: Implementing the improved solution effectively 
+----
+
+######################################################################################
+
+Explain the difference between a project and a process.
+
+. A project has a finite lifespan. 
+. A process is continuous and has no end date.
+
+
+######################################################################################
+
+Explain ISO/IEC 27002.
+
+. ISO deliver guidelines for information security .
+
+
+#######################################################################################
+
+ What are the stages of incident management in ITIL?
+                        ---------
+
+. Incident identification
+. Incident categorization
+. Incident prioritization
+. Incident response
+. Incident closure
+
+#######################################################################################
+
+What is an SLA?
+
+. An SLA (Service Level Agreement) is a commitment between a service provider (internal or external) and the end-user. 
+#######################################################################################
+
+Explain different types of SLA.
+
+. A customer service level agreement exists between you and an external customer. 
+. An internal service level agreement exists between you and an internal customer (such as another organization, site, or department).
+
+
+#######################################################################################
+
+What is Operational-level agreement (OLA)?
+
+. Operational-level agreement (OLA) is a contract that describes 
+  how the various IT groups within a company design their processes 
+  and services to support service-level agreement (SLA).
+
+
+########################################################################################
+
+What is the difference between Emergency Changes and Urgent Changes?
+
+. Emergency changes are defined as highest priority changes that needs to be implemented quickly.
+                                   ----------------
+
+. Urgent change is a change in business.
+
+
+
+########################################################################################

@@ -1,0 +1,26 @@
+Me tis endoles pou tha parei apo to docer file kai tha dimiourgisei ena kainourio sthn ousia image me vash to centos image pou eixame katevasei
+
+# vim /home/dockerfile
+FROM centos:7
+MAINTAINER linuxtechlab
+edw tha valoume odigies diaxiriseis
+CMD ["echo", "Hello"]
+
+
+
+# docker build -t my_first_image:1 .
+
+# docker images
+# docker run 65708946d5cd
+
+
+
+exoume dimiourgisei ena image dikomas 
+an tou kanoume peretero alages twra tha treksoume thn parakatw endolh
+
+
+
+
+
+# docker commit -m "What did you do to the image" -a "Author Name" container-id repository/new_image_name
+

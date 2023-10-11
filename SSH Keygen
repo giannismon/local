@@ -1,0 +1,19 @@
+#########################
+O SERVER MAS
+##########################
+ssh-keygen
+  enter
+  enter
+  enter
+
+ls -al ~/.ssh/
+
+# root kai to 192.168.1.50 einai tou alou server pou theloume na sindeomaste
+ssh-copy-id -i ~/.ssh/id_rsa.pub root@192.168.1.50
+
+#########################
+o client mas
+########################
+
+#  root kai ip einai tou server gia na doume an doulevei meta xoris kodiko 
+ssh root@192.168.1.40

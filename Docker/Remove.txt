@@ -1,0 +1,24 @@
+REMOVER IMAGES
+---------------
+
+$ docker images
+
+REPOSITORY                TAG                 IMAGE ID            CREATED             SIZE
+test                      latest              fd484f19954f        23 seconds ago      7 B (virtual 4.964 MB)
+
+$ docker rmi test:latest
+
+Untagged: test:latest
+Deleted: fd484f19954f4920da7ff372b5067f5b7ddb2fd3830cecd17b96ea9e286ba5b8
+
+
+------------------------------------------------------------------------------------
+REMOVE ALL
+---------
+To delete all containers including its volumes use,
+
+# docker rm -vf $(docker ps -a -q)
+To delete all the images,
+
+# docker rmi -f $(docker images -a -q)
+# docker image prune -a

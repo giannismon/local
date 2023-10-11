@@ -1,0 +1,18 @@
+To kanw image
+docker commit -m "What did you do to the image" -a "Author Name" container-id repository/new_image_name
+
+--------------------------------------------------------------------------------------------------------------------------
+Apo to name tou image
+To sozw se tgz
+docker save mysql:5.7 | gzip -c > myproject_img_bak20141103.tgz
+
+
+---------------------------------------------------------
+To kanw load
+gunzip -c myproject_img_bak20141103.tgz | docker load
+
+
+-------------------------------------------------------------------------
+
+To mysql:5.7 einai akrives image
+ docker run --name mysupersql -e MYSQL_ROOT_PASSWORD=root -d mysql:5.7

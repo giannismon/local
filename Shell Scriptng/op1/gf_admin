@@ -1,0 +1,86 @@
+#!/bin/bash
+#    File   :  oas_admin
+#    Author :  Kogias
+export SITE=`hostname |cut -f1 -d"."`;
+export PATH=$PATH:.:/usr/kerberos/sbin:/usr/kerberos/bin:/usr/local/sbin:/usr/sbin:/sbin:/usr/bin:/bin:/root/bin
+echo;echo
+while :
+do
+   clear
+   echo "================================================================"
+   echo "||          System: $SITE          Path:/home/op1/gf_admin   ||"
+   echo "================================================================"
+   echo "||          GLASSFISH (3.1.2) ADMIN  TOOL                     ||"
+   echo "||          [ EXAFANISEIS ]                                   ||"
+   echo "||------------------------------------------------------------||"
+   echo "||          1. Start       GlassFish                          ||"
+   echo "||          2. Restart     GlassFish                          ||"
+   echo "||          3. Stop        GlassFish                          ||"  
+   echo "||          4. Force Stop  GlassFish                          ||"  
+   echo "||          5. Status      GlassFish                          ||"     
+   echo "||------------------------------------------------------------||"      
+   echo "||          6. Check filesystems                              ||"
+   echo "||          7. Start nmon                                     ||"
+   echo "||          8. Check Glassfish logs                           ||"
+   echo "||------------------------------------------------------------||"      
+   echo "||          0. Exit                                           ||"
+   echo "================================================================"
+   echo
+   echo "Enter your Choice  ==> "
+   read epil
+   case $epil in
+# =========================================
+   0) exit
+   ;;
+# =========================================
+   1) echo "Starting GlassFish ..."
+      sudo systemctl start httpd 
+      echo "Apache is started."
+      echo "Press enter to continue . . . . . "
+      read x
+   ;;   
+# =========================================
+   2) echo "Restarting GlassFish ..."
+      sudo systemctl restart httpd 
+      echo "GlassFish is restarted."
+      echo "Press enter to continue . . . . . "
+      read x
+   ;;
+# =========================================
+   3) echo "Stopping GlassFish ..."
+      sudo systemctl stop httpd
+      echo "GlassFish is stopped."
+      echo "Press enter to continue . . . . . "
+      read x
+   ;;
+# =========================================
+   4) echo "Stopping GlassFish with force..."
+      sudo systemctl force_stop httpd
+      echo "GlassFish is stopped."
+      echo "Press enter to continue . . . . . "
+      read x
+   ;;
+# =========================================
+   5) 
+      sudo systemctl status httpd
+      read x
+   ;;   
+# =========================================
+   6) echo "Showing filesystems..."
+      df -h
+      echo "Press enter to continue . . . . . "
+      read x
+   ;;
+# =========================================
+   7) 
+      nmon 
+   ;;
+# =========================================
+   8) 
+      sudo tail -100 /var/log/httpd/error_log | more 
+      echo "Press enter to continue . . . . . "
+      read x
+   ;;
+# =========================================
+  esac
+done

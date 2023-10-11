@@ -1,0 +1,19 @@
+Katevazw to Anaconda https://www.anaconda.com/products/individual
+
+apo thn anazitish anoigw to powershell tou ananconda kai grafw ta parakatw
+conda create -n JohnEnv
+conda activate JohnEnv
+
+epita anoigw to anaconda kai epilegw to enviroment pou ekana pio prin kai 
+ksanapaw sto cmd kai grafw ta parakatw
+
+conda install tensorflow
+conda install keras
+conda install nb_conda
+conda install pandas
+conda install numpy
+conda install statsmodels
+conda install matplotlib
+conda install matplotlib-base
+conda install scikit-learn
+jupyter notebook

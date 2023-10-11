@@ -1,0 +1,172 @@
+https://yallalabs.com/linux/how-to-configure-a-high-availability-zabbi-server-using-pacemaker-on-centos-7-rhel-7/
+
+Xriazomaste 3 server
+2 na exoun to zabbix
+1 h DB
+
+
+# sed -i 's/^SELINUX=.*/SELINUX=disabled/g' /etc/sysconfig/selinux && reboot
+h
+# SELINUX=disabled
+####################################################################################################################################
+– On both Zabbix Server nodes ylplzbxmn01 e ylplzbxmn02, we need to install the Zabbix repository using the below commands:
+
+# yum install -y centos-release-scl
+# rpm -Uvh https://repo.zabbix.com/zabbix/5.0/rhel/7/x86_64/zabbix-release-5.0-1.el7.noarch.rpm
+# yum install -y zabbix-web-mysql-scl zabbix-apache-conf-scl zabbix-server-mysql zabbix-agent --enablerepo=zabbix-frontend
+
+
+
+#####################################################################################################################################
+
+– On the Database Server ylplzbxdb01 Install the MariaDB Server package using the following Command:
+
+# yum install mariadb-server -y
+# systemctl enable mariadb && systemctl start mariadb
+
+# mysql_secure_installation
+
+– First we need to create zabbix database (zabbixdb) and create a zabbix user (zabbixuser). 
+
+[root@ylplzbxdb01 ~]# mysql -u root -p
+Enter password: 
+
+MariaDB [(none)]> CREATE DATABASE zabbixdb CHARACTER SET utf8 COLLATE utf8_bin;
+MariaDB [(none)]> GRANT ALL PRIVILEGES ON zabbixdb.* TO zabbixuser@'%' IDENTIFIED BY "root";
+MariaDB [(none)]> FLUSH PRIVILEGES;
+MariaDB [(none)]> exit
+###############################################################################################################################
+
+– On one of the nodes, use the scp tool to copy the create.sql.gz to your Database Server ylplzbxdb01:
+
+# scp /usr/share/doc/zabbix-server-mysql-5.0.5/create.sql.gz root@192.168.1.42:/root/   h ip einai tou db server mas
+###############################################################################################################################
+Ston db server mas grafoume 
+# cd /root
+[root@ylplzbxdb01 ~]# zcat create.sql.gz | mysql -u zabbixuser -p zabbixdb
+
+
+################################################################################################################################
+
+– On each node in the cluster, we need to edit database configuration in the zabbix server configuration file zabbix_server.conf 
+kai stous 2 server pou exoun to zabbix diladi
+
+# vim /etc/zabbix/zabbix_server.conf
+[...]
+SourceIP=Virtual_IP_Address_Cluster
+DBHost=IP_Address_DataBase_Server
+DBName=zabbixdb
+DBUser=zabbixuser
+DBPassword=Password
+
+On each node in the cluster, we have to configure PHP timezone, open the file /etc/httpd/conf.d/zabbix.conf 
+
+# vi /etc/opt/rh/rh-php72/php-fpm.d/zabbix.conf
+php_value[date.timezone] = Europe/Rome
+
+
+
+# systemctl restart zabbix-server zabbix-agent httpd rh-php72-php-fpm
+# systemctl enable zabbix-server zabbix-agent httpd rh-php72-php-fpm
+
+
+# cat >> /etc/hosts << END
+192.168.1.13 ylplzbxmn01 ylplzbxmn01.yallalabs.local
+192.168.1.14 ylplzbxmn02 ylplzbxmn02.yallalabs.local
+END
+
+
+
+########################################################################################################
+On each node in the cluster
+# yum install pacemaker pcs -y
+# passwd hacluster
+root
+root
+
+# systemctl start pcsd
+# systemctl enable pcsd
+
+
+
+#########################################################################################################
+
+– on the first node ylplzbxmn01, execute the following command to authenticate the pcs user hacluster for each node in the cluster
+
+[root@ylplzbxmn01 ~]# pcs cluster auth ylplzbxmn01 ylplzbxmn02
+Username: hacluster
+Password: root
+ylplzbxmn01: Authorized
+ylplzbxmn02: Authorized
+
+– On the first node ylplzbxmn01, execute the following command to create the 
+cluster named zabbixserver that consists of the nodes ylplzbxmn01 and ylplzbxmn02:
+
+# pcs cluster setup --name zabbixserver ylplzbxmn01 ylplzbxmn02
+
+– To start the cluster services on both nodes of the cluster, 
+it’s engouh to execute the below command on the first node ylplzbxmn01:
+
+# pcs cluster start --all
+
+
+– On each node in the cluster, run the following commands to enable the 
+corosync and the Pacemaker daemon to start at boot using:
+
+# systemctl enable corosync pacemaker pcsd
+
+[root@ylplzbxmn01 ~]# pcs status cluster
+– To display just the current status of the cluster nodes, run the following command:
+[root@ylplzbxmn01 ~]# pcs status nodes
+# pcs property set stonith-enabled=false
+# pcs property set no-quorum-policy=ignore
+
+– Our first resource will be an IPaddr2 resource, which is a floating IP address to access the zabbix Frontend, 
+the resource will be named cluster_vip and we will assign the floating IP address 192.168.1.45 with a netmask 24
+
+# pcs resource create cluster_vip ocf:heartbeat:IPaddr2 ip=192.168.1.45 cidr_netmask=24 op monitor interval=20s
+
+– Let’s now create a new systemd resource called zabbix_server for the zabbix Server deamon and be monitored operations every 10 seconds:
+
+[root@ylplzbxmn01 ~]# pcs resource create zabbix_server systemd:zabbix-server op monitor interval=10s
+
+
+
+– We need to create an Apache resource called httpd, it’s going to be monitored evey secondes:
+# pcs resource create httpd systemd:httpd op monitor interval=10s
+# pcs resource group add grp_zabbix_httpd zabbix_server httpd
+# pcs constraint colocation add grp_zabbix_httpd cluster_vip INFINITY
+# pcs constraint order cluster_vip then grp_zabbix_httpd
+# pcs status
+
+
+Anoigw ton browser kai vlepw an trexei
+http://192.168.1.45/zabbix/setup.php
+
+
+Sthn DB vazw ta eksis 
+
+192.168.1.42
+3306
+zabbixdb
+zabbixuser
+root
+
+# scp /etc/zabbix/web/zabbix.conf.php root@192.168.1.14:/etc/zabbix/web/zabbix.conf.php
+
+
+Ta credentials gia na sindethoume einai ta eksis
+Admin 
+zabbix
+
+klinoume ton enan node kai anoigoume ton alon gia na exoume to idio configouration file kai sta dio 
+# pcs cluster start --all
+# pcs cluster enable --all
+# pcs cluster stop ylplzbxmn01
+# pcs status
+# pcs cluster start ylplzbxmn01
+# systemctl enable corosync pacemaker pcsd
+TELOS
+
+
+

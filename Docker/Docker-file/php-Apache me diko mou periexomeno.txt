@@ -1,0 +1,14 @@
+# cd /home/
+# vim dockerfile
+
+FROM php:7.2-apache
+COPY . /var/www/html/
+EXPOSE 80
+
+trexei to docerfile pou dimiourgisame kai tou dinoume ena tag
+# docker build -t myphpapache .
+# docker images
+
+Trexw to docker stin 81 porta kai san deamon apo pisw na trexei dld
+# docker run -d -p 81:80 myphpapache
+

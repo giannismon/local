@@ -1,0 +1,39 @@
+# yum install java
+# yum install tomcat6 tomcat6-webapps tomcat6-admin-webapps
+-----------------------------------------------------------------------
+# chkconfig tomcat6 on
+# service tomcat6 start
+------------------------------------------------------------------------
+
+﻿# service tomcat6 status
+# netstat -nlp | grep 8080
+﻿# ps -ef | grep tomcat
+---------------------------------------------------------------
+Tomcat Service Config: /etc/tomcat6 (main config directory)
+Release Notes        : ﻿/usr/share/doc/tomcat*
+Bin Directory        : /usr/share/tomcat6
+Webapps              : /var/lib/tomcat6/webapps
+Logs                 : /var/log/tomcat6
+----------------------------------------------------------------
+
+# vim /usr/share/tomcat6/conf/tomcat-users.xml
+﻿<role rolename="manager"/>
+<user name="tomcat" password="password" roles="manager" />
+
+-----------------------------------------------------------------------
+# service tomcat6 restart
+
+---------------------------------------------------------------------
+
+
+Gia na kanw mia endolh deployd
+Delete th progoumenh ekdosh
+
+# service tomcat6 stop
+# rm -Rf /var/lib/tomcat6/webapps/sample*
+# cp /path/to/sample.war /var/lib/tomcat6/webapps/sample.war
+# service tomcat6 start
+
+--------------------------------------------------------------------------
+#cd $CATALINA_HOME/bin;
+#sudo ./catalina.sh start;

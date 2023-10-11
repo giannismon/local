@@ -1,0 +1,53 @@
+ston Server mas 192.168.0.100
+------------------------------
+##############################
+# yum install -y nfs-utils
+# mkdir /var/nfsshare
+# chmod -R 755 /var/nfsshare
+---
+# systemctl enable rpcbind
+# systemctl enable nfs-server
+# systemctl enable nfs-lock
+# systemctl enable nfs-idmap
+# systemctl start rpcbind
+# systemctl start nfs-server
+# systemctl start nfs-lock
+# systemctl start nfs-idmap
+
+
+vazoume ton server pou theloume na kanei sharing ton alon server dld oxi afton edw
+aristera to mount tou server mas - deksia h ip tou alou ipoulogisti
+# vim /etc/exports
+/var/nfsshare    192.168.0.101(rw,sync,no_root_squash,no_all_squash)
+
+# systemctl restart nfs-server
+
+# firewall-cmd --permanent --zone=public --add-service=nfs
+# firewall-cmd --permanent --zone=public --add-service=mountd
+# firewall-cmd --permanent --zone=public --add-service=rpc-bind
+# firewall-cmd --reload
+
+
+#######################################################################################
+Client 129.168.0.101
+---------------------
+# yum install nfs-utils
+
+
+# mkdir -p /mnt/nfs/var/nfsshare
+
+Vazoume tou server NFS thn IP
+aristera o protos ipoogistis me to mount point kai deksia tou defterou pou tha epikinonoune
+# mount -t nfs 192.168.0.100:/var/nfsshare /mnt/nfs/var/nfsshare/
+
+# df -kh
+
+Permanent Mount
+# vim /etc/fstab
+192.168.0.100:/var/nfsshare    /mnt/nfs/var/nfsshare   nfs defaults 0 0
+
+
+Check if that works
+tha emfanisti logika kai stous dio ipologistes tou NFS
+------------------
+# touch /mnt/nfs/var/nfsshare/test_nfs

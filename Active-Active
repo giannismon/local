@@ -1,0 +1,45 @@
+kai sta 2 
+sudo yum install pacemaker corosync
+
+
+sto /etc/corosync/
+
+totem {
+    version: 2
+    secauth: off
+    transport: udpu
+}
+
+nodelist {
+    node {
+        ring0_addr: IP_ΔΙΕΥΘΥΝΣΗ_ΔΙΑΚΟΜΙΣΤΗ_1
+        name: SERVER1
+        nodeid: 1
+    }
+    node {
+        ring0_addr: IP_ΔΙΕΥΘΥΝΣΗ_ΔΙΑΚΟΜΙΣΤΗ_2
+        name: SERVER2
+        nodeid: 2
+    }
+}
+
+quorum {
+    provider: corosync_votequorum
+    two_node: 1
+}
+
+
+
+/etc/corosync/service.d/
+primitive apache ocf:heartbeat:apache
+op monitor interval="30s"
+
+
+pcs resource create MyResourceGroup apache
+pcs resource group promote MyResourceGroup
+
+
+
+Συγχρονισμός Αρχείων με Rsync ή Unison: Μπορείτε να χρησιμοποιήσετε εργαλεία όπως το Rsync ή το Unison για να συγχρονίσετε το περιεχόμενο από τον έναν διακομιστή στον άλλον. Αυτό μπορεί να γίνει περιοδικά με κατάλληλα ρολόγια.
+Διαμοιρασμός Βάσης Δεδομένων: Εάν έχετε μια βάση δεδομένων, μπορείτε να την κατανέμετε ανάμεσα στους δύο διακομιστές και να χρησιμοποιήσετε μηχανισμούς ανατροφοδότησης (replication) για να διατηρείτε τα δεδομένα συγχρονισμένα.
+υγχρονισμός με Rsync ή άλλα εργαλεία: Εάν δεν χρησιμοποιείτε CDN και δεν έχετε κοινό δίσκο, μπορείτε να χρησιμοποιήσετε εργαλεία όπως το Rsync για να συγχρονίσετε τα αρχεία του front-end ανάμεσα στους δύο διακομιστές.

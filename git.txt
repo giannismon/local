@@ -1,0 +1,13 @@
+to initialize the repository
+# git init
+
+to add all the files
+# git add .
+
+to view all the files
+# git status
+
+The HTTPS or URL is copied from the given GitHub accountThe HTTPS or URL is copied from the given GitHub account :Code --> HTTPS:
+https://github.com/giannismon/MY.git
+
+# 

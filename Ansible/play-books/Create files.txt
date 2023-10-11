@@ -1,0 +1,8 @@
+---
+- name: Create
+  hosts: servers
+  become: true
+
+  tasks:
+  - name: Create a new file
+    file: path=/etc/foo22.conf state=touch

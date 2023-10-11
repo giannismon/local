@@ -1,0 +1,140 @@
+Add EPEL repository
+# yum -y install epel-release
+
+Disable SELinux
+# sudo setenforce 0
+
+nstall dependency packages
+# sudo yum install -y gcc httpd git libxml2-devel libxslt libffi-devel graphviz libxslt-devel supervisor
+
+Install Python 3.6
+# sudo yum -y install yum-utils
+------------------------------------------------------------------------
+copy kai tis tris grames me ti mia
+# yum install \
+https://repo.ius.io/ius-release-el7.rpm \
+https://dl.fedoraproject.org/pub/epel/epel-release-latest-7.noarch.rpm
+------------------------------------------------------------------------
+# sudo yum -y install python36u python36u-devel
+# sudo yum -y install python36u-pip
+
+Install and configure PostgreSQL database server
+
+# sudo rpm -ivh https://yum.postgresql.org/9.6/redhat/rhel-7.3-x86_64/pgdg-redhat-repo-42.0-11.noarch.rpm
+# sudo yum install postgresql96 postgresql96-server postgresql96-libs postgresql96-contrib postgresql96-devel
+# /usr/pgsql-9.6/bin/postgresql96-setup initdb
+# sudo systemctl enable postgresql-9.6
+# sudo systemctl start postgresql-9.6
+# sudo systemctl status postgresql-9.6
+
+Create a database and user for NetBox
+# sudo -u postgres psql
+CREATE DATABASE netbox;
+CREATE USER netbox WITH PASSWORD 'StrongPassword';
+GRANT ALL PRIVILEGES ON DATABASE netbox TO netbox;
+\q
+
+Enable password login to PostgreSQL database
+# sudo sed -i -e 's/ident/md5/' /var/lib/pgsql/9.6/data/pg_hba.conf
+
+# sudo systemctl restart postgresql-9.6
+
+Confirm that you can login to database as netbox user
+# psql -U netbox -h localhost -W
+
+Install and configure Netbox
+# cd /opt/
+# git clone -b master https://github.com/digitalocean/netbox.git
+
+Create a configuration file
+# cd netbox/netbox/netbox/
+# sudo cp configuration.example.py configuration.py
+--------------------------------------------------------------------------------------------
+Edit the configuration file and set allowed host and database login details
+# vim configuration.py
+
+# Example: ALLOWED_HOSTS = ['netbox.example.com', 'netbox.internal.local']
+ALLOWED_HOSTS = ['10.1.1.20']
+
+# PostgreSQL database configuration.
+DATABASE = {
+    'NAME': 'netbox',                           # Database name
+    'USER': 'netbox',                           # PostgreSQL username
+    'PASSWORD': 'StrongPassword',               # PostgreSQL password
+    'HOST': 'localhost',                        # Database server
+    'PORT': '',                                 # Database port (leave blank for default)
+}
+
+--------------------------------------------------------------------------------------------
+Generate Django SECRET Key:
+# cd /opt/netbox/netbox
+# sudo ./generate_secret_key.py
+JZloB$w%mL@!f=IWA+s1VRh60CqD*cuU^dz4y7#&iQkgrXH9n5
+
+
+# vim /opt/netbox/netbox/netbox/configuration.py
+SECRET_KEY = 'JZloB$w%mL@!f=IWA+s1VRh60CqD*cuU^dz4y7#&iQkgrXH9n5'
+
+Install Nextbox dependencies
+# sudo pip3.6 install -r /opt/netbox/requirements.txt
+
+Migrate database data
+# cd /opt/netbox/netbox/
+# sudo python3.6 manage.py migrate
+
+# sudo yum install redis
+# sudo systemctl start redis
+# sudo systemctl enable redis
+
+# sudo python3.6 manage.py createsuperuser
+# cd /opt/netbox/netbox
+# sudo python3.6 manage.py collectstatic --no-input
+# sudo python3.6 manage.py loaddata initial_data
+
+
+# sudo pip3.6 install gunicorn
+
+-------------------------------------------
+# sudo vim /opt/netbox/gunicorn_config.py
+command = '/usr/bin/gunicorn'
+pythonpath = '/opt/netbox/netbox'
+bind = '127.0.0.1:8001'
+workers = 3
+user = 'apache'
+--------------------------------------------
+$ sudo vim /etc/supervisord.d/netbox.ini
+
+[program:netbox]
+command = gunicorn -c /opt/netbox/gunicorn_config.py netbox.wsgi
+directory = /opt/netbox/netbox/
+user = apache
+
+
+----------------------------------------------
+
+# sudo systemctl enable supervisord
+# sudo systemctl start supervisord
+
+# vim /etc/httpd/conf.d/netbox.conf
+Listen 8085
+    ProxyPreserveHost On
+    ServerName netbox.example.com
+    Alias /static /opt/netbox/netbox/static
+       <Directory /opt/netbox/netbox/static>
+            Options Indexes FollowSymLinks MultiViews
+            AllowOverride None
+            Require all granted
+       </Directory>
+       <Location  /static>
+            ProxyPass !
+      </Location>
+
+    ProxyPass / http://127.0.0.1:8001/
+    ProxyPassReverse / http://127.0.0.1:8001/
+
+$ sudo httpd -t
+Syntax OK
+$ sudo systemctl restart httpd
+
+sudo firewall-cmd --permanent --add-port=8085/tcp
+sudo firewall-cmd --reload

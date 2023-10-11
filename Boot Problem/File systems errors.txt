@@ -1,0 +1,27 @@
+One of the most common boot time errors is a misconfigured /etc/fstab file. 
+You CANNOT use the rescue.target to fix an /etc/fstab error. 
+Most of these issues will require us to use the 
+emergency.target 
+since "rescue" requires a more functional system.
+
+The following are examples of problems that require the emergency.target:
+
+Corrupt file system.
+Non-existent UUID in /etc/fstab.
+Non-existent mount point in /etc/fstab.
+Incorrect mount option in /etc/fstab
+
+# systemctl daemon-reload
+
+
+Here is a walkthrough example of booting into emergency mode to remove a false entry in /etc/fstab.
+
+Interrupt the grub2 menu by pressing "e" to edit when prompted with the grub menu.
+Find the line that specifies the kernel version (vmlinuz) and append the following to it: systemd.unit=emergency.target
+Press "Ctrl+x" to boot.
+You will be prompted with the root password to continue.
+Remount / so that we can make changes to the fstab file: # mount -oremount,rw /
+We can use the mount command to see which entry is causing the error: # mount -a
+Remove the offending entry from the fstab file.
+Use mount -a again to make sure the error has been resolved.
+Use systemctl daemon-reload to reload all unit files, and recreate the entire dependency tree.

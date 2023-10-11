@@ -1,0 +1,18 @@
+O Fakelos yum vriskete sto /etc/yum.conf opou akouei kaio proxy apo eki
+#################################################
+Install
+--------
+# yum install php
+
+
+############################################
+List
+------
+# yum list installed | grep php
+
+################################################################################
+Diagrafh
+----------
+# yum remove (kai to paketo pou theloume na svisoume apo pio panw)
+H
+# yum -y remove php* (An theloume na ta svisoume ola me th mia)

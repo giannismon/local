@@ -1,0 +1,66 @@
+# sudo yum -y update
+# sudo yum -y upgrade
+# yum install -y epel-release
+# sudo yum -y install epel-repo
+
+# yum -y install squid
+# systemctl start squid
+# systemctl  enable squid
+
+# vim /etc/squid/squid.conf
+acl localnet src XX.XX.XX.XX             (To diktio pou theloume na sindeete)
+
+# systemctl  restart squid
+
+
+
+
+---
+---------------------------------------------------------------------
+BLOCK SITES
+-----------
+
+# vim /etc/squid/blocked_sites
+porn
+sex
+www.youtube.com
+www.webmd.com
+www.in.gr
+www.capital.gr
+www.in.gr/tags/%CF%83%CE%B5%CE%BE/
+www.gossip-tv.gr
+elle.gr
+
+
+
+
+sta acl apo katw
+# vim /etc/squid/squid.conf
+acl blocked_sites  dstdomain "/etc/squid/blocked_sites"
+acl bad_keywords  url_regex "/etc/squid/blocked_sites"
+
+kai ligo pio katw sta http
+
+http_access deny blocked_sites
+http_access deny bad_keywords
+
+
+# systemctl  restart squid
+
+
+
+
+-----------------------------------------------------------------------------------
+Client Server Listen to proxy server for yum  EDW EINAI O SERVER POU THA SINDEETE ME TON PROXY DLD
+------------------------------------
+An h diefthinsh mas einai afth 
+http://192.168.1.9/
+tote 
+
+# vim /etc/yum.conf
+prothetw katew apo to centos release sto keno to
+# proxy=http://192.168.1.9:3128 h porta tou squid by default
+
+
+# systemctl  restart network
+

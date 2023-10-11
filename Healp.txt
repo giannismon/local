@@ -1,0 +1,20 @@
+TI SIMENEI H ENDOLH
+--------------------
+# whatis yum
+yum (8)              - Yellowdog Updater Modified
+
+
+
+
+# info (command)
+# man (command)
+
+MAS LEEI TI ENDOLES IPARXOUN GIA AFTHN THN ENDOLH
+-----------------------------------------------------
+# apropos grep
+egrep (1)            - print lines matching a pattern
+fgrep (1)            - print lines matching a pattern
+grep (1)             - print lines matching a pattern
+
+
+

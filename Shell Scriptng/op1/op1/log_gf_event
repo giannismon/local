@@ -1,0 +1,45 @@
+#!/bin/bash
+##########################################################
+# Log messages to sysadmins.glassfish_events@dbora2.ydt
+# Expects one argument: The event type (string)
+##########################################################
+# History
+# June 2016 (mdrosou): init
+##########################################################
+
+if [ "$#" -ne 1 ]; then
+    echo "Illegal number of parameters. Usage: log_gf_event <event_type>."
+	exit
+fi
+
+echo -n "Logging event ... "
+
+DBUSER='SYSADMINS'
+DBUSERPASSWORD='sy04sadmins'
+DB='dbora2.ydt:1522/B'
+
+SERVER_NAME=$HOSTNAME
+SERVER_IP=$(hostname -I)
+
+sqlplus -s <<EOF
+${DBUSER}/${DBUSERPASSWORD}@${DB}
+set linesize 32767
+set feedback off
+set heading off
+
+begin
+GF_LOG_EVENT('$1', '${SERVER_NAME}', '${SERVER_IP}');
+end;
+/
+
+exit 0
+EOF
+
+LOG_OK=$?
+if [ $LOG_OK -eq 0 ];
+then
+	echo "Logging completed."
+else
+	echo "Logging failed."
+fi
+

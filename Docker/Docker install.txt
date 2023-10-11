@@ -1,0 +1,20 @@
+# sudo yum -y update
+# sudo yum install yum-utils device-mapper-persistent-data lvm2
+# sudo yum-config-manager --add-repo https://download.docker.com/linux/centos/docker-ce.repo
+# sudo yum install docker-ce
+
+# sudo usermod -aG docker $(whoami)      # onoma to whoami gia na ektelei monima me shudo previleges
+# sudo yum install -y python-pip
+# sudo yum install docker-compose
+# sudo yum upgrade python*
+
+# sudo curl -L "https://github.com/docker/compose/releases/download/1.22.0/docker-compose-$(uname -s)-$(uname -m)"  -o /usr/local/bin/docker-compose
+# sudo mv /usr/local/bin/docker-compose /usr/bin/docker-compose
+# sudo chmod +x /usr/bin/docker-compose
+
+# sudo systemctl start docker
+# sudo systemctl enable docker
+
+
+
+

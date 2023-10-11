@@ -1,0 +1,24 @@
+
+INSTALL HTTPD
+----------------
+# sudo docker run -dit --name tecmint-web -p 8080:80 -v /home/user/website/:/usr/local/apache2/htdocs/ httpd:2.4
+# sudo docker ps
+# vim /home/user/website/docker.html
+Hallo
+
+point your browser to AAA.BBB.CCC.DDD:8080/docker.html
+-----------------------------------------------------------------------
+INSTALL NGINX
+-------------
+# sudo docker run -dit --name mygninx -p 8080:80 -v /home/user/website1/:/usr/share/nginx/html/ nginx
+# vim /home/user/website1/index.html
+Hallo
+
+-----------------------------------------------------------------------
+DOCKER CONF OF CONTAINERS IS ON
+-------------------------------
+cd /var/lib/docker/containers/
+
+In new image
+----------------------------------------------------------------------------
+# docker commit -m "added mariadb-server" -a "Sunday Ogwu-Chinuwa" 59839a1b7de2 finid/centos-mariadb

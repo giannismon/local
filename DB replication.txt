@@ -1,0 +1,95 @@
+
+https://www.globo.tech/learning-center/setup-mysql-replication-centos-7/
+
+https://www.google.com/search?q=replicate+mysql+server&source=lmns&tbm=vid&bih=696&biw=1280&hl=el&sa=X&ved=2ahUKEwiC19WnzceBAxWD3AIHHQcqD1cQ0pQJKAJ6BAgBEAY#fpstate=ive&vld=cid:51a2c1da,vid:HPJYY6FlUGU,st:0
+
+#######################################################################################
+kai stous dio
+# setenforce 0
+# sed -i 's/enforcing/disabled/' /etc/sysconfig/selinux
+# sed -i 's/enforcing/disabled/' /etc/selinux/config
+
+# yum install mariadb-server mariadb -y
+# systemctl start mariadb.service
+# mysql_secure_installation
+########################################################################################
+Ston master 
+# vim /etc/my.cnf
+
+[mysqld]
+...
+server_id=1
+log-bin
+replicate-do-db=globotech
+
+systemctl restart mariadb.service
+
+mysql -u root -p
+MariaDB [(none)]> grant replication slave on *.* to 'slave_user'@'%' identified by 'globotech_DB_password';
+MariaDB [(none)]> flush privileges;
+
+MariaDB [(none)]> show master status;
++--------------------+----------+--------------+------------------+
+| File | Position | Binlog_Do_DB | Binlog_Ignore_DB |
++--------------------+----------+--------------+------------------+
+| mariadb-bin.000001 | 475 | | |
++--------------------+----------+--------------+------------------+
+1 row in set (0.00 sec)
+
+
+MariaDB [(none)]> exit
+
+
+###############################
+SLAVE 
+# vim /etc/my.cnf
+
+[mysqld]
+...
+server_id=2
+replicate-do-db=globotech
+
+# systemctl restart mariadb.service
+
+# mysql -u root -p
+
+MariaDB [(none)]> stop slave;
+MariaDB [(none)]> change master to master_host='10.0.0.179' , master_user='slave_user' , master_password='globopassword' , master_log_file='mariadb-bin.000001' , master_log_pos=475;
+MariaDB [(none)]> start slave;
+
+
+SHOW SLAVE STATUS\G;
+
+
+
+##############################
+TEST
+MASTER 
+mysql -u root -p
+
+MariaDB [(none)]> create database globotech;
+MariaDB [(none)]> use globotech;
+MariaDB [globotech]> create table staff (c int);
+MariaDB [globotech]> insert into staff (c) values (3);
+MariaDB [globotech]> select * from staff;
++------+
+| c |
++------+
+| 3 |
++------+
+1 row in set (0.00 sec)
+
+
+########################################
+IN SLAVE DB 
+# mysql -u root -p
+
+
+MariaDB [(none)]> use globotech;
+MariaDB [globotech]> select * from staff;
++------+
+| c |
++------+
+| 3 |
++------+
+1 row in set (0.00 sec)

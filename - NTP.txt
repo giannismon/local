@@ -1,0 +1,11 @@
+AFTO EINAI
+--------------------------------------
+Synchronize time with NTP source pool.ntp.org
+# yum install -y ntp ntpdate
+# systemctl start ntpd (network time protocol deamon)
+# systemctl enable ntpd
+# systemctl status ntpd
+# ntpdate -u -s 0.centos.pool.ntp.org 1.centos.pool.ntp.org 2.centos.pool.ntp.org
+# systemctl restart ntpd
+# timedatectl
+# hwclock  -w (accept te time)

@@ -1,0 +1,11 @@
+vim /etc/zabbix/zabbix_agentd.conf
+Timeout=8
+EnableRemoteCommands=1
+
+--------------------------------------------
+
+vim /etc/sudoers
+zabbix ALL=NOPASSWD: ALL
+
+
+systemctl restart zabbix-agent

@@ -1,0 +1,61 @@
+ip address show
+
+sudo docker network ls
+
+sudo docker run -itd --rm -p 80:80 --name THOR nginx
+
+sudo docker inspect bridge
+
+sudo docker exec -it THOR sh 
+
+------------------------------------------------------------------------------------
+REMOVE ALL
+---------
+To delete all containers including its volumes use,
+
+# docker rm -vf $(docker ps -a -q)
+To delete all the images,
+
+# docker rmi -f $(docker images -a -q)
+
+
+
+------------------------------------------------------------------------------------
+ISOLATION NETWORKS
+-----------
+sudo docker network create MY_NETWORK
+# diagrafh 
+sudo docker network rm MY_NETWORK
+
+
+----------------
+INSERT A DOCKER TO MY_NETWORK NETWORK
+----------------
+sudo docker run -itd --rm --network MY_NETWORK --name GIANNIS busybox
+
+-----------------------------------------------------------------------------------
+RUN STO HOST DIPLA kai anoigei mono me thn ip tou host 
+------------------
+sudo docker run -itd --rm --network host --name stormbreaker nginx
+
+
+-----------------------------------------------------------------------------------
+MAC VLAN 
+----------------
+# To ens33 einai to diktio pou exoume
+sudo ip link set ens33 promisc on
+
+# kanoume ena diktio se macvlan
+sudo docker network create -d macvlan \
+--subnet 192.168.1.0/24 \
+--gateway 192.168.1.254 \
+-o parent=ens33 \
+MacVlan_network
+
+# trexoume ena countainer se afto to diktio macvlan
+sudo docker run -itd --rm --network MacVlan_network --ip 192.168.1.222 --name thor busybox
+
+# mpenoume sto shell gia na kanoume ping to gate way na doume an epikoinonei
+sudo docker exec -it thor sh
+ip a
+ping 192.168.1.254

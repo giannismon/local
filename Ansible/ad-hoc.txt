@@ -1,0 +1,19 @@
+For All servers
+# ansible -m shell -a 'yum -y update' all
+
+-------------------------------------------------------------
+update
+# ansible -m shell -a 'yum -y update' servers
+
+-------------------------------------------------------------
+
+Apache stop
+# ansible webservers -m service -a "name=httpd state=stopped"
+# ansible webservers -m service -a "name=httpd state=restarted"
+# ansible webservers -m service -a "name=httpd state=started"
+
+
+-------------------------------------------------------------
+
+changing ownership and permissions on files
+# ansible webservers -m file -a "dest=/srv/foo/b.txt mode=600 owner=mdehaan group=mdehaan"

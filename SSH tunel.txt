@@ -1,0 +1,25 @@
+SSH Tunel
+
+- Local  -L
+- Remote -R
+
+Local aplos emfanisei to periexomeno pou theloume se alh porta
+
+
+--------------------------------------------------------------------------------------
+#Local -L
+#Emfanizei to periexomeno tis selidas topika mono ston server mas 
+ssh -L 8080:localhost:80 root@192.168.2.6
+# sindeete stin 192.168.2.6 kai to periexomeno tis sto localhost:80 mas to stelnei ston local 
+# Server mas kai meta emfanizete to periexomeno ston diko mou ypoligisth sto localhos:8080
+
+--------------------------------------------------------------------------------------
+#Remote -R
+# Sindesou stin diefthinsh 192.168.2.11 kai emfanise sto localhost tou 
+# to periexomeno tis diefthinsis 192.168.2.6:80 stin (localhost:8080 tis 192.168.2.11)
+# Tin endolh thn grafw se opoion server thelw
+ssh -R 8080:192.168.2.6:80 root@192.168.2.11
+# Anoigw ton 192.168.2.11 kai grafw sto url tou 
+# https://localhost:8080
+# tha mas diksei to periexomeno tou 192.168.2.6:80 stin localhost porta tou 8080
+# An den exei grafiko gia na to testarw kanw curl http://localhost:8080/

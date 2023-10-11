@@ -1,0 +1,17 @@
+Boot from image in 
+-----------------------
+
+#############################
+# Troubleshooting
+# Rescue mode
+
+$ yum reinstall kernel
+$ chroot /mnt/sysimage
+$ grub2-install /dev/sda
+$ grub2-mkconfig -o /boot/grub2/grub.cfg
+$ exit
+$ exit
+
+###########################
+
+Now boot from HD

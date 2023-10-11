@@ -1,0 +1,34 @@
+# Gia to grafiko
+----------------
+# nmtui
+############################################################################
+# vim /etc/sysconfig/network-scripts/ifcfg-ens33
+
+BOOTPROTO=static
+IPADDR=192.168.1.10
+NETMASK=255.255.255.0
+GATEWAY=192.168.1.254
+DNS1=8.8.8.8
+DNS2-8.8.4.4
+---------------------------------------------------------------------------
+# vim /etc/sysconfig/network
+add the followings
+
+NETWORKING=yes
+HOSTNAME=osradar.com
+GATEWAY=192.168.1.254
+
+----------------------------------------------------------------------------
+# vim /etc/resolv.conf
+
+nameserver	8.8.8.8
+nameserver	8.8.4.4
+----------------------------------------------------------------------------
+# vim /etc/hosts
+add
+
+127.0.0.1   localhost localhost.localdomain localhost4 localhost4.localdomain4
+192.168.1.10   company_name.metricinsights.com  
+
+---------------------------------------------------------------------------
+# systemctl restart network

@@ -1,0 +1,45 @@
+-----------------------------------------------------------------------------------------------------------
+sudo dnf -y install wget
+wget https://download.virtualbox.org/virtualbox/rpm/el/virtualbox.repo
+sudo mv virtualbox.repo /etc/yum.repos.d/
+wget -q https://www.virtualbox.org/download/oracle_vbox.asc
+sudo rpm --import oracle_vbox.asc
+sudo dnf -y install https://dl.fedoraproject.org/pub/epel/epel-release-latest-8.noarch.rpm
+sudo dnf -y update
+sudo systemctl reboot
+sudo dnf -y install binutils kernel-devel kernel-headers libgomp make patch gcc glibc-headers glibc-devel dkms
+sudo dnf install -y VirtualBox-7.0
+$ wget https://download.virtualbox.org/virtualbox/6.1.6/Oracle_VM_VirtualBox_Extension_Pack-6.1.6.vbox-extpack
+sudo VBoxManage extpack install Oracle_VM_VirtualBox_Extension_Pack-6.1.6.vbox-extpack
+
+sudo dnf install https://releases.hashicorp.com/vagrant/2.2.6/vagrant_2.2.6_x86_64.rpm
+vagrant --version
+----------------------------------------------------------------------------------------------------------
+
+VBox
+-----------------------------------
+vboxmanage list vms
+VBoxManage list runningvms
+VBoxManage startvm "Your-VM-Name" 
+VBoxManage stopvm "Your-VM-Name"
+
+Vagrant
+-----------------------------------
+mkdir centos8
+mkdir vagrant
+
+cd centos8
+vagrant init centos/8
+
+dimiourgite ena Vagrantfile pou exei plirofories gia to vm mas opote twra mporoume na to sikosoume
+-----------------------------------
+
+vagrant up
+vagrant ssh
+-----------------------------------
+$ vagrant up
+$ vagrant halt
+$ vagrant reload
+$ vagrant suspend
+$ vagrant destroy
+-----------------------------------

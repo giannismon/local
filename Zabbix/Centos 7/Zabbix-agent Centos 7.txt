@@ -1,0 +1,32 @@
+Elenxos ekdoshs centos 
+# cat /etc/*elease
+--------------------------------------------------------------------
+Download the agent you want from
+https://repo.zabbix.com/zabbix/4.0/rhel/7/x86_64/
+Valto sto server kai meta 
+kanto yum install to arxeio mas
+
+---------------------------------------------------------------------------------------
+ Install Zabbix Agent
+# rpm –ivh sample_file.rpm
+# yum install zabbix-agent-4.0.0-2.el7.x86_64.rpm
+h
+# yum install zabbix-agent
+------------------------------------------------------------------------------------------
+
+Step 3 – Zabbix Agent Configuration
+# vim /etc/zabbix/zabbix_agentd.conf
+#Server=[zabbix server ip]
+#Hostname=[ Hostname of client system ]
+
+Server=192.168.1.100
+Hostname=Server1
+
+
+systemctl start zabbix-agent
+systemctl restart zabbix-agent
+systemctl status zabbix-agent
+
+
+
+
