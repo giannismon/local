@@ -1,3 +1,8 @@
+OTAN KATEVASW TO VISUAL STUDIO KAI TO GIT STON YPOLOGISTH MOU TO SETARW STH GRAMMH ENTOLWN ME TO 
+git config --global user.name "Το_όνομα_χρήστη_σας"
+git config --global user.email "το_email_σας"
+
+
 ##############################################
 ##############################################
 DIMIOURGW REPOSYTORY KAI ANEVAZW TON FAKELO
@@ -37,3 +42,14 @@ KATEVAZW APO TO GITHUB ENAN FAKELO TOPIKA
 cd /eki_pou_thelw_na_to_katevasw
 # to url tou fakelou sto git
 git clone https://github.com/giannismon/local
+
+
+
+###############################################################
+BRANCHES
+
+Λίστα branches: Με την εντολή git branch
+Δημιουργία νέου branch: Με την εντολή git branch branch_name
+Διαγραφή branch: Με την εντολή git branch -d branch_name
+Εναλλαγή σε διαφορετικό branch: Με την εντολή git checkout branch_name 
+Συγχώνευση branches: Με την εντολή git merge branch_name μπορείτε να συγχωνεύσετε τις αλλαγές από ένα branch στο τρέχον branch.
