@@ -58,7 +58,12 @@ BRANCHES
 ####################################################################
 
 anevazw mia alagh sto github
-Προσθήκη της Αλλαγής στο Git: git add .
-Καταγραφή της Αλλαγής: git commit -m "Περιγραφή της αλλαγής"
-Ανεβάστε την Αλλαγή στο GitHub: git push origin (branch_name to vlepw kai apo katw aristera pou to lei) 
+Προσθήκη της Αλλαγής στο Git: 
+git add .
+
+Καταγραφή της Αλλαγής: 
+git commit -m "Περιγραφή της αλλαγής"
+
+Ανεβάστε την Αλλαγή στο GitHub: 
+git push origin (branch_name to vlepw kai apo katw aristera pou to lei) 
 #####################################################################
