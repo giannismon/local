@@ -37,22 +37,31 @@ AN THELW NA ALAKSW APLOS DIEFTHINSH apo afthn pou exw
 ##############################################
 ##############################################
 
-KATEVAZW APO TO GITHUB ENAN FAKELO TOPIKA
+KATEVAZW APO TO GITHUB ENAN FAKELO local
 
 cd /eki_pou_thelw_na_to_katevasw
 # to url tou fakelou sto git
 git clone https://github.com/giannismon/local
 
 
-
 ###############################################################
-BRANCHES
+BRANCHES (oi ekdoseis)
 
-Λίστα branches: Με την εντολή git branch
-Δημιουργία νέου branch: Με την εντολή git branch branch_name
-Διαγραφή branch: Με την εντολή git branch -d branch_name
-Εναλλαγή σε διαφορετικό branch: Με την εντολή git checkout branch_name 
-Συγχώνευση branches: Με την εντολή git merge branch_name μπορείτε να συγχωνεύσετε τις αλλαγές από ένα branch στο τρέχον branch.
+Λίστα branches: Με την εντολή 
+git branch
+
+Δημιουργία νέου branch: Με την εντολή 
+git branch branch_name
+
+Διαγραφή branch: Με την εντολή 
+git branch -d branch_name
+
+Εναλλαγή σε διαφορετικό branch: Με την εντολή 
+git checkout branch_name 
+
+Συγχώνευση branches: Με την εντολή 
+git merge branch_name 
+μπορείτε να συγχωνεύσετε τις αλλαγές από ένα branch στο τρέχον branch.
 
 
 ####################################################################
