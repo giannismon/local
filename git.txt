@@ -83,4 +83,17 @@ git commit -m "Περιγραφή της αλλαγής"
 
 Ανεβάστε την Αλλαγή στο GitHub: 
 git push origin (branch_name to vlepw kai apo katw aristera pou to lei) 
-#####################################################################
+##################################################################
+
+kanw Download sto Desktop kai meta load ton fakelo kai ton anevazoume sto github kai mporoume na kanoume alages
+
+# git clone https://github.com/giannismon/local
+
+to kanw load apo to Visual stoudio ton fakelo local
+
+dilonw pou thelw na doulepsw sto github
+# git remote set-url origin 'https://github.com/giannismon/local'
+
+# git add .
+# git commit -m "Περιγραφή της αλλαγής"
+# git push origin master
