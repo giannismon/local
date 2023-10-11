@@ -1,0 +1,75 @@
+
+kanw ena arxeio BuckUp.sh
+Afto tha stamatisei to conteiner tha to parei buckup kai tha to ksekinisei ksana
+
+
+
+#!/bin/bash
+backupDate=$(date  +'%F')
+echo $backupDate
+cd /home/brian/docker
+cd dashy
+docker-compose stop
+
+cd ../meshcentral
+docker-compose stop
+
+cd ../navidrome
+docker-compose stop
+
+cd ../speedtest-tracker
+docker-compose stop
+
+cd ../remotely
+docker-compose stop
+
+cd ../traggo
+docker-compose stop
+
+cd ../trillium_notes
+docker-compose stop
+
+cd ../veloren
+docker-compose stop
+
+cd ../homebox
+docker-compose stop
+
+cd /home/brian/
+tar -czvf docker-backup-$backupDate.tar.gz /home/brian/docker
+
+cd docker/speedtest-tracker
+docker-compose start
+
+cd ../navidrome
+docker-compose start
+
+cd ../meshcentral
+docker-compose start
+
+cd ../dashy
+docker-compose start
+
+cd ../remotely
+docker-compose start
+
+cd ../traggo
+docker-compose start
+
+cd ../trillium_notes
+docker-compose start
+
+cd ../veloren
+docker-compose start
+
+cd ../homebox
+docker-compose start
+
+# now go back to home, and copy my backup file to my NAS
+cd /home/brian
+echo ""
+echo "Backup copy is running..."
+scp docker-backup-$backupDate.tar.gz /mnt/data/
+
+# remove the tar file from the main home folder after it's copied
+rm docker-backup-$backupDate.tar.gz
