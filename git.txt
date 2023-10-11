@@ -122,6 +122,7 @@ to kanw load apo to Visual stoudio ton fakelo local
 dilonw pou thelw na doulepsw sto github
 # git remote set-url origin 'https://github.com/giannismon/local'
 # cd /sto_path_pou_thelw
+# git init
 # git add .
 # git commit -m "Περιγραφή της αλλαγής"
 # git push origin master
