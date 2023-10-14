@@ -17,3 +17,5 @@ kai ta vazw sthn topothesia pou eimai twra me tin telia
 APO EDW AFTO TO ARXIO SE EKINON TON SERVER SE EKINH tHN TOPOTHESIA
 
 scp Apache.txt root@192.168.2.6:/root
+
+-------------------------------------------------------------------------------------------
