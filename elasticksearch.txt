@@ -103,4 +103,4 @@ curl --request GET "http://localhost:9200/_snapshot/my_backup223/_all"?pretty
 curl --request POST http://localhost:9200/_snapshot/my_backup223/my_snapshot224/_restore
 
 9)
-curl --request GET "http://localhost:9200/_cat/indices?v
+curl --request GET http://localhost:9200/_cat/indices?v
