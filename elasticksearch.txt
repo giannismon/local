@@ -58,3 +58,49 @@ curl -XPOST 'http://localhost:9200/_cache/clear'
 
 ---------------------------------------------------------------------------------------------
 
+########################################################################
+########################################################################
+BACKUP
+------
+
+1) DIMIOURGW ENAN TOPIKO FAKELO POU THA MPEI TO SNAPSHOT MOU
+# mkdir /elasticsearch
+
+2) TO DILONW KAI MESA STO elasticsearch.yml
+path.repo: ["/backup_elastic/1"]
+
+2.1) RESTART GIA NA PAREI TIS ALAGES
+
+3) DIMIOURGW ENA PATH GIA TO CLUSTER STON MASTER node STON FAKELO MESA POU KANAME PRIN
+curl --request PUT "http://localhost:9200/_snapshot/my_backup222" -H "Content-Type: application/json" -d '{
+  "type": "fs",
+  "settings": {
+    "location": "/backup_elastic/1"
+  }
+}'
+
+
+4) DIMIOURGIA TOU SNAPSHOT TOU IDIOU
+# Δημιουργία ενός snapshot (αντιγράφου ασφαλείας)
+curl --request PUT "http://localhost:9200/_snapshot/my_backup222/my_snapshot224" -H "Content-Type: application/json" -d '{
+  "indices": "*",
+  "ignore_unavailable": true,
+  "include_global_state": false
+}'
+
+
+5) lepw ti yparxei mesa apo vaseis dedomenwn
+curl --request GET http://localhost:9200/_cat/indices?v
+
+6) Vlepw ola ta backup
+curl --request  GET http://localhost:9200/_snapshot/_all?pretty
+
+7) DIALEGW TO SNAPSHOT POU THELW
+curl --request GET "http://localhost:9200/_snapshot/_all"?pretty
+curl --request GET "http://localhost:9200/_snapshot/my_backup223/_all"?pretty
+
+8) KANW TO RESTORE
+curl --request POST http://localhost:9200/_snapshot/my_backup223/my_snapshot224/_restore
+
+9)
+curl --request GET "http://localhost:9200/_cat/indices?v
