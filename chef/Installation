@@ -1,0 +1,85 @@
+https://computingforgeeks.com/how-to-install-chef-workstation-on-centos-rhel/
+
+Exoume 3 Server (Workstation - Chef Server - Node1)
+O Sefcerver einai sto clowd
+
+
+-------------------------------------------------------------
+INSTALL WORKSTATION
+-------------------------------------------------------------
+Ston Workstation
+
+sudo dnf -y install git vim wget curl bash-completion
+sudo dnf -y update
+sudo reboot
+
+-------------------------------------------------------------
+(NTP)
+sudo yum install chrony -y
+sudo systemctl enable chronyd
+sudo systemctl start chronyd
+sudo chronyc tracking
+
+
+-------------------------------------------------------------
+
+sudo yum -y install wget
+wget https://packages.chef.io/files/stable/chef-workstation/20.7.96/el/8/chef-workstation-20.7.96-1.el7.x86_64.rpm
+sudo yum localinstall chef-workstation-20.7.96-1.el7.x86_64.rpm
+chef --version
+knife --version
+-------------------------------------------------------------
+# cd / 
+# mkdir chef-repo
+# cd /chef-repo/
+# mkidr cookbooks
+# cd /chef-repo/cookbooks
+# chef generate cookbook COOKBOOK_NAME
+# cd COOKBOOK_NAME
+# tree
+[root@Workstation coobooks]# tree
+.
+└── COOKBOOK_NAME
+    ├── CHANGELOG.md
+    ├── chefignore
+    ├── kitchen.yml
+    ├── LICENSE
+    ├── metadata.rb
+    ├── Policyfile.rb
+    ├── README.md
+    ├── recipes
+    │   └── default.rb
+    ├── spec
+    │   ├── spec_helper.rb
+    │   └── unit
+    │       └── recipes
+    │           └── default_spec.rb
+    └── test
+        └── integration
+            └── default
+                └── default_test.rb
+
+
+# cd recipies
+edw einai ola ta recipies pou kanw 
+
+Kanw enggrafh sto
+https://manage.chef.io/organizations/my_chef_/getting_started
+kai katevasw to arxeio chef-starter.zip
+Afou to katevasw to vazw mesa ston fakelo cookbooks gia na sindethei to workstation me ton Chef Server
+
+# mv chef-starter.zip /chef-repo/coobooks/
+# unzip chef-starter.zip
+
+Twra  mporoume na to anevasoume ston server to COOKBOOK pou theloume
+# knife cookbook upload COOKBOOK_NAME
+
+------------------------------------------------------------------------------------------------------------
+PROSTHETW ENAN NODE
+
+Kanw bootstrap apo ton workstation ston node pou thelw 
+# knife bootstrap 192.168.2.52 -ssh-user root --ssh-password root --node-name node1
+Elegxw an exei prostethei ston chef-Server
+
+Paw ston node kai ektelw to  
+# chef-client

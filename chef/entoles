@@ -1,13 +1,13 @@
 RECIPIE
 --------------------------------------------------------------------------------------------------------
-To arxio pou exoume grapsei be kataliksh .rb ginete ena recipie 
-chef-apply my_recipie.rb
+To arxio pou exoume grapsei be kataliksh .rb ginete ena recipie
+# vim my_recipie.rb
+# chef-apply my_recipie.rb
 
 COOKBOOK
 -------------------------------------------------------------------------------------------------------
-# mkidr cookbooks
-# cd cookbooks
 # chef generate cookbook COOKBOOK_NAME
+# knife cookbook upload COOKBOOK_NAME
 
 
 NODE
@@ -23,40 +23,74 @@ Dixnei ton sigkekrimeno server-node
 BOOTSTRAP
 --------------------------------------------------------------------------------------------------------
 Eγκατάσταση και ρύθμισης του Chef Client σε έναν νέο κόμβο
-# knife bootstrap IP_ΚΟΜΒΟΥ -x ΧΡΗΣΤΗΣ --sudo --node-name ΟΝΟΜΑ_ΚΟΜΒΟΥ --run-list 'recipe[RECIPE_NAME]'
+# knife bootstrap 192.168.2.52 -ssh-user root --ssh-password root --node-name node1
 --------------------------------------------------------------------------------------------------------
+
+CREATE ROLE
+-----------------------
+knife role create webservers
+knife role list
+
+ADD node1 TO ROLE webserver
+---------------------------
+knife node run_list add node1 'role[webserver]'
+
+REMOVE node1 from role
+-----------------------
+knife node run_list remove node1 'role[webserver]'
+
+
+
+
+
+CREATE environment with name centos_8
+-----------------------------------
+# export EDITOR=vim
+# knife environment create centos_8
+
+prosthetw sto environment pou kaname enan node
+# knife node environment set node1 centos_8
+
+gia na to dw pia einai sto chef_environmet pou ekana 
+# knife ssh 'chef_environment:centos_8' 'hostname'
+
 
 
 
 SSH
+---------------------------------
+knife ssh 'name:my_node' 'uptime'
+---------------------------------
 ------------------------------------------------------------------------------------------------------------------------------------------
 Οι "roles" βοηθούν στην οργάνωση των κόμβων με βάση τις λειτουργίες τους, π.χ., "web_server," "database_server," "app_server," κλπ.
 Εκτέλεση ενός απλού hostname σε όλους τους κόμβους που έχουν την ετικέτα "web_servers":
 # knife ssh 'role:web_servers' 'hostname'
 ----------------------------------------
-Το "platform" συνήθως αναφέρεται στο λειτουργικό σύστημα (όπως Ubuntu, CentOS, Windows, κλπ) που τρέχει σε έναν κόμβο. 
-# knife ssh 'platform:debian' 'sudo apt-get update && sudo apt-get upgrade -y'
 ----------------------------------------
 Το "chef_environment" καθορίζει το περιβάλλον στο οποίο ανήκει ένας κόμβος.
 Χρησιμοποιείται για να διαχωρίσετε τους κόμβους σε διάφορα περιβάλλοντα όπως παραγωγή, ανάπτυξη, δοκιμές, κλπ.
 # knife ssh 'chef_environment:production' 'dpkg -l | grep package_name'
 ------------------------------------------------------------------------------------------------------------------------------------------
-
+---------------------------------
 
 
 DATA BAG
 --------------------------------------------------------------------------------------------------------
-Προβολή Όλων των Data Bags
-# knife data bag list
---------------------------------------------------------------------------------------------------------
 Δημιουργία Data Bag
 # knife data bag create BAG_NAME
 --------------------------------------------------------------------------------------------------------
+Προβολή Όλων των Data Bags
+# knife data bag list
+--------------------------------------------------------------------------------------------------------
+
+
+ITEMS SE DATABAG
+-----------------------------------------
+Δημιουργία εγγραφών (Items) στο Data Bag
+# knife data bag create my_data_bag item1
+--------------------------------------------------------------------------------------------------------
 Προβολή Όλων των Items σε Ένα Data Bag
 # knife data bag show BAG_NAME
---------------------------------------------------------------------------------------------------------
-Δημιουργία ή Επεξεργασία Item σε Data Bag
-# knife data bag from file BAG_NAME ITEM_NAME.json
 --------------------------------------------------------------------------------------------------------
 Επεξεργασία Item σε Data Bag
 # knife data bag edit BAG_NAME ITEM_NAME
@@ -64,5 +98,15 @@ DATA BAG
 Διαγραφή Data Bag ή Item από Data Bag
 # knife data bag delete BAG_NAME [ITEM_NAME]
 --------------------------------------------------------------------------------------------------------
+
+
+
+OTI ALAGH KANW EFARMOZETE STON SERVER ME TO
+-------------------------------------------
+# sudo chef-client
+
+ANANEOSH OLON TWN KOMVWN TAFTOXRONA
+-----------------------------------
+# knife ssh "name:*" "sudo chef-client" -x "USERNAME" -P "PASSWORD"
 
 
