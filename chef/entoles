@@ -50,13 +50,15 @@ CREATE environment with name centos_8
 -----------------------------------
 # export EDITOR=vim
 # knife environment create centos_8
-
+-------------------------
 prosthetw sto environment pou kaname enan node
 # knife node environment set node1 centos_8
-
+-------------------------
 gia na to dw pia einai sto chef_environmet pou ekana 
 # knife ssh 'chef_environment:centos_8' 'hostname'
-
+-------------------------
+na dw ola ta diathesima enviroments pou iparxoun
+knife enviroment list 
 
 
 
