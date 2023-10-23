@@ -22,6 +22,7 @@ vboxmanage list vms
 VBoxManage list runningvms
 VBoxManage startvm "Your-VM-Name" 
 VBoxManage stopvm "Your-VM-Name"
+vboxmanage unregistervm {5bb0af41-0292-4aa0-ae79-01d6a7afb759}
 
 Vagrant
 -----------------------------------
