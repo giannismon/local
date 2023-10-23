@@ -58,7 +58,10 @@ gia na to dw pia einai sto chef_environmet pou ekana
 # knife ssh 'chef_environment:centos_8' 'hostname'
 -------------------------
 na dw ola ta diathesima enviroments pou iparxoun
-knife enviroment list 
+# knife enviroment list
+-------------------------
+Na dw pioi servers anoikoun se ena sigkekrimeno envirinment
+# knife search node "chef_environment:centos_8"
 
 
 
