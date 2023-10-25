@@ -68,7 +68,7 @@ https://manage.chef.io/organizations/my_chef_/getting_started
 kai katevasw to arxeio chef-starter.zip
 Afou to katevasw to vazw mesa ston fakelo cookbooks gia na sindethei to workstation me ton Chef Server
 
-# mv chef-starter.zip /chef-repo/coobooks/
+# mv chef-starter.zip /
 # unzip chef-starter.zip
 
 Twra  mporoume na to anevasoume ston server to COOKBOOK pou theloume
