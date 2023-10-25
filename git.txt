@@ -141,9 +141,34 @@ ANEVAZW ENA FAKELO APLO sto github kai kanw alaget
 
 Kanoume apo to visual studio load ton fakelo
 
-anaferoume pou tha doulepsoume sto github
+anaferoume pou tha doulepsoume sto github remote 
 # git remote add origin 'https://github.com/giannismon/local'
 
 # git add .
 # git commit -m "Περιγραφή της αλλαγής"
 # git push origin master
+
+
+##################################################################
+##################################################################
+##################################################################
+##################################################################
+##################################################################
+Gia na ananeosw ton local fakelo mou apo to GitHub
+--------------------------------------------------
+
+Vlepw pws legete o remote branch mas
+# git remote -v
+# git pull origin
+
+Meta ananeonw kai to GiTHub apo to local gia na exoun kai ta 2 ta idia arxeia
+# git add .
+# git commit -m "Περιγραφή της αλλαγής"
+# git push origin master
+
+##################################################################
+##################################################################
+##################################################################
+##################################################################
+##################################################################
+
