@@ -64,3 +64,45 @@ prothetw katew apo to centos release sto keno to
 
 # systemctl  restart network
 
+
+---------------------------------------------------------------------------
+
+
+Oi proxy dilononte sto
+----------------------
+#vim /etc/environment
+
+http_proxy="http://webproxy.nnt.gr:8080"
+https_proxy="https://webproxy.nnt.gr:8080"
+
+$HTTP_PROXY="http://webproxy.nnt.gr:8080"
+$HTTPS_PROXY="https://webproxy.nnt.gr:8080"
+---------------------------------------------------------------------------
+
+
+
+
+
+Kai sto yum.conf arxeio
+------------------------
+vim /etc/yum.conf
+proxy="http://webproxy.nnt.gr:8080"
+---------------------------------------------------------------------------
+
+Vgazoume prosorina tous proxy 
+-----------------------------
+unset $http_proxy
+unset $https_proxy
+unset $HTTP_PROXY
+unset $HTTPS_PROXY
+-----------------------------------------------------------------------------
+
+Vazoume prosorina tous proxy
+----------------------------
+export http_proxy="http://webproxy.nnt.gr:8080"
+export https_proxy="https://webproxy.nnt.gr:8080"
+
+export $HTTP_PROXY="http://webproxy.nnt.gr:8080"
+export $HTTPS_PROXY="https://webproxy.nnt.gr:8080"
+
+-----------------------------------------------------------------------------
