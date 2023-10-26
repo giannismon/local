@@ -99,7 +99,7 @@ DATA BAG
 Επεξεργασία Item σε Data Bag
 # knife data bag edit BAG_NAME ITEM_NAME
 --------------------------------------------------------------------------------------------------------
-Διαγραφή Data Bag ή Item από Data Bag
+Διαγραφή Data Bag ή Item από Data Bag.o  
 # knife data bag delete BAG_NAME [ITEM_NAME]
 --------------------------------------------------------------------------------------------------------
 
