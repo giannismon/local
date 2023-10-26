@@ -1,0 +1,53 @@
+DATA BAG
+--------------------------------------------------------------------------------------------------------
+Δημιουργία Data Bag
+# knife data bag create BAG_NAME
+--------------------------------------------------------------------------------------------------------
+Προβολή Όλων των Data Bags
+# knife data bag list
+--------------------------------------------------------------------------------------------------------
+Δημιουργήστε ή ενημερώστε ένα αντικείμενο (item) στο data bag. 
+# knife data bag from file <data_bag_name> <item_name> /path/to/item.json
+--------------------------------------------------------------------------------------------------------
+Into the recipies αναφέρετε τα δεδομένα από το data bag χρησιμοποιώντας τον κατάλληλο κώδικα
+
+my_data = data_bag_item('<data_bag_name>', '<item_name>')
+# Χρησιμοποιήστε τα δεδομένα από το data bag
+username = my_data['username']
+password = my_data['password']
+--------------------------------------------------------------------------------------------------------
+--------------------------------------------------------------------------------------------------------
+--------------------------------------------------------------------------------------------------------
+--------------------------------------------------------------------------------------------------------
+DIMIOURGIA DATABAG USERS
+-------------------------
+
+Mesa sto chef-repo
+# mkdir -p data_bags/users
+# vim data_bags/users/john.json
+{
+  "username": "myuser",
+  "password": "mypassword",
+  "email": "myuser@example.com"
+}
+# knife data bag create users
+# knife databag from file users data_bags/users/john.json
+
+Paw meta se ena cookbook 
+# vim cookbooks/users/recipies/default.rb
+
+
+kai telos afou to oloklirosw to recipie tote anevazw to cookbook
+# knife cookbook upload users
+
+Meta gia na prosthesw na ananeonete enas node me afto to recipie pou ftiaksame
+# knife node run_list add node1 'recipie[users]'
+kai etsi kathe fora pou tha trexoun ta chef-client tha pernei kai afth thn alagh.
+
+Paw ston node kai trexw chef-client gia na dw an tha parei thn alagh apo mono tou to neo recipie dld.
+
+
+
+
+
+
