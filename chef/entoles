@@ -1,8 +1,21 @@
 RECIPIE
 --------------------------------------------------------------------------------------------------------
 To arxio pou exoume grapsei be kataliksh .rb ginete ena recipie
+
 # vim my_recipie.rb
-# chef-apply my_recipie.rb
+package 'apache2' do
+  action :install
+end
+
+# Δημιουργία του Cookbook
+knife cookbook create my_cookbook
+
+# Ανέβασμα του Cookbook στον Chef Server
+knife cookbook upload my_cookbook
+
+# Εκτέλεση του Recipe στον κόμβο με το IP address 192.168.1.100
+knife ssh "name:node_name" "sudo chef-client" -x username -i /path/to/ssh/key
+
 
 COOKBOOK
 -------------------------------------------------------------------------------------------------------
@@ -90,6 +103,7 @@ DATA BAG
 Προβολή Όλων των Data Bags
 # knife data bag list
 --------------------------------------------------------------------------------------------------------
+<<<<<<< HEAD
 Δημιουργήστε ή ενημερώστε ένα αντικείμενο (item) στο data bag. 
 # knife data bag from file <data_bag_name> <item_name> /path/to/item.json
 --------------------------------------------------------------------------------------------------------
@@ -105,6 +119,8 @@ password = my_data['password']
 
 ITEMS SE DATABAG
 -----------------------------------------
+=======
+>>>>>>> 63a156e1faafe24e74045008af7aa96bb864f9ec
 Δημιουργία εγγραφών (Items) στο Data Bag
 # knife data bag create my_data_bag item1
 --------------------------------------------------------------------------------------------------------
@@ -114,7 +130,7 @@ ITEMS SE DATABAG
 Επεξεργασία Item σε Data Bag
 # knife data bag edit BAG_NAME ITEM_NAME
 --------------------------------------------------------------------------------------------------------
-Διαγραφή Data Bag ή Item από Data Bag
+Διαγραφή Data Bag ή Item από Data Bag.o  
 # knife data bag delete BAG_NAME [ITEM_NAME]
 --------------------------------------------------------------------------------------------------------
 
