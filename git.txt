@@ -159,6 +159,8 @@ Gia na ananeosw ton local fakelo mou apo to GitHub
 
 Vlepw pws legete o remote branch mas
 # git remote -v
+# git add .
+# git commit -m "Περιγραφή της αλλαγής"
 # git pull origin
 
 Meta ananeonw kai to GiTHub apo to local gia na exoun kai ta 2 ta idia arxeia
