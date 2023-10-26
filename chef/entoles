@@ -7,7 +7,15 @@ package 'apache2' do
   action :install
 end
 
-# sudo chef-client --local-mode my_recipe.rb
+# Δημιουργία του Cookbook
+knife cookbook create my_cookbook
+
+# Ανέβασμα του Cookbook στον Chef Server
+knife cookbook upload my_cookbook
+
+# Εκτέλεση του Recipe στον κόμβο με το IP address 192.168.1.100
+knife ssh "name:node_name" "sudo chef-client" -x username -i /path/to/ssh/key
+
 
 COOKBOOK
 -------------------------------------------------------------------------------------------------------
