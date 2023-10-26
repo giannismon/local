@@ -3,6 +3,7 @@ RECIPIE
 To arxio pou exoume grapsei be kataliksh .rb ginete ena recipie
 # vim my_recipie.rb
 # chef-apply my_recipie.rb
+# sudo chef-client --local-mode my_recipe.rb
 
 COOKBOOK
 -------------------------------------------------------------------------------------------------------
