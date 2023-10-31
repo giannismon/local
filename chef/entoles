@@ -30,9 +30,6 @@ Dixnei olous tous server me tous opious epikoinonei
 --------------------------------------------------------------------------------------------------------
 Dixnei ton sigkekrimeno server-node
 # knife node show node_To_onoma_pou_exei_o_node
--------------------------------------------------------------------------------------------------------
-GIA NA TO VRW ME TO HOSTNAME TOU
-$ knife search node "HOSTNAME"
 --------------------------------------------------------------------------------------------------------
 $ knife search node "chef _environment:anme_of_environment AND name:db*"
 --------------------------------------------------------------------------------------------------------
