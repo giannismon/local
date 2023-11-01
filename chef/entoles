@@ -42,7 +42,7 @@ PROSHIKH ROLWN sta iparxonta
 
 ANTIKATASTASH rolwn
 --------------------------------------------------------------------------------------------------------
-# knife node run_list set ews_prod "role[AM-team]"
+# knife node run_list set EWS-qa-DB "role[base], role[AM-team],role[ews-db-oracle-AM]"
 --------------------------------------------------------------------------------------------------------
 
 SEARCH
