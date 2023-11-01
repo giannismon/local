@@ -178,3 +178,14 @@ ANANEOSH OLON TWN KOMVWN TAFTOXRONA
 # knife ssh "name:*" "sudo chef-client" -x "USERNAME" -P "PASSWORD"
 
 
+
+
+
+DELETE
+--------------------------------------------------------------------------
+# sudo su - rech_user
+# knife search node "ECHAVM04288"
+# knife client delete ews-qa-db-01
+# knife node delete ews-qa-db-01
+
+--------------------------------------------------------------------------
