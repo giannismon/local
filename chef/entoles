@@ -31,6 +31,12 @@ Dixnei olous tous server me tous opious epikoinonei
 Dixnei ton sigkekrimeno server-node
 # knife node show node_To_onoma_pou_exei_o_node
 --------------------------------------------------------------------------------------------------------
+
+
+
+
+SEARCH
+--------------------------------------------------------------------------------------------------------
 $ knife search node "chef _environment:anme_of_environment AND name:db*"
 --------------------------------------------------------------------------------------------------------
 $ knife search node "name:db*"
