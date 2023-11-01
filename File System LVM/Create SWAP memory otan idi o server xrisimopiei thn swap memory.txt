@@ -28,9 +28,7 @@ Dimiourgw PVolume
 # pvcreate /dev/sdb1
 -------------------------------------------------------
 ##################################################################
-Dimiourgw VG
-# vgcreate my_vg /dev/sdb1
-H
+EXTEND TO VG
 Prosthetw ton to sdc1 sto volume group
 # vgextend vg_data /dev/sdb1
 
@@ -39,29 +37,20 @@ Gia na dw poso free exei mesa to VG
 # pvdisplay
 
 
-# lvcreate -L 100M -n my_lv_swap my_vg
-H an to kanw extend
+Create a lv giati an to kaname extend tha eprepe na to kanw swapp off pou den ginete epidi xrisimopihte 
+Twra omos tha to kanw mono swapon giati tha einai kainourgio lv.
 ##############################################
-# lvextend -l +100%FREE /dev/centos/my_lv_swap
-H
-lvresize /dev/my_vg/my_lv -L +50M
+# lvcreate -l +100%FREE -n my_lv_swap my_vg
 ###############################################
 
-
-
-
-Format the space as swap
-# sudo mkswap /dev/my_vg/my_lv
-
-
-
+# sudo mkswap /dev/my_vg/my_lv_swap
 Oposdipote prepi afto gia na thn dei
 # vim /etc/fstab
 
+##############################################################################################
 we add the following entry  
 UUID=1987efa3-184a-436d-b609-51fe34317778   swap     swap    defaults     0 0
-	
-
+##############################################################################################
 
 Enable swap partition
 # swapon -va
