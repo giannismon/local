@@ -68,3 +68,9 @@ perminw na dw an dimiourgithike o xristis kanonika
 -------------------------------------------------------------------------------------------------------
 
 
+
+
+BACKUP DATABAG
+-------------------------------------------------------------------------------------------------------
+knife data bag show DATA_BAG_NAME ITEM_NAME --format json > backup.json
+
