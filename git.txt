@@ -85,7 +85,7 @@ git branch -d branch_name
 Εναλλαγή σε διαφορετικό branch: Με την εντολή 
 git checkout branch_name 
 
-Συγχώνευση branches: Με την εντολή 
+Συγχώνευση branches: Με την εντολή --- gia to merge prepi na paw se afto pou thelw na prostethoun oi alages kai apo ekei na kanw merge
 git merge branch_name 
 μπορείτε να συγχωνεύσετε τις αλλαγές από ένα branch στο τρέχον branch.
 
