@@ -5,26 +5,22 @@ df -h
 #################################################################################################################################################
 Βρείτε τα αρχεία που θέλετε να μετακινήσετε:
 $ du -sh /path/to/directory
-
 $ cd /path/to/directory
 
-Μετακινήστε τα αρχεία
-$ mv my_directory.tar /path/to/destination
 
 #################################################################################################################################################
 Αυτό θα δημιουργήσει ένα αρχείο με το όνομα my_directory.tar.gz
 
-KANOUME ZIP TA ARXEIA POU theloume sto arxio myfiles.tar.gz file1 h mporoume na tou dosoume kai diaforetiko path na ta stilei 
-$ tar -czvf myfiles.tar.gz file1 
 
-Afou ta exoume se zip morfh ta svinoume
+
+THA STILW TO file1 SIMPIESMENO KATEFTHIAN TON FAKELO ME TO PERIEXOMENO TOU STO /home/giannis/myfiles.tar.gz
+$ tar -czvf /home/giannis/myfiles.tar.gz file1 
+
+Afou ta exoume se zip morfh ta svinoume apo edw na eleftherosoume xoro
 $ rm file1
 
 #################################################################################################################################################
 #################################################################################################################################################
-
-
-
 
 
 
