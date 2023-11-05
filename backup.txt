@@ -26,6 +26,6 @@ $ rm file1
 
 Restore
 -------
-Επαναφέρετε τα αρχεία στην αρχική τους κανονική μορφή
+Επαναφέρετε τα αρχεία στην αρχική τους κανονική μορφή kai sto path pou vriskontan arxika 
 
 $ tar -xzvf myfiles.tar.gz
