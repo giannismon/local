@@ -14,7 +14,10 @@ $ cd /path/to/directory
 
 
 THA STILW TO file1 SIMPIESMENO KATEFTHIAN TON FAKELO ME TO PERIEXOMENO TOU STO /home/giannis/myfiles.tar.gz
-$ tar -czvf /home/giannis/myfiles.tar.gz file1 
+
+#########################################################
+###  $ tar -czvf /home/giannis/myfiles.tar.gz file1   ###
+#########################################################
 
 Afou ta exoume se zip morfh ta svinoume apo edw na eleftherosoume xoro
 $ rm file1
@@ -26,5 +29,9 @@ $ rm file1
 
 Restore
 -------
-Paw ston fakelo poy thelw na kanw extract to arxeio mou kai to fernw apo ton fakelo pou to exw apothikefsei px ton home/ ston trexonta fakelo pou vriksomai twra
-$ tar -xzvf /home/myfiles.tar.gz
+Paw ston fakelo poy thelw na kanw extract kai trexw thn topothesia kai to arxeio pou vriskontai ekei 
+Etsi tha ginei to arxeio katefthian extract ston fakelo pou eimai
+
+###############################################
+###   $ tar -xzvf /home/myfiles.tar.gz      ###
+###############################################
