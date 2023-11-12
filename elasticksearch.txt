@@ -1,7 +1,7 @@
 https://logz.io/blog/elasticsearch-cheat-sheet/
 -----------------------------------------------
 
-
+GIA KIBANA 192.168.1.12:5601s
 ###################################################################################################
 OLA TA CONFIGS EINAI EDW
 --------------------------------------------------------------------------------------
@@ -13,16 +13,33 @@ curl -X GET 'http://localhost:9200'
 ###################################################################################################
 ALL POST requests to JSON with the argument  '-H 'Content-Type: application/json'
 ---------------------------------------------------------------------------------------
+ELEGXOS OLWN TWN INDEXIES
+curl -X GET "http://localhost:9200/_cat/indices?v"
+---------------------------------------------------------------------------------------
+DIMIOURGIA KAINOURGIOU INDEXIES
+curl -X PUT "http://localhost:9200/your_new_index"
+---------------------------------------------------------------------------------------
+DES MESA TI EXOUN TA INDEXIES
+curl -X GET "http://localhost:9200/your_index_name/_search"
+---------------------------------------------------------------------------------------
+DIAGRAFH INDEXIE
+curl -X DELETE "http://localhost:9200/your_index_name"
+---------------------------------------------------------------------------------------
+
+
+DIMIOURGIA INDEXIE ME FILE KAI version
 curl -H 'Content-Type: application/json' -X POST 'http://localhost:9200/tutorial/helloworld/1' -d '{ "message": "Hello World!" }'
 ###################################################################################################
 DOKIMH NA FEREI AFTO POU GRAPSAME
 --------------------------------------------------------------------------------------
-curl -X GET 'http://localhost:9200/tutorial/helloworld/1'
+curl -X GET 'http://localhost:9200/tutorial/helloworld/1?pretty'
 ###################################################################################################
 TO PRETTY TA DEIXNEI OMORFA
 --------------------------------------------------------------------------------------
 curl -X GET 'http://localhost:9200/tutorial/helloworld/1?pretty'
 ###################################################################################################
+
+DIMIOURGIA SNAPSHOT
 curl --request "PUT" http://localhost:9202/_snapshot/version1 -H "Content-Type: application/json" -d '{ "type": "fs", "settings": { "location": "/elasticdata/now" }}'
 TO -d STELNEI DEDOMENA
 -----------------------
@@ -60,36 +77,39 @@ curl -XPOST 'http://localhost:9200/_cache/clear'
 
 ########################################################################
 ########################################################################
-BACKUP
-------
+BACKUP SNAPSHOT
+---------------
 
 1) DIMIOURGW ENAN TOPIKO FAKELO POU THA MPEI TO SNAPSHOT MOU
-# mkdir /elasticsearch
+# mkdir /BP
 
-2) TO DILONW KAI MESA STO elasticsearch.yml
-path.repo: ["/backup_elastic/1"]
+2) TO DILONW KAI MESA STO /etc/elasticsearch/elasticsearch.yml
+path.repo: ["/BP"]
 
 2.1) RESTART GIA NA PAREI TIS ALAGES
 
 3) DIMIOURGW ENA PATH GIA TO CLUSTER STON MASTER node STON FAKELO MESA POU KANAME PRIN
-curl --request PUT "http://localhost:9200/_snapshot/my_backup222" -H "Content-Type: application/json" -d '{
+curl --request PUT "http://localhost:9200/_snapshot/my_backuppppp" -H "Content-Type: application/json" -d '{
   "type": "fs",
   "settings": {
-    "location": "/backup_elastic/1"
+    "location": "/BP"
   }
 }'
 
 
+TWRA MPOROUME NA PAROUME KAI TO BUCKUP
+
+
 4) DIMIOURGIA TOU SNAPSHOT TOU IDIOU
 # Δημιουργία ενός snapshot (αντιγράφου ασφαλείας)
-curl --request PUT "http://localhost:9200/_snapshot/my_backup222/my_snapshot224" -H "Content-Type: application/json" -d '{
+curl --request PUT "http://localhost:9200/_snapshot/my_backuppppp/my_snapshot222222222" -H "Content-Type: application/json" -d '{
   "indices": "*",
   "ignore_unavailable": true,
   "include_global_state": false
 }'
 
 
-5) lepw ti yparxei mesa apo vaseis dedomenwn
+5) Vlepw ti yparxei mesa apo vaseis dedomenwn
 curl --request GET http://localhost:9200/_cat/indices?v
 
 6) Vlepw ola ta backup
