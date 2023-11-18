@@ -3,11 +3,10 @@
 ###########################################################################################
 ###########################################################################################
 
-Paw ston server pou thelw na ta valw kai lew apo pion server thelw, pou vriskete kai ti
-kai ta vazw sthn topothesia pou eimai twra me tin telia 
-(APO TON SERVER ----- EDW)
+METAFORA FAKELOU APO TON TOPIKO IPOLOGISTI STON APOMAKRISMENO sto path /root
+scp -r Simioseis/ root@192.168.2.11:/root/
 
-# scp -r root@192.168.2.6:/root/centos-8-vpn.sh  .
+
 
 ###########################################################################################
 ###########################################################################################
