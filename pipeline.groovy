@@ -17,7 +17,7 @@ pipeline {
             steps {
                 // Βήμα 2: Αναμονή για τον έλεγχο της διαθεσιμότητας του server
                 script {
-                    def waitTime = 30
+                    def waitTime = 50
                     echo "Waiting ${waitTime} seconds for the server to become available..."
                     sleep(waitTime)
 
