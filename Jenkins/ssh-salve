@@ -1,12 +1,17 @@
-DEN ASXOLOUME KAN ME TON SERVER TOU JENKINS MONO ME TON SLAVE
+DEN ASXOLOUME KAN ME TON SERVER TOU JENKINS MONO ME TON SLAVE server
 ----------------------------------------------------------------
 
 # Kanw install tin java pou exei o host jenkins
 sudo dnf install java-17-openjdk
+--------------------------------------------------
+
+
+
+
 
 kanw ena klidi ston slave
 # ssh-keygen
-
+--------------------------------------------------
 #Anevazw ston jenkins to privet key 
 cd /root/.ssh
 -rw-------. 1 root root 1130 Sep 23 20:14 authorized_keys
@@ -16,5 +21,5 @@ cd /root/.ssh
 kai stin sinexia vazw to public key mesta sto authorized_keys
 
 
-
+---------------------------------------------------
 https://www.youtube.com/watch?v=Se7JtzFVZGE&t=2s
