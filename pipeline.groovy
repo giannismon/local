@@ -6,7 +6,7 @@ pipeline {
             steps {
                 // Βήμα 1: Επανεκκίνηση του server
                 script {
-                    sh 'nohup sudo reboot &'
+                    sh 'nohup sudo shutdown -r &'
                     sleep(time: 10, unit: 'SECONDS')
 
                 }
@@ -17,7 +17,7 @@ pipeline {
             steps {
                 // Βήμα 2: Αναμονή για τον έλεγχο της διαθεσιμότητας του server
                 script {
-                    def waitTime = 300
+                    def waitTime = 30
                     echo "Waiting ${waitTime} seconds for the server to become available..."
                     sleep(waitTime)
 
