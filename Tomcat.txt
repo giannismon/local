@@ -10,7 +10,7 @@
 <user username="[username]" password="[password]" roles="manager-gui,admin-gui"/>
 px 
 <tomcat-users>
-<user username="jdoe" password="En4EW25eI0" roles="manager-gui,admin-gui"/>
+<user username="root" password="root" roles="manager-gui,admin-gui"/>
 
 
 
