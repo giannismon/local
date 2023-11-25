@@ -6,7 +6,7 @@ pipeline {
             steps {
                 script {
                     // Εκτελούμε την εντολή reboot με sudo και τον χρήστη root
-                    sh 'echo "root" | sudo -S reboot'
+                    sh 'sudo -S <<< "root_password" reboot'
                     
                     // Περιμένουμε 1 λεπτό (60 δευτερόλεπτα)
                     sleep 60
