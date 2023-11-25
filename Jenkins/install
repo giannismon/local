@@ -5,6 +5,7 @@ sudo dnf upgrade
 # Add required dependencies for the jenkins package
 sudo dnf install java-17-openjdk
 sudo dnf install jenkins
+sudo yum install git
 
 sudo systemctl enable jenkins
 sudo systemctl start jenkins
