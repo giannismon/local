@@ -2,27 +2,50 @@ pipeline {
     agent any
 
     stages {
-        stage('Reboot Server') {
+        stage('Reboot and Check Server') {
             steps {
+                // Βήμα 1: Επανεκκίνηση του server
                 script {
-                    // Εκτελούμε την εντολή reboot με sudo και τον χρήστη root
-                    sh 'reboot now'
-                    
-                    // Περιμένουμε 1 λεπτό (60 δευτερόλεπτα)
-                    sleep 60
+                    sh 'nohup sudo shutdown -r now > /dev/null 2>&1 &'
+                    sleep(time: 10, unit: 'SECONDS')
+
                 }
             }
         }
-        
-        stage('Check Server Status') {
+
+        stage('Wait for Server to Open') {
             steps {
+                // Βήμα 2: Αναμονή για τον έλεγχο της διαθεσιμότητας του server
                 script {
-                    // Εδώ μπορείτε να προσθέσετε εντολές για να ελέγξετε την κατάσταση του server
-                    // π.χ., να προσπαθήσετε να συνδεθείτε ξανά, να ελέγξετε το uptime, κλπ.
-                    // Το παράδειγμα χρησιμοποιεί έναν υποθετικό έλεγχο του uptime.
-                    sh 'uptime'
+                    def waitTime = 50
+                    echo "Waiting ${waitTime} seconds for the server to become available..."
+                    sleep(waitTime)
+
+                    def serverStatus = sh(script: 'ping -c 1 192.168.2.11', returnStatus: true)
+
+                    if (serverStatus == 0) {
+                        echo 'Server is reachable. Proceeding with the next steps.'
+                    } else {
+                        error 'Server is not reachable. Pipeline will be marked as failed.'
+                    }
                 }
             }
+        }
+
+        stage('Additional Steps') {
+            steps {
+                // Βήμα 3: Εκτέλεση επιπλέον βημάτων αν ο έλεγχος είναι επιτυχής
+                echo 'Additional steps after the server is reachable...'
+            }
+        }
+    }
+
+    post {
+        success {
+            echo 'Pipeline succeeded!'
+        }
+        failure {
+            echo 'Pipeline failed!'
         }
     }
 }
