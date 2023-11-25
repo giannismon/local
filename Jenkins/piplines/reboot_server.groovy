@@ -7,7 +7,7 @@ pipeline {
                 // Βήμα 1: Επανεκκίνηση του server
                 script {
                     sh 'uptime'
-                    sh 'nohup sudo shutdown -r now > /dev/null 2>&1 &'
+                    sh 'nohup sudo shutdown -r now'
                     sleep(time: 10, unit: 'SECONDS')
 
                 }
