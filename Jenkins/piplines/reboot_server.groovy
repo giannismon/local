@@ -13,7 +13,7 @@ pipeline {
 
 
 
-
+/*
         stage('Restart Server') {
             steps {
                 script {
@@ -27,7 +27,7 @@ pipeline {
                 }
             }
         }
-
+*/
         stage('Check Server Status') {
             steps {
                 script {
@@ -36,5 +36,18 @@ pipeline {
                 }
             }
         }
+
+
+
+        stage('Create File') {
+            steps {
+                script {
+                    // Εδώ δημιουργούμε το αρχείο giannis.txt και γράφουμε μια γραμμή κειμένου
+                    sh 'echo "Hello, Giannis!" > giannis.txt'
+                }
+            }
+        
+
+
     }
 }
