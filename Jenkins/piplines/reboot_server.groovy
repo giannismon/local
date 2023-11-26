@@ -1,21 +1,19 @@
 pipeline {
     agent any
 
-    environment {
-        // Ορίστε τη διεύθυνση του Git repository
-        GIT_REPO_URL = 'https://github.com/giannismon/local.git'
-    }
-
     stages {
-        stage('Clone Repository') {
+        stage('Create Folder') {
             steps {
-                // Κάνε clone το Git repository
                 script {
-                    sh "git clone ${GIT_REPO_URL}"
+                    // Ορίστε τον όνομα του φακέλου που θέλετε να δημιουργήσετε
+                    def folderName = 'my_folder'
+
+                    // Χρησιμοποιήστε την εντολή mkdir για τη δημιουργία του φακέλου
+                    sh "mkdir -p ${folderName}"
                 }
             }
         }
 
-        // Εδώ μπορείτε να προσθέσετε επιπλέον stages για το build, το deploy, κλπ.
+        // Εδώ μπορείτε να προσθέσετε άλλα stages για διάφορες διεργασίες
     }
 }
