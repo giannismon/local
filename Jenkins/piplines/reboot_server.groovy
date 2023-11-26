@@ -9,7 +9,8 @@ pipeline {
                     def folderName = 'my_folder'
 
                     // Χρησιμοποιήστε την εντολή mkdir για τη δημιουργία του φακέλου
-                    sh "mkdir -p ${folderName}"
+                    
+                    sh "pwd"
                 }
             }
         }
