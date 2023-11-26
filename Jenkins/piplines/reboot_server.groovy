@@ -2,13 +2,24 @@ pipeline {
     agent any
 
     stages {
+
+        
+        stage('Clean Workspace') {
+            steps {
+                // Καθαρισμός του workspace πριν από το επόμενο build
+                deleteDir()
+            }
+
+
+
+
         stage('Restart Server') {
             steps {
                 script {
                     // Συνδέσου στον server και κάνε restart
 
                     sh 'hostname'
-                    sh 'nohup sudo reboot > /dev/null 2>&1 &'
+                    sh 'nohup sudo reboot now > /dev/null 2>&1 &'
 
                     // Περίμενε 20 λεπτά πριν συνεχίσεις
                     sh 'sleep 20'
