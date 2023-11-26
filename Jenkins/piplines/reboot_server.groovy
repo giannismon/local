@@ -3,12 +3,13 @@ pipeline {
 
     stages {
 
-        
+
         stage('Clean Workspace') {
             steps {
                 // Καθαρισμός του workspace πριν από το επόμενο build
                 deleteDir()
             }
+        }
 
 
 
