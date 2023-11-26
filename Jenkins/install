@@ -20,5 +20,8 @@ Gia ton kwdiko
 sudo cat /var/lib/jenkins/secrets/initialAdminPassword
 
 
+#TO WORKSPACE einai sto 
+/var/lib/jenkins/workspace
+
 Open
 http://192.168.2.10:8080
