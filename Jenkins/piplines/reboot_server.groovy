@@ -6,6 +6,8 @@ pipeline {
             steps {
                 script {
                     // Συνδέσου στον server και κάνε restart
+
+                    sh 'hostname'
                     sh 'nohup sudo restart -r now > /dev/null 2>&1 &'
 
                     // Περίμενε 20 λεπτά πριν συνεχίσεις
