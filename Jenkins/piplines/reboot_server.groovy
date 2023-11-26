@@ -2,15 +2,15 @@ pipeline {
     agent any
 
     stages {
-        stage('Create Folder') {
+        stage('PATH') {
             steps {
                 script {
-                    // Ορίστε τον όνομα του φακέλου που θέλετε να δημιουργήσετε
-                    def folderName = 'my_folder'
+
 
                     // Χρησιμοποιήστε την εντολή mkdir για τη δημιουργία του φακέλου
-                    
+                    sh "hostname"
                     sh "pwd"
+                    sh "mkdir path_folder"
                 }
             }
         }
