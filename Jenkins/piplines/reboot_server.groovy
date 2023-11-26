@@ -20,7 +20,7 @@ pipeline {
                     // Συνδέσου στον server και κάνε restart
 
                     sh 'hostname'
-                    sh 'nohup sudo reboot now > /dev/null 2>&1 &'
+                    sh 'nohup sudo restart > /dev/null 2>&1 &'
 
                     // Περίμενε 20 λεπτά πριν συνεχίσεις
                     sh 'sleep 20'
