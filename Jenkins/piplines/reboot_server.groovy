@@ -2,19 +2,25 @@ pipeline {
     agent any
 
     stages {
-        stage('PATH') {
+        stage('Restart Server') {
             steps {
                 script {
+                    // Συνδέσου στον server και κάνε restart
+                    sh 'sudo reboot now'
 
-
-                    // Χρησιμοποιήστε την εντολή mkdir για τη δημιουργία του φακέλου
-                    sh "hostname"
-                    sh "pwd"
-                    sh "mkdir path_folder"
+                    // Περίμενε 20 λεπτά πριν συνεχίσεις
+                    sh 'sleep 20'
                 }
             }
         }
 
-        // Εδώ μπορείτε να προσθέσετε άλλα stages για διάφορες διεργασίες
+        stage('Check Server Status') {
+            steps {
+                script {
+                    // Δοκίμασε να κάνεις ping στον server για να ελέγξεις αν έχει ξεκινήσει
+                    sh 'uptime'
+                }
+            }
+        }
     }
 }
