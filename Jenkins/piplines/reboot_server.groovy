@@ -46,6 +46,8 @@ pipeline {
                 script {
                     // Εδώ δημιουργούμε το αρχείο giannis.txt και γράφουμε μια γραμμή κειμένου
                     sh 'echo "Hello, Giannis!" > giannis.txt'
+                    sh 'mkdir GIANNIS'
+                    sh 'chmod 777 GIANNIS'
                 }
             }
         
