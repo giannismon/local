@@ -181,6 +181,9 @@ create a new TAG
 $ git pull origin master
 $ git tag -a v1.0 -m "Περιγραφή του tag"
 $ git push origin v1.0
+# Δημιουργία ενός νέου branch από το tag
+# git checkout -b new-branch v1.0
+
 
 ELEGXOS DIATHESIMON tags
 ------------------------
@@ -213,5 +216,4 @@ git merge new-branch
 # Διαγραφή του πρόσθετου branch (αν δεν το χρειάζεστε πλέον)
 git branch -d new-branch
 
-
-TAGGGGGGGGGGGGGGGGGGGG v1.0
+-------------------------------
