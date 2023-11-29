@@ -174,3 +174,8 @@ Meta ananeonw kai to GiTHub apo to local gia na exoun kai ta 2 ta idia arxeia
 ##################################################################
 ##################################################################
 
+TAG
+----
+create a new TAG
+------------------------
+$ git pull origin master
