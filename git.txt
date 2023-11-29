@@ -190,6 +190,7 @@ $ git show v1.0
 DELETE
 ------
 $ git tag -d v1.0
+xriazete aparetite na diagrapsw kai to remote tag
 $ git push origin --delete v1.0
 
 GIA NA DIAVASW ENA PALIO TAG
