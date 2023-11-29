@@ -193,7 +193,6 @@ $ git show v1.0
 DELETE
 ------
 $ git tag -d v1.0
-xriazete aparetite na diagrapsw kai to remote tag
 $ git push origin --delete v1.0
 
 GIA NA DIAVASW ENA PALIO TAG
@@ -201,17 +200,15 @@ GIA NA DIAVASW ENA PALIO TAG
 $ git checkout v1.0
 
 
-
+------------------------------------------------------------------------
 ENSOMATOSH TOU TAG KAI TIS ALAGES TOU STON MASTER
+--------------------------------------------------
 # Δημιουργία ενός νέου branch από το tag
 git checkout -b new-branch v1.0
 
 # Συνδυασμός του νέου branch με το master
-git checkout master
-git merge new-branch
-
-# Εναλλακτικά, μπορείτε να χρησιμοποιήσετε την εντολή git pull
-# git pull origin new-branch:master
+# git checkout master
+# git merge new-branch
 
 # Διαγραφή του πρόσθετου branch (αν δεν το χρειάζεστε πλέον)
 git branch -d new-branch
