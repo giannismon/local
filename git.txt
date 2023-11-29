@@ -179,3 +179,14 @@ TAG
 create a new TAG
 ------------------------
 $ git pull origin master
+$ git push origin v1.0
+
+List ta tags 
+------------------------
+git tag
+
+Delete a TAG
+------------------------
+git push origin --delete v1.0
+
+META TO TAG
