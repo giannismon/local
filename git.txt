@@ -216,4 +216,3 @@ git merge new-branch
 # Διαγραφή του πρόσθετου branch (αν δεν το χρειάζεστε πλέον)
 git branch -d new-branch
 
-
