@@ -178,11 +178,36 @@ TAG
 ----
 create a new TAG
 ------------------------
-$ git pull origin master
-$ git tag -a v1.0 -m "Περιγραφή του tag"
-$ git push origin v1.0
+    $ git pull origin master
+    $ git tag -a v1.0 -m "Περιγραφή του tag"
+    $ git push origin v1.0
+--------------------------------------------------
+gia na kanoume epeksergasia sto tag 
+--------------------------------------------------
 # Δημιουργία ενός νέου branch από το tag
-# git checkout -b new-branch v1.0
+----------------------------------------
+    $ git checkout -b new-branch v1.0
+    # git add .
+    # git commit -m "Περιγραφή της αλλαγής"
+    # git push origin
+    Twra kanw oti epeksergasia thelw sto tag 
+
+    Gia na to kanw merge sto master kai na sinexisw to project apo to tag 
+    ---------------------------------------------------------------------
+    $ git checkout master
+    $ git merge new-branch
+--------------------------------------------------------------------------
+--------------------------------------------------------------------------
+--------------------------------------------------------------------------
+DELETE TO TAG
+--------------
+$ git tag -d v1.0
+$ git push origin --delete v1.0
+
+DELETE THE BRANCH OF TAG
+------------------------
+$ git branch -d new-branch
+$ git push origin --delete new-branch
 
 
 ELEGXOS DIATHESIMON tags
@@ -190,28 +215,7 @@ ELEGXOS DIATHESIMON tags
 $ git tag
 $ git show v1.0
 
-DELETE
-------
-$ git tag -d v1.0
-$ git push origin --delete v1.0
 
 GIA NA DIAVASW ENA PALIO TAG
 ----------------------------
 $ git checkout v1.0
-
-
-------------------------------------------------------------------------
-ENSOMATOSH TOU TAG KAI TIS ALAGES TOU STON MASTER
---------------------------------------------------
-# Δημιουργία ενός νέου branch από το tag
-git checkout -b new-branch v1.0
-
-# Συνδυασμός του νέου branch με το master
-# git checkout master
-# git merge new-branch
-
-# Διαγραφή του πρόσθετου branch (αν δεν το χρειάζεστε πλέον)
-git branch -d new-branch
-git push origin --delete new-branch
-----------------------------------------------------------------------
-
