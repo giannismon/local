@@ -214,3 +214,9 @@ git checkout -b new-branch v1.0
 git branch -d new-branch
 git push origin --delete new-branch
 ----------------------------------------------------------------------
+
+
+v1.0
+
+
+META TO TAG TOU MASTER BRANCH
