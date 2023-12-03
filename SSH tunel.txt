@@ -9,7 +9,8 @@ Local aplos emfanisei to periexomeno pou theloume se alh porta
 --------------------------------------------------------------------------------------
 #Local -L
 #Emfanizei to periexomeno tis selidas topika mono ston server mas 
-ssh -L 8080:localhost:80 root@192.168.2.6
+    #ssh -L local_port:remote_ip:remote_port username@server_ip
+    ssh -L 8080:localhost:80 root@192.168.2.6
 # sindeete stin 192.168.2.6 kai to periexomeno tis sto localhost:80 mas to stelnei ston local 
 # Server mas kai meta emfanizete to periexomeno ston diko mou ypoligisth sto localhos:8080
 
