@@ -10,10 +10,11 @@ Local aplos emfanisei to periexomeno pou theloume se alh porta
 #Local -L
 #Emfanizei to periexomeno tis selidas topika mono ston server mas 
     #ssh -L local_port:remote_ip:remote_port username@server_ip
-    ssh -L 8080:localhost:80 root@192.168.2.6
-# sindeete stin 192.168.2.6 kai to periexomeno tis sto localhost:80 mas to stelnei ston local 
-# Server mas kai meta emfanizete to periexomeno ston diko mou ypoligisth sto localhos:8080
-
+    ssh -p22 root@192.168.2.10 -N -L localhost:9999:192.168.2.11:80
+# sindeete ston server 192.168.2.10. 
+# AN AFTOS O SERVER EPIKOINONEI ME TON 192.168.2.11:80 
+# tote
+# to periexomeno tou 192.168.2.11:80 to pernaei sto localhost:9999
 --------------------------------------------------------------------------------------
 #Remote -R
 # Sindesou stin diefthinsh 192.168.2.11 kai emfanise sto localhost tou 
