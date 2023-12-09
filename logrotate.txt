@@ -3,43 +3,25 @@ sudo dnf install logrotate
 Edw tha dimiourgisw ta logrotate pou thelw
 
 vim /etc/logrotate.d/nginx
+sudo chmod 755 /etc/logrotate.d/nginx
 --------------------------------------------------------------------------------------------------------
-/var/log/nginx/*log {
-    create 0664 nginx root
+/var/log/mylogs/*.log {
     daily
     rotate 10
-    missingok
-    notifempty
     compress
-    size 100M  
-    dateext
-    dateformat -%Y%m%d
-    sharedscripts
+    missingok
     postrotate
-        /bin/kill -USR1 `cat /run/nginx.pid 2>/dev/null` 2>/dev/null || true
+        find /var/log/mylogs/ -name "*.log" -type f -size 0 -exec rm -f {} \;
+        find /var/log/mylogs/ -name "*.log" -type f -mtime +15 -exec rm -f {} \;
     endscript
 }
---------------------------------------------------------------------------------------------------------
-    /var/log/nginx/*.log: Ορίζει τα αρχεία καταγραφής που θα επηρεαστούν από αυτή τη διαμόρφωση.
 
-    create 0664 nginx root: Δημιουργεί τα νέα αρχεία με δικαιώματα πρόσβασης 0664, με ιδιοκτήτη τον χρήστη "nginx" και ομάδα το "root".
 
-    daily: Ορίζει ότι η περιστροφή των αρχείων θα γίνεται καθημερινά.
 
-    rotate 10: Διατηρεί τα τελευταία 10 αρχεία καταγραφής.
+    ################################
+    DOKIMH 
+    DIMIOURGW ENA ARXEIO 10M
+    truncate -s 10M /var/log/mylogs/catalina.out1.log
 
-    missingok: Δεν εμφανίζει προειδοποιήσεις αν τα αρχεία καταγραφής λείπουν.
-
-    notifempty: Δεν επιχειρεί την περιστροφή ενός αρχείου που είναι άδειο.
-
-    compress: Συμπιέζει τα παλιά αρχεία καταγραφής.
-
-    size 100M: Καθορίζει ότι η περιστροφή θα γίνεται όταν το αρχείο φτάσει τα 100 megabytes.
-
-    dateext: Προσθέτει την ημερομηνία στο όνομα των αρχείων καταγραφής.
-
-    dateformat -%Y%m%d: Καθορίζει τη μορφή της ημερομηνίας που προστίθεται στα ονόματα των αρχείων.
-
-    sharedscripts: Εκτελεί τα scripts πριν και μετά την περιστροφή μόνο μία φορά για όλα τα αρχεία.
-
-    postrotate ... endscript: Εκτελείται μετά την περιστροφή και χρησιμοποιείται για την επαναφόρτωση του Nginx.
+    TOU VAZW ALH HMEROMINIA
+    touch -t $(date -d '100 days ago' +"%Y%m%d%H%M.%S") /var/log/mylogs/catalina.out1.log
