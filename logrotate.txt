@@ -6,14 +6,15 @@ vim /etc/logrotate.d/nginx
 sudo chmod 755 /etc/logrotate.d/nginx
 --------------------------------------------------------------------------------------------------------
 
+
+
+
 /var/log/mylogs/*.log {
     daily
     rotate 15
-    size 100M
     compress
+    size 5M
     missingok
-    copytruncate
-    delaycompress
     dateext
     postrotate
         find /var/log/mylogs/ -name "*.log" -type f -size 0 -exec rm -f {} \;
@@ -21,8 +22,6 @@ sudo chmod 755 /etc/logrotate.d/nginx
         find /var/log/mylogs/ -name "*.gz" -type f -mtime +15 -exec rm -f {} \;
     endscript
 }
-
-
 
     ################################
     DOKIMH 
