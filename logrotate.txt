@@ -5,12 +5,15 @@ Edw tha dimiourgisw ta logrotate pou thelw
 vim /etc/logrotate.d/nginx
 sudo chmod 755 /etc/logrotate.d/nginx
 --------------------------------------------------------------------------------------------------------
+
 /var/log/mylogs/*.log {
     daily
     rotate 15
+    size 100M
     compress
     missingok
-    missingok
+    copytruncate
+    delaycompress
     dateext
     postrotate
         find /var/log/mylogs/ -name "*.log" -type f -size 0 -exec rm -f {} \;
