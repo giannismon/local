@@ -1,0 +1,31 @@
+sudo vim /etc/systemd/system/tomcat.service 
+############################################################################
+[Unit]
+Description=Tomcat 9
+After=network.target
+
+[Service]
+Type=forking
+
+User=root
+Group=root
+
+Environment="JAVA_HOME=/usr/lib/jvm/jre"
+Environment="JAVA_OPTS=-Djava.security.egd=file:///dev/urandom"
+Environment="CATALINA_BASE=/root/tomcat"
+Environment="CATALINA_HOME=/root/tomcat"
+Environment="CATALINA_PID=/root/tomcat/temp/tomcat.pid"
+Environment="CATALINA_OPTS=-Xms512M -Xmx1024M -server -XX:+UseParallelGC"
+
+ExecStart=/root/tomcat/bin/startup.sh
+ExecStop=/root/tomcat/bin/shutdown.sh
+
+[Install]
+WantedBy=multi-user.target
+############################################################################################
+
+
+
+sudo systemctl daemon-reload 
+sudo systemctl enable tomcat.service 
+sudo systemctl start tomcat.service 
