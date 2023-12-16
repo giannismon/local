@@ -1,0 +1,17 @@
+DIMIOURGIA ENVIROMENTAL VARIABLE GIA TO JAVA_HOME
+Pairnw to path ths java
+# sudo update-alternatives --config java
+
+----------------------------------
+# vim ~/.bash_profile
+
+vazw afthn thn grammh mesa
+export JAVA_HOME=/usr/lib/jvm/java-17-openjdk-17.0.6.0.9-0.3.ea.el8.x86_64
+----------------------------------
+
+gia na parei tis alages
+# source ~/.bashrc
+
+
+ELEGXOS AN MPHKE
+# echo $JAVA_HOME
