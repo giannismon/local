@@ -22,7 +22,7 @@ sudo chmod 755 /etc/logrotate.d/nginx
         find /var/log/mylogs/ -name "*.gz" -type f -mtime +15 -exec rm -f {} \;
     endscript
 }
-
+ 
     ################################
     DOKIMH 
     DIMIOURGW ENA ARXEIO 10M
