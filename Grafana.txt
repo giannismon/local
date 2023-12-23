@@ -1,0 +1,100 @@
+[root@osmium ~]$ vim /etc/yum.repos.d/grafana.repo 
+[grafana]
+name=grafana
+baseurl=https://packages.grafana.com/oss/rpm
+repo_gpgcheck=1
+enabled=1
+gpgcheck=1
+gpgkey=https://packages.grafana.com/gpg.key
+sslverify=1
+sslcacert=/etc/pki/tls/certs/ca-bundle.crt
+
+[root@osmium ~]# dnf install grafana
+
+
+
+
+
+vim /etc/grafana/grafana.ini
+
+[server]
+# If your server is on multiple networks and you only want to allow connections from one,
+# change this field to be the IP the server has on that network
+# Or, if you are going to use a reverse proxy, change this to 127.0.0.1
+http_addr
+
+# Port 3000 is probably not used, but just in case keep this field in mind.
+# I recommend setting up a reverse proxy if you want to make Grafana listen on port 80 or 443
+http_port
+
+[security]
+# If you want to change the default admin user name, do so here and now
+admin_user
+
+# This password can be changed later.
+# Do not set the password you plan to use long term in this field
+admin_password
+
+# AES-256 CFB key used to sign passwords and secret parts of the configuration.
+# It can be a hassle to change later, so set it to something now or accept the default
+# If you have pwgen installed, you make a random string with something like `pwgen -s -1 40`
+secret_key
+
+
+
+
+[root@osmium ~]# systemctl enable --now grafana-server
+
+[root@osmium ~]# firewall-cmd --add-port=3000/tcp
+
+
+
+
+
+
+
+------------------------------------------------------------------------------------------------------
+
+
+INSTALL INFLUXDB
+
+
+[root@osmium ~]# vim /etc/yum.repos.d/influxdb.repo
+[influxdb]
+name = InfluxDB Repository
+baseurl = https://repos.influxdata.com/rhel/8/x86_64/stable/
+enabled = 1
+gpgcheck = 1
+gpgkey = https://repos.influxdata.com/influxdb.key
+
+
+[root@osmium ~]# dnf install influxdb
+
+
+
+vim /etc/influxdb/influxdb.conf
+[http]
+  # false by default, but security is good so we're enabling it
+  auth-enabled = true
+
+
+[root@osmium ~]# systemctl enable --now influxdb
+
+
+influx
+
+
+> CREATE USER pftelegraf WITH PASSWORD 'pfsense telegraf password'
+> GRANT ALL PRIVILEGES ON pfsense TO pftelegraf
+
+
+[root@osmium ~]# firewall-cmd --permanent --add-port=8086/tcp
+
+---------------------------------------------------------------------------------
+
+sudo yum -y install telegraf
+rpm -qi telegraf
+---------------------------------------------------------------------------------
+
+
+Add Data Source to Grafana

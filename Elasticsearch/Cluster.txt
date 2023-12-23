@@ -1,0 +1,74 @@
+https://medium.com/@shukla.devbrat1993/install-and-configure-three-node-elasticsearch-cluster-on-centos-7-77ef757e138a
+
+
+1.1 Master node 1.2 Data node 1.3 Client node
+---------------------------------------------
+# sudo yum install java
+# sudo yum install java-devel
+
+# wget https://download.elastic.co/elasticsearch/release/org/elasticsearch/distribution/rpm/elasticsearch/2.3.3/elasticsearch-2.3.3.rpm
+# yum localinstall elasticsearch-2.3.3.rpm
+
+
+KAI STOUS 3 SERVER
+-----------------
+# vim /etc/hosts
+
+127.0.0.1      localhost localhost.localdomain localhost4 localhost4.localdomain4
+::1            localhost localhost.localdomain localhost6 localhost6.localdomain6
+192.168.2.61   es-master
+192.168.2.62   es-data
+192.168.2.60   es-client
+
+
+
+STON ELASTIC1
+# vim /etc/elasticsearch/elasticsearch.yml
+
+cluster.name: my_cluster
+node.name: elastic1
+node.master: true
+node.data: false
+network.host: ["elastic1", "localhost"]
+discovery.zen.ping.unicast.hosts: ["elastic1", "elastic2", "elastic3"]
+------------------------------------------------------------------------------------
+STON ELASTIC2
+vim /etc/elasticsearch/elasticsearch.yml
+
+cluster.name: my_cluster
+node.name: elastic2
+node.master: false
+node.data: true
+network.host: ["elastic2", "localhost"]
+discovery.zen.ping.unicast.hosts: ["elastic1", "elastic2", "elastic3"]
+------------------------------------------------------------------------------------
+STON ELASTIC3
+cluster.name: my_cluster
+node.name: elastic3
+node.master: false
+node.data: false
+network.host: ["elastic3", "localhost"]
+discovery.zen.ping.unicast.hosts: ["elastic1", "elastic2", "elastic3"]
+------------------------------------------------------------------------------------
+
+
+
+KAI STOUS 3 SERVER
+[root@es-master ~]# systemctl daemon-reload
+[root@es-master ~]# systemctl start elasticsearch
+[root@es-master ~]# systemctl enable elasticsearch
+[root@es-master ~]# systemctl status elasticsearch
+
+
+
+------------------------------------------------------------------------------------
+curl -XGET 'http://192.168.1.60:9200/_cluster/state?pretty'
+
+curl 'localhost:9200/_cat/health?v'
+
+
+STON MASTER
+yum install kibana
+[root@es-master ~]# systemctl start kibana
+[root@es-master ~]# systemctl enable kibana
+[root@es-master ~]# systemctl status kibana
