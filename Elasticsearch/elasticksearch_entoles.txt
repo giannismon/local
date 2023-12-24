@@ -1,7 +1,13 @@
 https://logz.io/blog/elasticsearch-cheat-sheet/
 -----------------------------------------------
 
-GIA KIBANA 192.168.1.12:5601s
+
+
+curl -X GET "localhost:9200/_cat/health?v"
+
+
+
+GIA KIBANA 192.168.1.12:5601
 ###################################################################################################
 OLA TA CONFIGS EINAI EDW
 --------------------------------------------------------------------------------------
@@ -20,7 +26,7 @@ DIMIOURGIA KAINOURGIOU INDEXIES
 curl -X PUT "http://localhost:9200/your_new_index"
 ---------------------------------------------------------------------------------------
 DES MESA TI EXOUN TA INDEXIES
-curl -X GET "http://localhost:9200/your_index_name/_search"
+curl -X GET "http://localhost:9200/1/_search?pretty"
 ---------------------------------------------------------------------------------------
 DIAGRAFH INDEXIE
 curl -X DELETE "http://localhost:9200/your_index_name"
@@ -31,44 +37,10 @@ DIMIOURGIA INDEXIE ME FILE KAI version
 curl -H 'Content-Type: application/json' -X POST 'http://localhost:9200/tutorial/helloworld/1' -d '{ "message": "Hello World!" }'
 ###################################################################################################
 DOKIMH NA FEREI AFTO POU GRAPSAME
---------------------------------------------------------------------------------------
-curl -X GET 'http://localhost:9200/tutorial/helloworld/1?pretty'
-###################################################################################################
 TO PRETTY TA DEIXNEI OMORFA
 --------------------------------------------------------------------------------------
 curl -X GET 'http://localhost:9200/tutorial/helloworld/1?pretty'
 ###################################################################################################
-
-DIMIOURGIA SNAPSHOT
-curl --request "PUT" http://localhost:9202/_snapshot/version1 -H "Content-Type: application/json" -d '{ "type": "fs", "settings": { "location": "/elasticdata/now" }}'
-TO -d STELNEI DEDOMENA
------------------------
-
-"type": "fs": Αυτό το πεδίο καθορίζει τον τύπο του αποθετηρίου. 
-Σε αυτήν την περίπτωση, το αποθετήριο είναι τύπου filesystem (fs), 
-πράγμα που σημαίνει ότι θα αποθηκεύετε τα αντίγραφα ασφαλείας 
-σε έναν τοπικό κατάλογο.
-
-"settings": { "location": "/elasticdata/now" }: 
-Αυτό το πεδίο καθορίζει τις ρυθμίσεις του αποθετηρίου. 
-Εδώ, καθορίζετε την τοποθεσία (location) όπου θα αποθηκεύονται τα αντίγραφα ασφαλείας. 
-Συγκεκριμένα, αναφέρετε ότι τα αντίγραφα ασφαλείας θα αποθηκεύονται 
-στον κατάλογο /elasticdata/now.
-
---------------------------------------------------------------------------------------------
-PX ENTOLES
-  $ curl -XGET http://10.77.2.5:9202/_cat/indices?v
-  $ mkdir /elasticdata/03_10_2023
-  $ curl --request "PUT" http://10.77.2.5:9202/_snapshot/version1 -H "Content-Type: application/json" -d '{ "type": "fs", "settings": { "location": "/elasticdata/03_10_2023" }}'
-  $ ls -l /elasticdata/03_10_2023
-  $ curl --request "PUT" http://10.77.2.5:9202/_snapshot/version1/snapshot_1?wait_for_completion=true
-  $ watch du -hs /elasticdata/03_10_2023/indices/ (from another node)
-  $ curl --request "DELETE" http://10.77.2.5:9202/liferay-*?pretty=true
-  $ curl -XGET http://10.77.2.5:9202/_cat/indices?v
-  No liferay indices must exist
-
-
----------------------------------------------------------------------------------------------
 
 Clear case
 curl -XPOST 'http://localhost:9200/_cache/clear'
