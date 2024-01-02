@@ -1,5 +1,6 @@
-# sudo yum install tomcat
-# sudo yum install tomcat-webapps tomcat-admin-webapps tomcat-docs-webapp tomcat-javadoc
+# sudo yum install tomcat -y
+# sudo yum install tomcat-webapps tomcat-admin-webapps tomcat-docs-webapp -y
+
 # sudo systemctl stop httpd
 # sudo systemctl start tomcat
 # sudo systemctl enable tomcat
@@ -15,3 +16,6 @@ px
 
 
 # sudo systemctl restart tomcat
+
+
+# anoigw ton server stin 8080
