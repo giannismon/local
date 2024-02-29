@@ -88,6 +88,16 @@ influx
 > GRANT ALL PRIVILEGES ON pfsense TO pftelegraf
 
 
+
+show databases
+use rpi_monitoring
+SHOW MEASUREMENTS
+SHOW FIELD KEYS FROM "cpu"
+SELECT "usage_idle" FROM "cpu"
+
+
+
+
 [root@osmium ~]# firewall-cmd --permanent --add-port=8086/tcp
 
 ---------------------------------------------------------------------------------
@@ -98,3 +108,16 @@ rpm -qi telegraf
 
 
 Add Data Source to Grafana
+
+
+
+#####################################################
+configuration telegraf
+
+[[inputs.http_response]]
+  urls = ["https://www.youtube.com"]
+  response_timeout = "5s"
+  [inputs.http_response.tags]
+   environment = "production"
+   app = "ews"
+####################################################
