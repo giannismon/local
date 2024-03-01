@@ -1,0 +1,75 @@
+POST students/_doc/1
+{
+  "settings": {
+    "number_of_shards": 1,
+    "number_of_replicas": 0
+  },
+  "doc": {
+    "name": "John",
+    "age": 31
+  }
+}
+
+POST students/_doc/2
+{
+  "settings": {
+    "number_of_shards": 1,
+    "number_of_replicas": 0
+  },
+  "doc": {
+    "name": "Venia",
+    "age": 36
+  }
+}
+
+
+GET students/_search
+{
+  "query": {
+    "match_all": {}
+  }
+  
+}
+
+GET students/_mapping
+
+
+
+PUT students_new
+{
+  "mappings":{
+    "properties": {
+      "name":{
+        "type": "text"
+      },
+      "age":{
+        "type": "integer"
+      }
+    }
+  }
+}
+
+GET students_new/_mapping
+
+
+
+POST /_reindex
+{
+  "source": {
+    "index": "students"
+  },
+  "dest": {
+    "index": "students_new"
+  }
+}
+
+
+
+GET students_new/_search
+{
+  "query": {
+    "match_all": {}
+  }
+}
+
+DELETE /students

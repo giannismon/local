@@ -13,6 +13,32 @@ OLA TA CONFIGS EINAI EDW
 --------------------------------------------------------------------------------------
 /etc/elasticsearch/elasticsearch.yml
 ###################################################################################################
+UNASSIGNED shards
+curl -X GET "http://192.168.1.101:9200/_cat/shards?v" | grep UNASSIGNED
+
+GIA NA KANEI KSANA ANAKATANOMH SHARDS
+curl -X POST "localhost:9200/_cluster/reroute" -H 'Content-Type: application/json' -d '{
+  "commands": [
+    {
+      "allocate_replica": {
+        "index": "your_index_name3",
+        "shard": 0,
+        "node": "available_node"  # Εδώ θα πρέπει να ορίσετε το όνομα του διαθέσιμου κόμβου
+      }
+    }
+  ]
+}'
+
+GIA NA KATANEMONTE KANONIKA PANTOU
+curl -X PUT "http://192.168.1.101:9200/_cluster/settings" -H 'Content-Type: application/json' -d '{
+  "persistent": {
+    "cluster.routing.allocation.enable": "all"
+  }
+}'
+
+relocate ton shards
+curl -X POST "http://192.168.1.101:9200/_cluster/reroute"
+###################################################################################################
 FERNEI OLA TA INDEXIES
 --------------------------------------------------------------------------------------
 curl -X GET 'http://localhost:9200'
@@ -52,7 +78,7 @@ curl -XPOST 'http://localhost:9200/_cache/clear'
 BACKUP SNAPSHOT
 ---------------
 
-1) DIMIOURGW ENAN TOPIKO FAKELO POU THA MPEI TO SNAPSHOT MOU
+1) DIMIOURGW ENAN TOPIKO FAKELO POU THA MPEI TO SNAPSHOT MOU PREPI NA EINAI SE NFS
 # mkdir /BP
 
 2) TO DILONW KAI MESA STO /etc/elasticsearch/elasticsearch.yml
