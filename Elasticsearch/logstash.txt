@@ -1,0 +1,30 @@
+# mkdir temp
+# vim /root/temp/input.logs
+Hello !!
+
+
+# vim /etc/logstash/conf.d/arxeio_logstash.conf
+input {
+   file {
+      path => "/root/temp/input.log"
+   }
+}
+
+output {
+   file {
+      path => "/root/temp/output.log"
+   }
+}
+
+
+
+# cd /usr/share/logstash/bin/
+# sudo /usr/share/logstash/bin/logstash -f /etc/logstash/conf.d/arxeio_logstash.conf
+
+tha exei dimiourgithei to arxeio_logstash.conf edw 
+# cls -ltrh /usr/share/logstash/bin
+
+all kai edw 
+# ls -ltrh /root/temp/
+# cat /root/temp/output.log
+EDW VLEPW TA LOGS TOU LOGSTASH PWS TA EMFANIZEI APO TIS ALAGES POU GINONDE STO input.logs

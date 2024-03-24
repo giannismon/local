@@ -1,0 +1,20 @@
+wget -O splunkforwarder-9.2.0.1-d8ae995bf219-Linux-x86_64.tgz "https://download.splunk.com/products/universalforwarder/releases/9.2.0.1/linux/splunkforwarder-9.2.0.1-d8ae995bf219-Linux-x86_64.tgz"
+tar -xzvC /opt -f splunkforwarder-9.2.0.1-d8ae995bf219-Linux-x86_64.tgz
+/opt/splunkforwarder/bin/splunk start --accept-license
+/opt/splunkforwarder/bin/splunk enable boot-start
+/opt/splunkforwarder/bin/splunk add forward-server 192.168.1.50:9997
+
+
+
+
+Ston server tou spunk
+/opt/splunkforwarder/bin/splunk display listen
+/opt/splunkforwarder/bin/splunk enable listen 9997
+
+
+
+Ston server pou thelw na vlepw ta logs
+/opt/splunkforwarder/bin/splunk add monitor /var/log/ -index main
+/opt/splunkforwarder/bin/splunk restart
+
+/opt/splunkforwarder/bin/splunk list forward-server
