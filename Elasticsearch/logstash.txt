@@ -1,8 +1,15 @@
-# mkdir temp
+
+###############################################################################################################
+AFTO THA EINAI TO ARXEIO POU THA TRAVIKSW TA LOG MOU STHN PRAGMATIKOTITA THA IPARXEI IDI
+
+# mkdir /root/temp
 # vim /root/temp/input.logs
 Hello !!
 
 
+
+###############################################################################################################
+TO KANONIKO ARXEIO LOGSTASH POU EXW DIMIOURGISEI
 # vim /etc/logstash/conf.d/arxeio_logstash.conf
 input {
    file {
@@ -17,7 +24,9 @@ output {
 }
 
 
+###############################################################################################################
 
+TREXW GIA PROTH FORA TO LOGSTASH ARXEIO
 # cd /usr/share/logstash/bin/
 # sudo /usr/share/logstash/bin/logstash -f /etc/logstash/conf.d/arxeio_logstash.conf
 

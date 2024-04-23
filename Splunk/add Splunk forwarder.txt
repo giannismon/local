@@ -1,20 +1,35 @@
-wget -O splunkforwarder-9.2.0.1-d8ae995bf219-Linux-x86_64.tgz "https://download.splunk.com/products/universalforwarder/releases/9.2.0.1/linux/splunkforwarder-9.2.0.1-d8ae995bf219-Linux-x86_64.tgz"
-tar -xzvC /opt -f splunkforwarder-9.2.0.1-d8ae995bf219-Linux-x86_64.tgz
-/opt/splunkforwarder/bin/splunk start --accept-license
-/opt/splunkforwarder/bin/splunk enable boot-start
-/opt/splunkforwarder/bin/splunk add forward-server 192.168.1.50:9997
+STON SERVER POU THELWQ NA PARAKOLOUTHISW TA LOGS
+-------------------------------------------------
+# wget -O splunkforwarder-9.2.0.1-d8ae995bf219-Linux-x86_64.tgz "https://download.splunk.com/products/universalforwarder/releases/9.2.0.1/linux/splunkforwarder-9.2.0.1-d8ae995bf219-Linux-x86_64.tgz"
+# tar -xzvC /opt -f splunkforwarder-9.2.0.1-d8ae995bf219-Linux-x86_64.tgz
+# /opt/splunkforwarder/bin/splunk start --accept-license
+# /opt/splunkforwarder/bin/splunk enable boot-start
+# /opt/splunkforwarder/bin/splunk add forward-server 192.168.1.50:9997
 
 
 
 
+Thn proth fora pou tha dimiourgisoume to splunk 
 Ston server tou spunk
-/opt/splunkforwarder/bin/splunk display listen
-/opt/splunkforwarder/bin/splunk enable listen 9997
+/root/splunk/bin/splunk display listen
+
+Afto to grafw oposdipote mesa sto splunk server
+/root/splunk/bin/splunk enable listen 9997
 
 
 
 Ston server pou thelw na vlepw ta logs
-/opt/splunkforwarder/bin/splunk add monitor /var/log/ -index main
+
+dimiourgw sto splunk to index pou thelw gia na orisw to path se pio index tha anoikei
+
+/opt/splunkforwarder/bin/splunk add forward-server 192.168.1.50:9997
+telnet 192.168.1.50 9997
+/opt/splunkforwarder/bin/splunk add monitor /var/log/grafana/grafana.log -index grafana
 /opt/splunkforwarder/bin/splunk restart
 
 /opt/splunkforwarder/bin/splunk list forward-server
+
+
+QUERY 
+poses fores emfanistikan afta ta errors
+host=* sourcetype="cron-too_small" source="/var/log/cron" | stats count  as totalAddressErrors
