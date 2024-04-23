@@ -22,7 +22,7 @@ elenxoume an alazei ondos epitixos
 # ansible-playbook play.yml -e root_password=root1
 
 -----------------------------------------------------------------------------------
-
+Meta kanw ena script gia na to trexw apo to crone
 
 # vim a.sh
 #!/bin/bash
@@ -34,7 +34,7 @@ ansible-playbook play.yml -e root_password=$x
 -----------------------------------------------------------------------------------
 
 valta kalitera sto home kai to playbook kai to sh
-
+MESA STO CRONE
 # vim /etc/crontab
 *  *  *  *  * root cd /home/ && sh a.sh
 
