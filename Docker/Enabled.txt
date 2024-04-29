@@ -1,0 +1,2 @@
+#Enable the spesific container 
+docker update --restart unless-stopped container-name

@@ -2,8 +2,7 @@ Me tis endoles pou tha parei apo to docer file kai tha dimiourgisei ena kainouri
 
 # vim /home/dockerfile
 FROM centos:7
-MAINTAINER linuxtechlab
-edw tha valoume odigies diaxiriseis
+# edw tha valoume odigies diaxiriseis
 CMD ["echo", "Hello"]
 
 

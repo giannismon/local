@@ -10,8 +10,8 @@ point your browser to AAA.BBB.CCC.DDD:8080/docker.html
 -----------------------------------------------------------------------
 INSTALL NGINX
 -------------
-# sudo docker run -dit --name mygninx -p 8080:80 -v /home/user/website1/:/usr/share/nginx/html/ nginx
-# vim /home/user/website1/index.html
+# sudo docker run -dit --name mygninx -p 8080:80 -v /home/user/docker_volume/:/usr/share/nginx/html/ nginx
+# vim /home/user/docker_volume/index.html
 Hallo
 
 -----------------------------------------------------------------------

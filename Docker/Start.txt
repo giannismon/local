@@ -1,0 +1,38 @@
+docker ps
+docker images
+
+docker pull centos
+docker run centos
+
+
+
+docker run -it centos /bin/bash
+
+kanw mia alagh sto conteiner aplh
+# mkdir AAA
+
+twra tha dimiourgisw ena kainourio image me thn alagh pou exw kanei
+docker commit -m "What did you do to the image" -a "Author Name" container-id repository/new_image_name
+docker commit -m "What did you do to the image" -a "Giannis" d4711f371037 centos/centos_me_alagh
+
+# docker images
+
+# docker stop container-id
+# docker stop d4711f371037
+
+
+# docker logs container-id
+
+
+
+
+REMOVE
+$ docker rmi test:latest
+
+To delete all containers including its volumes use,
+
+# docker rm -vf $(docker ps -a -q)
+To delete all the images,
+
+# docker rmi -f $(docker images -a -q)
+# docker image prune -a
