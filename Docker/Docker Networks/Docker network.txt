@@ -1,3 +1,5 @@
+DEFAULT NETWORK BRIDGE
+----------------------
 ip address show
 
 sudo docker network ls

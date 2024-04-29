@@ -14,8 +14,8 @@ CMD ["echo", "Hello"]
 
 
 
-exoume dimiourgisei ena image dikomas 
-an tou kanoume peretero alages twra tha treksoume thn parakatw endolh
+# exoume dimiourgisei ena image dikomas 
+# an tou kanoume peretero alages twra tha treksoume thn parakatw endolh
 
 
 
