@@ -22,26 +22,41 @@ To delete all the images,
 
 
 
-------------------------------------------------------------------------------------
-ISOLATION NETWORKS
------------
+-----------------------------------------------------------------------------------------------
+
+
+
+
+USER DEFINE NETWORK
+dimiourgei aplos ena allo network gia na min einia sto default
 sudo docker network create MY_NETWORK
 # diagrafh 
 sudo docker network rm MY_NETWORK
-
-
 ----------------
 INSERT A DOCKER TO MY_NETWORK NETWORK
 ----------------
 sudo docker run -itd --rm --network MY_NETWORK --name GIANNIS busybox
 
 -----------------------------------------------------------------------------------
-RUN STO HOST DIPLA kai anoigei mono me thn ip tou host 
+
+
+
+
+
+
+
+HOST NETWORK
+anoigei mono me thn ip tou host san na einai ena aplication ston host panw katefthian
 ------------------
 sudo docker run -itd --rm --network host --name stormbreaker nginx
-
-
 -----------------------------------------------------------------------------------
+
+
+
+
+
+
+
 MAC VLAN 
 ----------------
 # To ens33 einai to diktio pou exoume
@@ -51,7 +66,7 @@ sudo ip link set ens33 promisc on
 sudo docker network create -d macvlan \
 --subnet 192.168.1.0/24 \
 --gateway 192.168.1.254 \
--o parent=ens33 \
+-o parent=ens160 \
 MacVlan_network
 
 # trexoume ena countainer se afto to diktio macvlan
@@ -61,3 +76,25 @@ sudo docker run -itd --rm --network MacVlan_network --ip 192.168.1.222 --name th
 sudo docker exec -it thor sh
 ip a
 ping 192.168.1.254
+
+--------------------------------------------------------
+To idio alla se alo ipodiktio
+# kanoume ena diktio se macvlan
+sudo docker network create -d macvlan \
+--subnet 192.168.2.0/24 \
+--gateway 192.168.2.254 \
+-o parent=ens160.2 \
+MacVlan_network2
+
+sudo docker run -itd --rm --network MacVlan_network2 --ip 192.168.2.110 --name thor busybox
+sudo docker exec -it thor sh
+
+
+
+
+
+
+
+
+IP VLAN
+-----------------------------
