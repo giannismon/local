@@ -1,0 +1,72 @@
+minikube start --force 
+kubectl get all
+kubectl delete deployment name_of_our_deployment
+
+
+
+
+
+
+Encripted 
+ echo -n 'pass' | base64
+
+-------------------------------------------------------------------------
+ vim mongo-secret.yaml
+
+apiVersion: v1
+kind: Secret
+metadata:
+    name: mongodb-secret
+type: Opaque
+data:
+    mongo-root-username: dXNlcm5hbWU=
+    mongo-root-password: cGFzc3dvcmQ=
+-------------------------------------------------------------------------
+
+kubectl apply -f mongo-secret.yaml
+kubectl get secret
+
+
+-------------------------------------------------------------------------
+vim mongo.yaml
+
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: mongodb-deployment
+  labels:
+    app: mongodb
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: mongodb
+  template:
+    metadata:
+      labels:
+        app: mongodb
+    spec:
+      containers:
+      - name: mongodb
+        image: mongo
+        ports:
+        - containerPort: 27017
+        env:
+        - name: MONGO_INITDB_ROOT_USERNAME
+          valueFrom:
+            secretKeyRef:
+              name: mongodb-secret
+              key: mongo-root-username
+        - name: MONGO_INITDB_ROOT_PASSWORD
+          valueFrom: 
+            secretKeyRef:
+              name: mongodb-secret
+              key: mongo-root-password
+
+
+-------------------------------------------------------------------------
+kubectl apply -f mongo-secret.yaml
+kubectl get all
+kubectl get pod
+kubectl get pod --watch
+kubectl describe pod mongodb-deployment-585bb4fddc-7k7px

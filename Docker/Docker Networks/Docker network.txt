@@ -70,7 +70,7 @@ sudo docker network create -d macvlan \
 MacVlan_network
 
 # trexoume ena countainer se afto to diktio macvlan
-sudo docker run -itd --rm --network MacVlan_network --ip 192.168.1.222 --name thor busybox
+sudo docker run -itd --rm --network MacVlan_network --ip 192.168.1.222 --name thor centos
 
 # mpenoume sto shell gia na kanoume ping to gate way na doume an epikoinonei
 sudo docker exec -it thor sh
@@ -96,5 +96,14 @@ sudo docker exec -it thor sh
 
 
 
-IP VLAN
+MAC VLAN L3
 -----------------------------
+Sinedeete kai sto internet
+sudo docker network create -d ipvlan \
+--subnet 192.168.3.0/24 \
+-o parent=ens160 -o ipvlan_mode=l3 \
+--subnet 192.168.4.0/24 \
+MacVlanl3_network
+
+sudo docker run -itd --rm --network MacVlanl3_network --ip 192.168.3.110 --name thorV3 busybox
+sudo docker exec -it thorV3 sh

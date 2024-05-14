@@ -1,14 +1,20 @@
-Me tis endoles pou tha parei apo to docer file kai tha dimiourgisei ena kainourio sthn ousia image me vash to centos image pou eixame katevasei
-
 # vim /home/dockerfile
-FROM centos:7
-# edw tha valoume odigies diaxiriseis
-CMD ["echo", "Hello"]
+FROM centos:latest
+MAINTAINER JOHN_DICKERFILE
+RUN sed -i 's/mirrorlist/#mirrorlist/g' /etc/yum.repos.d/CentOS-*
+RUN sed -i 's|#baseurl=http://mirror.centos.org|baseurl=http://vault.centos.org|g' /etc/yum.repos.d/CentOS-*
+RUN yum upgrade -y
+RUN yum -y install httpd httpd-tools -y
+COPY index.html /var/www/html/
+CMD ["/usr/sbin/httpd", "-D" , "FOREGROUND"]
+EXPOSE 80
 
 
 
-# docker build -t my_first_image:1 .
 
+
+
+docker build . -t my_first_imagehttpd:v1
 # docker images
 # docker run 65708946d5cd
 
@@ -19,7 +25,18 @@ CMD ["echo", "Hello"]
 
 
 
-
-
 # docker commit -m "What did you do to the image" -a "Author Name" container-id repository/new_image_name
 
+
+GIA NA TOU DOSW DIKIA MOU IP
+
+
+sudo docker network create -d macvlan \
+--subnet 192.168.1.0/24 \
+--gateway 192.168.1.254 \
+-o parent=ens160 \
+MacVlan_network
+
+
+sudo docker run -itd --rm --network MacVlan_network -p 8080:80 --ip 192.168.1.50 --name thor my_first_imagehttpd:v1
+sudo docker exec -it thor sh

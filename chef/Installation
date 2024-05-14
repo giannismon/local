@@ -11,7 +11,7 @@ Ston Workstation
 
 sudo dnf -y install git vim wget curl bash-completion
 sudo dnf -y update
-sudo reboot
+
 
 -------------------------------------------------------------
 (NTP)
@@ -19,21 +19,45 @@ sudo yum install chrony -y
 sudo systemctl enable chronyd
 sudo systemctl start chronyd
 sudo chronyc tracking
-
+sudo reboot
 
 -------------------------------------------------------------
 
 sudo yum -y install wget
-wget https://packages.chef.io/files/stable/chef-workstation/20.7.96/el/8/chef-workstation-20.7.96-1.el7.x86_64.rpm
-sudo yum localinstall chef-workstation-20.7.96-1.el7.x86_64.rpm
+wget https://packages.chef.io/files/stable/chef-workstation/0.4.2/el/7/chef-workstation-0.4.2-1.el6.x86_64.rpm
+rpm -ivh chef-workstation-0.4.2-1.el6.x86_64.rpm
 chef --version
 knife --version
 -------------------------------------------------------------
-# cd / 
-# mkdir chef-repo
-# cd /chef-repo/
-# mkidr cookbooks
-# cd /chef-repo/cookbooks
+knife configure initial
+
+[root@chef cookbooks]# cat /root/chef-repo/.chef/config.rb
+# See https://docs.chef.io/workstation/config_rb/ for more information on knife configuration options
+
+current_dir = File.dirname(__FILE__)
+log_level                :info
+log_location             STDOUT
+node_name                "mongiannis"
+client_key               "/root/chef-repo/.chef/mongiannis.pem"
+chef_server_url          "https://api.chef.io/organizations/my_chef_"
+cookbook_path            ["#{current_dir}/../cookbooks"]
+
+vim /root/.chef/credentials
+[default]
+client_name     = 'mongiannis'
+client_key      = '/root/chef-repo/.chef/mongiannis.pem'
+chef_server_url = 'https://manage.chef.io/organizations/my_chef_'
+cookbook_path   = '/root/chef-repo/cookbooks'
+
+
+
+
+
+# cd /root/
+# mkdir /root/chef-repo
+# cd /root/chef-repo/
+# mkidr /root/chef-repo/cookbooks
+# cd /root/chef-repo/cookbooks
 # chef generate cookbook COOKBOOK_NAME
 # cd COOKBOOK_NAME
 # tree
@@ -79,7 +103,20 @@ PROSTHETW ENAN NODE
 
 Kanw bootstrap apo ton workstation ston node pou thelw 
 # knife bootstrap 192.168.2.52 -ssh-user root --ssh-password root --node-name node1
+# knife ssh -x reach_user -i /.ssh/id_rsa "name:node1" "sudo chef-client -l info"
 Elegxw an exei prostethei ston chef-Server
 
 Paw ston node kai ektelw to  
 # chef-client
+
+
+
+# See https://docs.chef.io/workstation/config_rb/ for more information on knife configuration options
+
+current_dir = File.dirname(__FILE__)
+log_level                :info
+log_location             STDOUT
+node_name                "mongiannis"
+client_key               "/root/chef-repo/.chef/mongiannis.pem"
+chef_server_url          "https://api.chef.io/organizations/my_chef_"
+cookbook_path            ["/root/chef-repo/cookbooks"]

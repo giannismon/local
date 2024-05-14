@@ -1,0 +1,6 @@
+AN den exei tag to container kovw ena 
+
+docker tag centos_httpd:v1 mongiannis onoma_pou_thelw_na_anevei:v1.0
+
+docker login
+docker push mongiannis/centos_httpdapp:v1.0
