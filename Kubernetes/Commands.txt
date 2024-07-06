@@ -8,6 +8,8 @@ kubectl get services
 kubectl get deployment
 kubectl get replicaset
 
+
+Dimiourgia POD
 kubectl edit deployment name_of_our_deployment
 
 kubectl delete deployment name_of_our_deployment
@@ -21,6 +23,12 @@ kubectl exec -it name_of_our_pod -- /bin/bash
 
 
 kubectl create deployment nginx-depl --image=nginx
+
+
+
+
+
+
 
 
 

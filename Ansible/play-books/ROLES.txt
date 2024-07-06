@@ -1,0 +1,40 @@
+
+
+
+
+
+
+
+ansible-galaxy init my_nginx_role
+
+
+roles/
+  myrole/
+    tasks/
+      main.yml
+    handlers/
+      main.yml
+    templates/
+    files/
+    vars/
+      main.yml
+    defaults/
+      main.yml
+    meta/
+      main.yml
+	  
+	  
+	  
+Sto task vazoume afta pou theloume na ginoun
+Ston handler vazoume afta pou theloume na ginoun mono an ginoun alages ston kodika px an alaksei kati sto conf arxeio tha kanei reload o apache
+
+	  
+	  
+	  
+vim site.yml
+
+---
+- hosts: webservers
+  become: yes
+  roles:
+    - my_nginx_role
