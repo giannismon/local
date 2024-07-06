@@ -1,7 +1,7 @@
 # sudo yum -y update
-# sudo yum install yum-utils device-mapper-persistent-data lvm2
+# sudo yum -y install yum-utils device-mapper-persistent-data lvm2
 # sudo yum-config-manager --add-repo https://download.docker.com/linux/centos/docker-ce.repo
-# sudo yum install docker-ce
+# sudo yum -y install docker-ce
 
 # sudo usermod -aG docker $(whoami)      # onoma to whoami gia na ektelei monima me shudo previleges
 # sudo yum install -y python-pip
@@ -14,7 +14,5 @@
 
 # sudo systemctl start docker
 # sudo systemctl enable docker
-
-
 
 

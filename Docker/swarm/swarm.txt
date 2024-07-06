@@ -1,0 +1,121 @@
+2 Types of Nodes 
+Manager: Maintain CLuster, Management Task, Knows the status off all nodes.
+Worker : Recieve and Execute tasks from manager node
+
+Serveces can be deploy and accessed by any node of same cluster
+Wile create a searvice the user should specify wich conatainer image to use
+Global serveces will run on every Swarm node
+In replicated serveces the manager distributes task to worker nodes
+
+Service is a description of a task 
+task does the work
+When a task is assigne to a node it canot assigned to another node (1 task = 1 node)
+
+
+
+
+Gia na dw an iparxei swarm
+# docker node ls
+
+Einai mia sira apo omadopihmena serveces
+# docker stack ls
+
+Serveces running in to the stacks
+# docker service ls
+
+Ta task einai ta instances diladi poses fores trexoun . Ta task einai ta scejuling slots gia mia diergasia
+# docker service ps (onoma tou service)
+
+
+
+
+Mporoun na iparxoun poloi manager alla enas tha einai o primary kai oi ypolipoi tha einai oi secondary
+
+--------------------------------------------------------------------------------
+MANAGER H WORKER
+Gia na dw an yparxei swarm egkatestimeno
+docker info
+
+Swarm: active
+ NodeID: abcdef123456
+ Is Manager: true
+ Managers: 3
+ Nodes: 5
+
+ Swarm: inactive
+
+--------------------------------------------------------------------------------
+
+
+MANAGER
+--------------------------------------------------------------------------------
+Αρχικοποιεί έναν νέο Swarm και καθορίζει τον τρέχοντα Docker host ως manager.
+# sudo docker swarm init --advertise-addr <MANAGER-IP>
+        Swarm initialized: current node (0uwjerp2675jijusouhpam88u) is now a manager.
+        To add a worker to this swarm, run the following command:
+            docker swarm join --token SWMTKN-1-208rlpxbo6jg4z4k10a9bx9rcyso178w7skofjmkqpbio3m5b8-a5fyxznr56r39ujo8mdab3foo 192.168.1.100:2377
+        To add a manager to this swarm, run 'docker swarm join-token manager' and follow the instructions.
+--------------------------------------------------------------------------------
+WORKER
+PAW STON NODE POU THELW  EINAI O WORKER KAI TO EKTELW GIA NA GINEI O WORKER NODE 
+# docker swarm join --token SWMTKN-1-208rlpxbo6jg4z4k10a9bx9rcyso178w7skofjmkqpbio3m5b8-a5fyxznr56r39ujo8mdab3foo 192.168.1.100:2377
+# sudo docker node ls
+
+--------------------------------------------------------------------------------
+MANAGER
+DIMIOURGIA SERVICE
+genika mono nse afton pou trexei
+# docker service create --name my-nginx -p 80:80 nginx
+gia global
+# docker service create --name my-global-nginx --mode global -p 80:80 nginx
+gia enan node
+# docker service create --name my-nginx --constraint 'node.id==abcdef123456' -p 80:80 nginx
+
+# docker service ls
+# docker service ps my-nginx
+# docker service scale my-nginx=5
+
+# docker service rm my-nginx
+--------------------------------------------------------------------------------
+
+WORKER
+GIA NA TON VGALW APO TO Swarm
+# docker node ls
+# docker swarm leave
+# docker node rm abcdef123456
+
+
+
+
+
+-------------------------------------------------------------------------------------------------------------------------------------
+-------------------
+
+AN THELW ME DOCKER compose
+
+# vim docker-compose.yml
+version: '3.8'
+
+services:
+  web:
+    image: nginx
+    ports:
+      - "80:80"
+  redis:
+    image: redis:alpine
+
+-----------------------
+afto einai paromio me to docker compose update alla se swarm dimiourgei ta servicers pou exei to docker compose mesa tou
+
+# docker stack deploy -c docker-compose.yml my_stack
+
+# docker stack ls
+# docker service ls
+
+
+STACK
+μια λογική οντότητα που περιέχει πολλαπλές υπηρεσίες και μπορεί να αναπτυχθεί σε ένα Docker Swarm.
+vlepoume ta services pou iparxoun mesa sto stack
+# docker stack service (onoma tou stack )
+
+
