@@ -1,0 +1,33 @@
+AN den exei tag to container kovw ena 
+
+
+AN EXW ENA DOCKERFILE
+vim DOCKERFILE
+FROM nginx:latest
+RUN echo "Hello, World!" > /usr/share/nginx/html/index.html
+EXPOSE 80
+
+
+
+
+STON FAKELO POU IPARXEI TO DOCKERFILE
+-------------------------------------
+docker build -t mongiannis/my-nginx:v1.0 .
+
+
+docker login
+mongiannis@gmail.com
+m@iLpA05061992giannis
+docker images
+
+
+docker tag my-nginx-hello-world mongiannis/my-nginx:v1.0
+docker push mongiannis/my-nginx:v1.0
+
+
+
+
+docker pull mongiannis/my-nginx:v1.0
+docker run -d -p 80:80 mongiannis/my-nginx:v1.0
+
+an xtipisw to URL stin 80 tha anoiksei me to minima pou tou edosa
