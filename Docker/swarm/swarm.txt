@@ -21,6 +21,7 @@ ELEGXOS AN YPRXEI DOCKER SWARM STON NODE
 # docker node ls
 # docker node inspect j4kqtur871xdolh10lebf94o0
 # docker stack ls
+# docker stack ps (onoma tou stack)
 # docker service ls
 # docker service ps (onoma tou service)
 --------------------------------------------------------------------------------
