@@ -93,8 +93,9 @@ gia enan node
 
 # docker container ls
 # docker service ls
-# docker service inspect my-nginx --pretty
-# docker service ps my-nginx
+# docker service inspect lxbfk2z0au52 --pretty
+# docker service ps lxbfk2z0au52
+
 
 Gia na kanw to service scale
 # docker service scale my-nginx=5
