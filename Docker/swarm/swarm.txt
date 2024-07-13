@@ -211,6 +211,45 @@ docker stack ps my-nginx-stack
 
 docker stack rm my-nginx-stack
 
+-------------------------------------------------------------------------------------------------------------------------------------
+-------------------------------------------------------------------------------------------------------------------------------------
+SICRET
+
+
+echo "your_secret_password" | docker secret create nginx_secret_value -
+docker secret ls
+
+[root@docker ~]# vim docker-compose2.yml
+version: '3.8'
+
+services:
+  nginx:
+    image: nginx:latest
+    ports:
+      - "80:80"
+    deploy:
+      replicas: 6
+    networks:
+      - my_overlay_network
+    secrets:
+      - nginx_secret_value
+    environment:
+      SECRET_VALUE_FILE: /run/secrets/nginx_secret_value
+
+secrets:
+  nginx_secret_value:
+    external: true
+
+networks:
+  my_overlay_network:
+    driver: overlay
+
+
+
+
+docker ps
+docker inspect <name of container>
+kai vlepw oti einai se secret
 
 -------------------------------------------------------------------------------------------------------------------------------------
 -------------------
