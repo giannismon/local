@@ -1,7 +1,7 @@
 AFTO EINAI
 --------------------------------------
 Synchronize time with NTP source pool.ntp.org
-# yum install -y ntp ntpdate
+# cc
 # systemctl start ntpd (network time protocol deamon)
 # systemctl enable ntpd
 # systemctl status ntpd

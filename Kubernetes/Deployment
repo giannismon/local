@@ -1,0 +1,78 @@
+
+minikube stop
+minikube delete
+minikube start --force 
+
+KATHE CONFIGOURATION EXEI 3 Parts
+EINAI SE yaml
+Ta deployments kanoiun managed ta pods
+1) metadata
+
+2) Spesification
+
+3) Status : To Desired prepi na einai idio me to Actual ta apothikevei sto etcd
+
+
+O selector einai to onoma pou tha sindethei me to service 
+
+Genika xorizete o kwdikas se 2 simioa . O enas einai to proto metadata kai spec: pou anaferete sto services
+To deftero metadata kai spec: anaferete sto pod dld einai to blueprint tou pod
+
+
+vim nginx-deployment.yaml
+
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: nginx-deployment
+  labels:
+    app: nginx
+spec:
+  replicas: 2
+  selector:
+    matchLabels:
+      app: nginx
+  template:
+    metadata:
+      labels:
+        app: nginx
+    spec:
+      containers:
+      - name: nginx
+        image: nginx:1.16
+        ports:
+        - containerPort: 8080
+
+kubectl apply -f nginx-deployment.yaml
+kubectl get pods
+kubectl get pod -o wide
+
+nginx-service.yaml
+
+apiVersion: v1
+kind: Service
+metadata:
+  name: nginx-service
+spec:
+  selector:
+    app: nginx
+  ports:
+    - protocol: TCP
+      port: 80
+      targetPort: 8080
+
+
+
+kubectl apply -f nginx-service.yaml
+kubectl get service
+kubectl describe service nginx-service
+kubectl get pod -o wide
+
+gia na parw to neo deployment .yml pou dimiourgise to kubernetes pou grafete sto etcd
+kubectl get deployments
+kubectl get deployment nginx-deployment -o yaml > nginx-deployment-results.yaml
+
+
+Gia na diagrapsw afta pou exw kanei
+kubectl delete -f nginx-deployment.yaml
+kubectl delete -f nginx-service.yaml

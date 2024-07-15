@@ -1,0 +1,52 @@
+παρέχει έναν τρόπο για την έκθεση των υπηρεσιών (Services) που τρέχουν μέσα στο cluster σε εξωτερικούς χρήστες, συνήθως μέσω HTTP και HTTPS. 
+Το Ingress μπορεί να διαχειριστεί τη δρομολόγηση της κυκλοφορίας
+
+Βασικά Χαρακτηριστικά του Ingress
+Δρομολόγηση HTTP/HTTPS:
+SSL/TLS:
+Φορτίο εξισορρόπησης (Load Balancing):
+Ανακατευθύνσεις και κανόνες επαναγραφής:
+
+
+
+diladi anti gia ip emfanizei ston browser ena domain name
+
+
+λίστα με τα namespaces
+kubectl get ns
+kubectl get all -n my-namespace
+
+
+
+vim dashboard-ingress.yaml
+
+apiVersion: networking.k8s.io/v1
+kind: Ingress
+metadata:
+  name: dashboard-ingress
+  namespace: kubernetes-dashboard
+spec:
+  ingressClassName: "nginx"
+  rules:
+  - host: dashboard.com
+    http:
+      paths:
+      - path: /
+        pathType: Prefix  
+        backend:
+          service:
+            name: kubernetes-dashboard
+            port: 
+              number: 80
+
+
+
+
+kubectl apply -f dashboard-ingress.yaml
+
+pairnw apo edw thn ip
+kubectl get ingress -n kubernetes-dashboard --watch
+sudo vim /etc/hosts
+192.168.64.5 dashboard.com
+
+kubectl describe ingress  dashboard-ingress -n kubernetes-dashboard

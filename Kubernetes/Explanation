@@ -2,31 +2,33 @@ TO k8s apotelite apo enan MAster kai perisoterous server(node)
 
 MAster
 -------
-API Server         : pou epikoinonoun meso (ui, api, cli)
-Scheduler          : leei se ti katastash prepi na einia ta pods kai litourgei kai os load balancer resourses otan dimiourgite ena servise se enan node
-Controler manager  : vlepei to status twn pods kai an einia ta kanei start stop
-etcd               : ekgefalos toumaster node oles oi alagers grafonte edw kai an pesei olo to cluster ksana epanaferete h katastash pou MONGO_INITDB_ROOT_USERNAME
-
+OLES OI ENDOLES DIAXIRISIS GINONE APO TON MASTER NODE KAI SE AFTON TREXOUN 4 SERVICES POU EINAI TA PARAKATW EPIDI MONO DINEI ENTOLES EXEI TA MIKROTERA RESOURCES
+API Server         : pou epikoinonoun meso (ui, api, cli) einai san cluster gateway kai gia authorization
+Scheduler          : leei se ti katastash prepi na einia ta pods kai litourgei kai os load balancer resourses otan dimiourgite ena servise se enan node leei pios exei diathesima resourses gia na ginei swsta h katanomh 
+Controler manager  : vlepei to status twn pods kai an einia ta kanei start stop apo monos tou.
+etcd               : ekgefalos tou master node oles oi alagers grafonte edw kai an pesei olo to cluster ksana epanaferete h katastash pou eixe ligo pio prin
 node
 -----
 container
-kubelet           pou einai ta servises Συλλέγει πληροφορίες για την κατάσταση των pods και τις στέλνει στον Kubernetes API server. 
+kubelet           interact with pod and cubelet , start the pod ,   einai ta servises Συλλέγει πληροφορίες για την κατάσταση των pods και τις στέλνει στον Kubernetes API server. 
                   Αυτές οι πληροφορίες περιλαμβάνουν δεδομένα όπως το αν οι containers τρέχουν, έχουν αποτύχει ή έχουν σταματήσει.
 kube proxy        Το kube-proxy είναι ένα από τα βασικά components του Kubernetes και είναι υπεύθυνο για τη διαχείριση του δικτύου μέσα στο cluster.
 
 
 Enoies tou node
 BluePrint        : Odigos - prototipo pou dilononte oi nodes , replica . Px an theloume na afksisoume tous replica dilonete edw kai onomazete Deployment . An prokite gia DBs opos onomazete StatfulSet
-Ingerss          : einai to url pou epikoinonei
-Service          : einai h static IP twn pods pou liturgei kai os Load balancer
-Config map       : edw einai gramena oles oi plirofories opos portes users kai passwords alla an einai gia passwords pou den theloume na fenonte xrisimopioume to SECRET pou einia kodikopihmeno se base64 encode
+Ingerss          : einai to url pou epikoinonei. Ingress είναι ένας αντικειμενοστραφής πόρος στο Kubernetes που διαχειρίζεται την εξωτερική πρόσβαση σε υπηρεσίες μέσα σε ένα Kubernetes cluster. Χρησιμοποιείται για να δρομολογήσει αιτήματα HTTP και HTTPS σε συγκεκριμένες υπηρεσίες εντός του cluster.
+Service          : Me afto epikoinonoun metaksi tous ta pods pou einai san load balancers , einai h static IP twn pods pou liturgei kai os Load balancer
+Config map       : edw einai grammena oles oi plirofories opos portes users kai passwords alla an einai gia passwords pou den theloume na fenonte xrisimopioume to SECRET pou einia kodikopihmeno se base64 encode
+Secret           : edw mpainoun ta credentioals pou kalounde apo ta config maps
 Volumes          : etsi kanoume ta data percistansed kai den ta xanoume . Ta apothikevoume ite mesa sta pods ite remote 
-
+Deployments      : edw dilononde oi replica kai genika pws tha stithei to container alla gia mono ta apps oxi gia DBs. Litourgei kai san load bvalancer.
+StateFullSets    : einai san ta deployments alla gia DBs. Kalitera an ksratame thn vash omos eksw apo to cluster ! afto einai pio efkolo
 
 
 minikube
 --------
 Kanonika o master node kai o server o aplos ekgathistotnet se 2 diaforetikous nodes
-to kublete gia logous dokimon egkathistaei ton master kai ton node server se enan gia na kanoume dokimes grigora
+to kublete gia logous dokimon egkathistaei ton master kai ton node server se enan server gia na kanoume dokimes grigora
 
 afou to ekgatastisoume tha tou dinoume entoles me to cubectl pou tha epikoinonei me ton API server opos ipame pio panw me (cli)

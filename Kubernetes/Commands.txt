@@ -1,68 +1,89 @@
-minikube start --force --v=7 --alsologtostderr
-minikube status
+minikube stop
+minikube delete
+minikube start --force 
+----
+
+kubectl version
+kubectl get all
 
 kubectl get nodes
-kubectl get pod
-kubectl get pod -o wide
+kubectl get pods
 kubectl get services
+
+DEPLOYMENTS
+Dimiourgia Deployment pou stin ousia einai pod
+kubectl create deployment nginx-deployment --image=nginx:latest
+kubectl create deployment nginx-deployment --image=nginx:latest --replicas=3
 kubectl get deployment
+kubectl get pods
+kubectl get replicaset
+An to kanw edit aftomata ginete h alagh apo monh ths 
+ kubectl edit deployment nginx-deployment
+ kubectl logs nginx-deployment-78959b95d4-p49kb
+
+kubectl create deployment mongo-deployment --image=mongo:latest
+kubectl get pods
+kubectl logs mongo-deployment-65669bbd4c-x9c9s
+ kubectl describe pod mongo-deployment-65669bbd4c-x9c9s
+kubectl logs mongo-deployment-65669bbd4c-x9c9s
+
+
+kubectl exec -it <pod-name> -- /bin/bash
+kubectl exec -it mongo-deployment-65669bbd4c-x9c9s -- /bin/bash
+
+kubectl get deployment
+kubectl delete deployment mongo-deployment
+kubectl get pods
+kubectl get replicaset
+kubectl delete deployment nginx-deployment
 kubectl get replicaset
 
 
-Dimiourgia POD
-kubectl edit deployment name_of_our_deployment
 
-kubectl delete deployment name_of_our_deployment
-
-kubectl logs name_of_our_pod
-
-kubectl describe pod name_of_our_pod
-
-kubectl exec -it name_of_our_pod -- /bin/bash
-
-
-
-kubectl create deployment nginx-depl --image=nginx
-
-
-
-
-
-
-
-
-
-------------------------------------------------------------
-
-vim demo-test-deployment.yaml
+DIMIOURGIA DEPLOYMENT ME ARXEIO
+vim nginx.yaml
 
 apiVersion: apps/v1
 kind: Deployment
 metadata:
-  name: my-app
+  name: nginx-deployment
   labels:
-    app: my-app
+    app: nginx
 spec:
   replicas: 2
   selector:
     matchLabels:
-      app: my-app
+      app: nginx
   template:
     metadata:
       labels:
-        app: my-app
+        app: nginx
     spec:
       containers:
-        - name: my-app
-          image: my-image
-          env:
-            - name: SOME_ENV
-              value: $SOME_ENV
-          ports:
-            - containerPort: 8080
-------------------------------------------------------------
+      - name: nginx
+        image: nginx:1.16
+        ports:
+        - containerPort: 8080
 
-kubectl apply -f demo-test-deployment.yaml
-kubectl get pod
+
+
+
+
+
+kubectl apply -f <file.yaml>
+kubectl apply -f nginx-deployment.yaml
 kubectl get deployment
-kubectl delete -f demo-test-deployment.yaml
+ vim nginx-deployment.yml
+ kanw tis alages pou thelw px apo replica 11 to kanw 2 kai meta
+kubectl apply -f nginx-deployment.yaml
+kubectl get deployment
+kubectl get pod
+
+
+kubectl delete -f <file.yaml>
+kubectl logs <pod-name>
+kubectl describe <resource-type> <resource-name>
+
+kubectl create secret generic <secret-name> --from-literal=<key>=<value>
+kubectl get pods -w
+kubectl get secret

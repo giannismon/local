@@ -43,7 +43,7 @@ RUN LIST (Ananeonoun rolous kai trexoun recipies sigkekrimenes an theloume)
 ########################################################################################################
 PROSHIKH ROLWN sta iparxonta
 --------------------------------------------------------------------------------------------------------
-# knife node run_list add ews_prod__ "role[trasys-AM-team]" 
+# knife node run_list add node_name_pou_dinw "role[trasys-AM-team]" 
 --------------------------------------------------------------------------------------------------------
 ANTIKATASTASH rolwn kai diagrafh on iparxontwn
 --------------------------------------------------------------------------------------------------------

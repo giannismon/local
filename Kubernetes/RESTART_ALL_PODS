@@ -1,0 +1,11 @@
+Αυτή η εντολή θα επανεκκινήσει όλα τα pods που σχετίζονται με το deployment nginx-deployment στο namespace my-namespace.
+
+
+
+
+kubectl get pods -n my-namespace
+kubectl delete pod <pod-name> -n my-namespace
+kubectl logs <new-pod-name> -n my-namespace
+kubectl get deployment
+kubectl rollout restart deployment nginx-deployment -n my-namespace
+

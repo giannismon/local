@@ -1,0 +1,37 @@
+Το namespace στο Kubernetes είναι ένας μηχανισμός απομόνωσης και οργάνωσης των πόρων μέσα σε ένα cluster. 
+Με άλλα λόγια, τα namespaces επιτρέπουν τη λογική διαίρεση ενός cluster σε πολλαπλά εικονικά clusters, 
+δίνοντας τη δυνατότητα να διαχειρίζεσαι πόρους μεμονωμένα ανά ομάδες ή έργα.
+
+kubectl get namespaces
+kubectl cluster-info
+
+
+Create me thn entolh h apo configuration file
+kubectl create namespace my-namespace
+kubectl get namespaces
+kubectl get pods -n my-namespace
+kubectl get configmap -n my-namespace
+
+Gia na dilosw to namespace mesa sto config arxeio
+kubectl apply -f mysql-configmap.yml --namespace=my-namespace
+h
+Apo ton configuration file apo mesa AFTH EINAI H KALITERH EPILOGH.
+
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: my-deployment
+  namespace: my-namespace
+spec:
+  replicas: 3
+  selector:
+    matchLabels:
+      app: my-app
+  template:
+    metadata:
+      labels:
+        app: my-app
+    spec:
+      containers:
+      - name: my-container
+        image: nginx

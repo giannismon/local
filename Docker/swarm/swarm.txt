@@ -282,3 +282,25 @@ vlepoume ta services pou iparxoun mesa sto stack
 # docker stack service (onoma tou stack )
 
 
+---------------------------------------------------------------------------------------------------------------------
+
+
+RESTART SERVICE
+
+An den anevenei ena service aftomata apo mono tou enw einai sto swarm tote
+# Προβολή της κατάστασης των services
+docker service ls
+
+# Προβολή της κατάστασης των tasks (containers) ενός συγκεκριμένου service
+docker service ps <SERVICE_NAME>
+H
+Rolling Update
+docker service update --update-parallelism 2 --update-delay 10s my_service
+
+# Αναγκαστική ενημέρωση (restart) του service
+Αυτή η εντολή θα αναγκάσει το Swarm να τερματίσει τα τρέχοντα containers και να δημιουργήσει νέα, 
+σύμφωνα με την καθορισμένη πολιτική επανεκκίνησης και τον αριθμό των replicas που έχεις ορίσει.
+docker service update --force <SERVICE_NAME>
+
+# Προβολή των logs ενός service
+docker service logs <SERVICE_NAME>
