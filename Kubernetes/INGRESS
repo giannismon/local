@@ -10,7 +10,14 @@ SSL/TLS:
 
 
 diladi anti gia ip emfanizei ston browser ena domain name
+To ingress tha dimiourgisei kai afto ena pod pou tha exei tin idiotita tou ingress
 
+Prepi na egkatastisoume to ingress
+kubectl apply -f https://raw.githubusercontent.com/kubernetes/ingress-nginx/main/deploy/static/provider/cloud/deploy.yaml
+minikube addons enable ingress
+minikube tunnel
+minikube addons enable ingress
+kubectl get pod -n kube-system
 
 λίστα με τα namespaces
 kubectl get ns
@@ -18,35 +25,61 @@ kubectl get all -n my-namespace
 
 
 
-vim dashboard-ingress.yaml
+vim nginx-deployment.yaml
+
+
+
+
+
+
+
+
+kubectl apply -f nginx-deployment.yaml
+
+
+
+
+
+
+
+
+vim nginx-ingress.yaml
+
 
 apiVersion: networking.k8s.io/v1
 kind: Ingress
 metadata:
-  name: dashboard-ingress
-  namespace: kubernetes-dashboard
+  name: nginx-ingress
+  annotations:
+    nginx.ingress.kubernetes.io/rewrite-target: /
 spec:
-  ingressClassName: "nginx"
   rules:
-  - host: dashboard.com
+  - host: example.com
     http:
       paths:
       - path: /
-        pathType: Prefix  
+        pathType: Prefix
         backend:
           service:
-            name: kubernetes-dashboard
-            port: 
+            name: nginx-service
+            port:
               number: 80
 
+kubectl apply -f nginx-ingress.yaml
 
 
 
-kubectl apply -f dashboard-ingress.yaml
+kubectl get ingress
+kubectl describe ingress nginx-ingress
 
 pairnw apo edw thn ip
-kubectl get ingress -n kubernetes-dashboard --watch
-sudo vim /etc/hosts
-192.168.64.5 dashboard.com
+[root@docker ~]# kubectl get ingress -n my-namespace --watch
+NAME            CLASS    HOSTS        ADDRESS        PORTS   AGE
+nginx-ingress   <none>   exampleapp   192.168.49.2   80      12m
 
-kubectl describe ingress  dashboard-ingress -n kubernetes-dashboard
+sudo vim /etc/hosts
+192.168.49.2 example.com
+
+xtipa to url na deis an fernei apotelesma
+
+

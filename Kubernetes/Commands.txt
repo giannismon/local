@@ -24,6 +24,8 @@ An to kanw edit aftomata ginete h alagh apo monh ths
 kubectl create deployment mongo-deployment --image=mongo:latest
 kubectl get pods
 kubectl logs mongo-deployment-65669bbd4c-x9c9s
+
+ kubectl describe pods
  kubectl describe pod mongo-deployment-65669bbd4c-x9c9s
 kubectl logs mongo-deployment-65669bbd4c-x9c9s
 

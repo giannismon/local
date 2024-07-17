@@ -7,6 +7,7 @@ API Server         : pou epikoinonoun meso (ui, api, cli) einai san cluster gate
 Scheduler          : leei se ti katastash prepi na einia ta pods kai litourgei kai os load balancer resourses otan dimiourgite ena servise se enan node leei pios exei diathesima resourses gia na ginei swsta h katanomh 
 Controler manager  : vlepei to status twn pods kai an einia ta kanei start stop apo monos tou.
 etcd               : ekgefalos tou master node oles oi alagers grafonte edw kai an pesei olo to cluster ksana epanaferete h katastash pou eixe ligo pio prin
+
 node
 -----
 container
@@ -24,6 +25,11 @@ Secret           : edw mpainoun ta credentioals pou kalounde apo ta config maps
 Volumes          : etsi kanoume ta data percistansed kai den ta xanoume . Ta apothikevoume ite mesa sta pods ite remote 
 Deployments      : edw dilononde oi replica kai genika pws tha stithei to container alla gia mono ta apps oxi gia DBs. Litourgei kai san load bvalancer.
 StateFullSets    : einai san ta deployments alla gia DBs. Kalitera an ksratame thn vash omos eksw apo to cluster ! afto einai pio efkolo
+
+
+Kathe worker exei.
+Το kube-proxy διασφαλίζει τη σωστή δρομολόγηση της κυκλοφορίας μέσα στο Kubernetes cluster, επιτρέποντας την επικοινωνία μεταξύ των pods και των services.
+Το kubelet διαχειρίζεται την εκτέλεση των pods σε κάθε node, παρακολουθώντας την κατάστασή τους και αλληλεπιδρώντας με το Kubernetes control plane και το container runtime.
 
 
 minikube

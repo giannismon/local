@@ -59,8 +59,8 @@ sudo docker run -itd --rm --network host --name stormbreaker nginx
 
 MAC VLAN 
 ----------------
-# To ens33 einai to diktio pou exoume
-sudo ip link set ens33 promisc on
+# To ens160 einai to diktio pou exoume
+sudo ip link set ens160 promisc on
 
 # kanoume ena diktio se macvlan
 sudo docker network create -d macvlan \

@@ -1,0 +1,96 @@
+clusterIP
+Περιγραφή: Το προεπιλεγμένο είδος service που εκθέτει την υπηρεσία σε μια εσωτερική IP διεύθυνση μέσα στο cluster. Αυτό σημαίνει ότι η υπηρεσία είναι προσβάσιμη μόνο από άλλα pods μέσα στο ίδιο cluster.
+Χρήση: Χρησιμοποιείται για εσωτερική επικοινωνία μεταξύ των pods.
+kubectl get pod -o wide
+kubectl get endpoints
+den to dilonw katholou kai einai apo mono tou clusterIP
+
+apiVersion: v1
+kind: Service
+metadata:
+  name: my-clusterip-service
+spec:
+  type: ClusterIP
+  selector:
+    app: my-app
+  ports:
+    - protocol: TCP
+      port: 80
+      targetPort: 8080
+
+
+
+
+
+headless service
+υπάρχει επίσης και ο τύπος headless service στο Kubernetes. 
+Το headless service είναι μια παραλλαγή του ClusterIP service που δεν εκχωρεί μια ClusterIP διεύθυνση. 
+Χρησιμοποιείται συχνά για stateful εφαρμογές και επιτρέπει άμεση επικοινωνία με τα pods, 
+παρακάμπτοντας την εξισορρόπηση φόρτου (load balancing).
+Epilegei na epikoinonei me ena sigkekrimeno pod . afto sinithos xrisimopiite se statefull aplication DBs
+
+
+apiVersion: v1
+kind: Service
+metadata:
+  name: mongodb
+  namespace: my-namespace
+spec:
+  clusterIP: None
+  selector:
+    app: mongodb
+  ports:
+    - protocol: TCP
+      port: 27017
+      targetPort: 27017
+
+
+
+
+
+
+
+NodePort
+Περιγραφή: Εκθέτει την υπηρεσία σε ένα συγκεκριμένο port σε κάθε node του cluster. Η υπηρεσία είναι προσβάσιμη από εξωτερικά δίκτυα μέσω της IP διεύθυνσης του node και του καθορισμένου port.
+Χρήση: Για απλή εξωτερική πρόσβαση χωρίς τη χρήση εξωτερικού load balancer. Den einai poli kalo giati iparxei exposed stis portes twn nodes
+
+apiVersion: v1
+kind: Service
+metadata:
+  name: my-nodeport-service
+spec:
+  type: NodePort
+  selector:
+    app: my-app
+  ports:
+    - protocol: TCP
+      port: 80
+      targetPort: 8080
+      nodePort: 30007
+
+
+
+
+
+
+LoadBalancer
+Περιγραφή: Εκθέτει την υπηρεσία σε έναν εξωτερικό load balancer που παρέχεται από τον cloud provider (όπως AWS, GCP, Azure). Αυτό επιτρέπει την εξωτερική πρόσβαση στην υπηρεσία με μια σταθερή εξωτερική IP διεύθυνση.
+Χρήση: Για εύκολη έκθεση της υπηρεσίας στο διαδίκτυο ή σε άλλες εξωτερικές οντότητες. Anoigei mia porta ston node alla oxi external para mono ston load balancer
+
+apiVersion: v1
+kind: Service
+metadata:
+  name: my-loadbalancer-service
+spec:
+  type: LoadBalancer
+  selector:
+    app: my-app
+  ports:
+    - protocol: TCP
+      port: 80
+      targetPort: 8080
+
+
+
+Afto xriazete gia na mas dosei mia external IP
+# minikube tunnel

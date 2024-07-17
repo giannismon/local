@@ -1,0 +1,19 @@
+curl https://raw.githubusercontent.com/helm/helm/main/scripts/get-helm-3 | bash
+helm repo add stable https://charts.helm.sh/stable
+helm repo update
+
+ο Helm είναι ένα εργαλείο διαχείρισης πακέτων για Kubernetes. Αποτελείται από δύο βασικά μέρη:
+
+Helm Client: Μια γραμμή εντολών που χρησιμοποιείται για την εκτέλεση εντολών Helm.
+Helm Chart: Μια συλλογή αρχείων που περιγράφουν τα Kubernetes resources που απαιτούνται για να αναπτυχθεί μια εφαρμογή ή υπηρεσία στο Kubernetes cluster.
+
+einai enas Package manager gia to kubernetes
+
+Helm Charts
+einai ena bundle apo ,yaml files
+
+Templating engine
+dinamikes metavlites .values.container.name
+afto einai poli simantiko sto CI/CD
+
+Ta paketarei kai ta kanei redeploy sto prod Staging kai Developement 
