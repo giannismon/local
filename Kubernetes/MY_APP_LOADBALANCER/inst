@@ -1,0 +1,74 @@
+vim dockerfile
+
+Booth/          deployment.yml  dockerfile      service.yml
+[root@docker docker]# cat dockerfile
+# Χρησιμοποιούμε το επίσημο image του Nginx ως βάση
+FROM nginx:latest
+
+# Αντιγραφή των αρχείων από τον τοπικό φάκελο Booth στο φάκελο /usr/share/nginx/html του κοντέινερ
+COPY Booth/ /usr/share/nginx/html/
+
+# Εκθέτουμε το port 80
+EXPOSE 80
+
+# Εντολή για να ξεκινήσει ο Nginx server
+CMD ["nginx", "-g", "daemon off;"]
+
+
+
+
+docker build -t my-nginx-image .
+docker tag my-nginx-image mongiannis/my-site:v1.0
+
+
+docker login
+mongiannis@gmail.com
+m@iLpA05061992giannis
+docker push mongiannis/my-site:v1.0
+
+
+
+vim deployment.yml
+
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: my-site-deployment
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: my-site
+  template:
+    metadata:
+      labels:
+        app: my-site
+    spec:
+      containers:
+      - name: my-site-container
+        image: mongiannis/my-site:v1.0
+        ports:
+        - containerPort: 80
+---
+apiVersion: v1
+kind: Service
+metadata:
+  name: my-site-service
+spec:
+  type: LoadBalancer
+  selector:
+    app: my-site
+  ports:
+  - protocol: TCP
+    port: 80
+    targetPort: 80
+
+
+
+minikube tunnel
+kubectl apply -f deployment.yml
+
+kubectl get pods -o wide
+kubectl get service
+kubectl get deployment
+kubectl describe service my-site-service
