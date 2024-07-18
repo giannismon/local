@@ -1,0 +1,73 @@
+minikube stop
+minikube delete
+minikube start --force 
+
+minikube addons disable ingress
+minikube addons enable ingress
+
+kubectl get pods -n ingress-nginx
+kubectl get services -n ingress-nginx
+kubectl get ns
+
+vim deployment2.yml
+
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: my-site-deployment
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: my-site
+  template:
+    metadata:
+      labels:
+        app: my-site
+    spec:
+      containers:
+      - name: my-site-container
+        image: mongiannis/my-site:v1.0
+        ports:
+        - containerPort: 80
+---
+apiVersion: v1
+kind: Service
+metadata:
+  name: my-site-service
+spec:
+  type: ClusterIP  # Changed from LoadBalancer to ClusterIP
+  selector:
+    app: my-site
+  ports:
+  - protocol: TCP
+    port: 80
+    targetPort: 80
+---
+apiVersion: networking.k8s.io/v1
+kind: Ingress
+metadata:
+  name: my-site-ingress
+  annotations:
+    nginx.ingress.kubernetes.io/rewrite-target: /
+spec:
+  rules:
+  - host: my-site.example.com
+    http:
+      paths:
+      - path: /
+        pathType: Prefix
+        backend:
+          service:
+            name: my-site-service
+            port:
+              number: 80
+
+
+
+kubectl apply -f deployment.yml
+
+
+
+
+
