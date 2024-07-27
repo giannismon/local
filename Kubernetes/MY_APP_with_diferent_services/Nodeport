@@ -1,0 +1,45 @@
+minikube stop
+minikube delete
+minikube start --force 
+
+
+
+vim deployment.yml
+
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: my-site-deployment
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: my-site
+  template:
+    metadata:
+      labels:
+        app: my-site
+    spec:
+      containers:
+      - name: my-site-container
+        image: mongiannis/my-site:v1.0
+        ports:
+        - containerPort: 80
+---
+apiVersion: v1
+kind: Service
+metadata:
+  name: my-site-service
+spec:
+  type: NodePort  # Changed from LoadBalancer to NodePort
+  selector:
+    app: my-site
+  ports:
+  - protocol: TCP
+    port: 80
+    targetPort: 80
+    nodePort: 30080  # You can specify a nodePort or let Kubernetes choose one for you
+
+
+kubectl apply -f deployment.yml
+kubectl rollout status deployment/my-site-deployment deployment

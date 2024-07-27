@@ -1,0 +1,29 @@
+me ta lables xwrizoume px ta environment se prod dev ktl ktl 
+
+dilononte sthn arxh 
+apiVersion: v1
+kind: Pod
+metadata:
+  creationTimestamp: "2024-07-24T20:01:10Z"
+  generateName: app-1-
+  labels:
+    bu: finance
+    env: dev
+    tier: frontend
+
+
+
+
+kai ta epilegoume an theloume na ta doume me ton selector
+kubectl get pod --selector env=dev
+
+
+
+
+
+
+
+
+
+kubectl label nodes <node-name> <label_key>=<label-value>
+kubectl label nodes node01 size=Large

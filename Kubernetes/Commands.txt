@@ -42,6 +42,47 @@ kubectl get replicaset
 
 
 
+
+pod
+kubectl run nginx --image=nginx
+kubectl run nginx --image=nginx --dry-run=client -o yaml
+
+deployment
+kubectl create deployment --image=nginx nginx --replicas=4 --dry-run=client -o yaml > nginx-deployment.yaml
+
+Service Tipes
+Nodeport
+ClusterIp
+Load Balancer
+
+Ta services sindeonte me ta pods mesw twn lables otan dimiourgounte kai tous selectors apo merias service  pou  dilonete se pia na efarmostei afto to service .
+
+
+Name spaces
+ena pod mporei na kalesei ena service sto idio namespace me to onoma tou mono alla an einai se diaforetiko namespace px dev tote prepi na xrisimopihthei to full path
+kubectl create namespace dev
+kubectl apply -f pod.yaml --namespace=dev
+
+kubectl get pods --all-namespaces | grep blue
+
+
+
+
+
+
+kubectl expose pod redis --port=6379 --name redis-service --dry-run=client -o yaml
+Εκθέτει έναν υπάρχοντα πόρο (π.χ. pod) και δημιουργεί ένα Service βασισμένο στις ετικέτες αυτού του πόρου.
+
+
+kubectl create service clusterip redis --tcp=6379:6379 --dry-run=client -o yaml
+Δημιουργεί ένα νέο Service από την αρχή, χωρίς να βασίζεται σε υπάρχοντα πόρο. Χρειάζεται να προσθέσετε τους selectors αν θέλετε να συνδεθεί με υπάρχοντα pods.
+
+
+Dimiourgia pod kai dimiourgia service me to idio onoma 
+kubectl run httpd --image=httpd:alpine --port=80 --expose
+
+
+
 DIMIOURGIA DEPLOYMENT ME ARXEIO
 vim nginx.yaml
 

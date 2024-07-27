@@ -1,0 +1,94 @@
+To taint einai san to autan pou dioxnei ta kounoupia 
+px ta kounoupia einai to pod kai emeis to node
+
+kubectl taint nodes <node-name> <key>=<value>:<effect>
+
+Αυτό θα κάνει το node node1 να μην δέχεται νέα pods εκτός αν αυτά τα pods έχουν την κατάλληλη toleration.
+kubectl taint nodes node1 key=value:NoSchedule
+
+remove taint from node 
+kubectl taint nodes node1 environment=production:NoSchedule-
+
+
+
+
+-----------------------------------------------------------
+prosthikh se Node 
+kubectl taint nodes node1 dedicated=web:NoSchedule
+
+prosthikh taint se pod
+apiVersion: v1
+kind: Pod
+metadata:
+  name: webpod
+spec:
+  containers:
+  - name: mycontainer
+    image: nginx
+  tolerations:
+  - key: "dedicated"
+    operator: "Equal"
+    value: "web"
+    effect: "NoSchedule"
+
+-----------------------------------------------------------
+ales epiloges einai to 
+PreferNoSchedule: 
+Αυτό το effect δηλώνει ότι το Kubernetes θα προσπαθήσει να μην προγραμματίσει νέα pods στο node με το συγκεκριμένο taint, αλλά αν δεν υπάρχουν άλλες επιλογές, μπορεί να τα προγραμματίσει εκεί.
+
+NoExecute: 
+Αυτό το effect δηλώνει ότι οποιαδήποτε pods που ήδη εκτελούνται στο node και δεν έχουν την αντίστοιχη toleration θα απομακρυνθούν αμέσως από το node. Επίσης, νέα pods χωρίς την αντίστοιχη toleration δεν θα προγραμματιστούν στο node.
+
+kubectl taint nodes node1 environment=production:NoSchedule
+kubectl taint nodes node1 environment=production:PreferNoSchedule
+kubectl taint nodes node1 environment=production:NoExecute
+
+apiVersion: v1
+kind: Pod
+metadata:
+  name: example-pod
+spec:
+  containers:
+  - name: example-container
+    image: nginx
+  tolerations:
+  - key: "environment"
+    operator: "Equal"
+    value: "production"
+    effect: "NoSchedule"
+  - key: "environment"
+    operator: "Equal"
+    value: "production"
+    effect: "PreferNoSchedule"
+  - key: "environment"
+    operator: "Equal"
+    value: "production"
+    effect: "NoExecute"
+
+
+
+
+    kubectl run nginx --image=nginx --dry-run=client -o yaml >> taint_pod.yaml
+    vim taint_pod.yaml
+    apiVersion: v1
+    kind: Pod
+    metadata:
+      creationTimestamp: null
+      labels:
+        run: bee
+      name: bee
+    spec:
+      tolerations:
+      - key: spray
+        value: mortein
+        effect: NoSchedule
+        operator: Equal
+      containers:
+      - args:
+        - nginx
+        image: nginx
+        name: bee
+        resources: {}
+      dnsPolicy: ClusterFirst
+      restartPolicy: Always
+    status: {}

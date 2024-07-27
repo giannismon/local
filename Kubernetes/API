@@ -1,0 +1,4 @@
+Einai o primary manager gia to kubernetes
+
+Otan grafe mia entolh me kubectl paei kai perni plirofories apo ton etcd
+API Server         : pou epikoinonoun meso (ui, api, cli) einai san cluster gateway kai gia authorization

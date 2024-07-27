@@ -1,0 +1,50 @@
+einai san ta Replicaset kai to deployment
+
+gia na dimiourgisoume efkola ena deamonset dimiourgoume ena deployment kai meta alazoume to onoma se daemonsets
+
+kubectl create deployment elasticsearch --image=registry.k8s.io/fluentd-elasticsearch:1.20 -n kube-system --dry-run=client -o yaml > fluentd.yaml
+
+apiVersion: apps/v1
+kind: DaemonSet
+metadata:
+  creationTimestamp: null
+  labels:
+    app: elasticsearch
+  name: elasticsearch
+  namespace: kube-system
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: elasticsearch
+  strategy: {}
+  template:
+    metadata:
+      creationTimestamp: null
+      labels:
+        app: elasticsearch
+    spec:
+      containers:
+      - image: registry.k8s.io/fluentd-elasticsearch:1.20
+        name: fluentd-elasticsearch
+        resources: {}
+status: {}
+~                   
+
+
+
+kubectl create -f fluentd.yaml
+
+
+
+
+
+Gia na vrw to StaticPod
+-----------------------
+
+ps -ef |  grep kubelet
+vriskw to config
+--config=/var/lib/kubelet/config.yaml
+grep -i static /var/lib/kubelet/config.yaml
+opote einai se afton edw tron fakelo to yaml arxeio tou static pod
+/etc/just-to-mess-with-you

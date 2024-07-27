@@ -1,0 +1,5 @@
+kubectl apply -f deployment.yml
+kubectl rollout status deployment/my-site-deployment
+kubectl rollout history deployment/my-site-deployment
+kubectl rollout undo deployment/my-site-deployment
+

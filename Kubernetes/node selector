@@ -1,0 +1,78 @@
+H epilogh gia to pou tha mpei to pod ginete mesw labels dld
+
+NODE
+kubectl label nodes <node-name> <label_key>=<label-value>
+kubectl label nodes node01 size=Large
+
+POD
+kai mesa sto pod
+modeSelector:
+  size: Large
+
+
+  -----------------------------------------------------------
+  hte meso Affinity
+
+NODE
+  kubectl label nodes <node-name> <label_key>=<label-value>
+    kubectl label nodes node01 size=Large
+    
+
+POD
+  apiVersion: v1
+kind: Pod
+metadata:
+  name: example-pod
+spec:
+  containers:
+  - name: nginx
+    image: nginx
+  affinity:
+    nodeAffinity:
+      requiredDuringSchedulingIgnoredDuringExecution:
+        nodeSelectorTerms:
+        - matchExpressions:
+          - key: size
+            operator: NotIn
+            values:
+            - Small
+
+
+
+
+            affinity:
+            nodeAffinity:
+              requiredDuringSchedulingIgnoredDuringExecution:
+                nodeSelectorTerms:
+                - matchExpressions:
+                  - key: color
+                    operator: In
+                    values:
+                    - blue
+
+
+
+            spec:
+            containers:
+            - name: nginx
+              image: nginx:1.14.2
+              ports:
+              - containerPort: 80
+            affinity:
+              nodeAffinity:
+                requiredDuringSchedulingIgnoredDuringExecution:
+                  nodeSelectorTerms:
+                  - matchExpressions:
+                    - key: size
+                      operator: Exists
+
+
+
+Psaxnei na vrei to pod kata to execution kai an den to vrei den sinexiszei alla an ginei h alagh to pod sinexizei na doulevei etsi mexri na termatistei         
+requiredDuringSchedulingIgnoredDuringExecution
+
+Psaxnei na vrei to pod kata to execution kai an den to vrei to vazei opou nane alla an ginei h alagh to pod sinexizei na doulevei etsi mexri na termatistei         
+preferedDuringSchedulingIgnoredDuringExecution
+
+Psaxnei na vrei to pod kata to execution kai an den to vrei den sinexiszei alla an ginei h alagh to pod sinexizei na doulevei me tis kainouries alages kai kanei restart         
+requiredDuringSchedulingrequiredDuringExecution

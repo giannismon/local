@@ -1,5 +1,0 @@
-sudo swapoff -a
-
-sudo vim /etc/fstap
-kanw commentout thn swap
-
