@@ -1,2 +1,5 @@
+git clone https://github.com/kodekloudhub/kubernetes-metrics-server.git
+cd kubernetes-metrics-server/
+kubectl apply -f .
 kubectl top node
 kubectl top pod
