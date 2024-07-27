@@ -1,19 +1,29 @@
 TO k8s apotelite apo enan MAster kai perisoterous server(node)
 
-MAster
+MASTER
 -------
 OLES OI ENDOLES DIAXIRISIS GINONE APO TON MASTER NODE KAI SE AFTON TREXOUN 4 SERVICES POU EINAI TA PARAKATW EPIDI MONO DINEI ENTOLES EXEI TA MIKROTERA RESOURCES
-API Server         : pou epikoinonoun meso (ui, api, cli) einai san cluster gateway kai gia authorization
+Runtime            : Einai to Docker , to Containerd kai to Rocket 
+API Server         : kanei orchistrate to cluster pou epikoinonoun meso (ui, api, cli) einai san cluster gateway kai gia authorization
+                     Einai o primary manager gia to kubernetes
+                     Otan grafe mia entolh me kubectl paei kai perni plirofories apo ton etcd
 Scheduler          : leei se ti katastash prepi na einia ta pods kai litourgei kai os load balancer resourses otan dimiourgite ena servise se enan node leei pios exei diathesima resourses gia na ginei swsta h katanomh 
-Controler manager  : vlepei to status twn pods kai an einia ta kanei start stop apo monos tou.
-etcd               : ekgefalos tou master node oles oi alagers grafonte edw kai an pesei olo to cluster ksana epanaferete h katastash pou eixe ligo pio prin
+Controler manager  : vlepei to status twn pods kai an einia ta kanei start stop apo monos tou , yparxoun poloi controlers opos o manager o replicationkia o node manager.
+etcd               : einai DB se key value ekgefalos tou master node oles oi alagers grafonte edw kai an pesei olo to cluster ksana epanaferete h katastash pou eixe ligo pio prin einai h twrinh katastash tou cluster edw
 
-node
+
+
+
+WORKER
 -----
-container
-kubelet           interact with pod and cubelet , start the pod ,   einai ta servises Συλλέγει πληροφορίες για την κατάσταση των pods και τις στέλνει στον Kubernetes API server. 
+Runtime           Einai to Docker , to Containerd kai to Rocket 
+kubelet           Einei o kapetanios tou node diladi pairnei entoles apo ton API gia to ti katastash prepei na erinai to pod . interact with pod and cubelet , start the pod ,   einai ta servises Συλλέγει πληροφορίες για την κατάσταση των pods και τις στέλνει στον Kubernetes API server. 
                   Αυτές οι πληροφορίες περιλαμβάνουν δεδομένα όπως το αν οι containers τρέχουν, έχουν αποτύχει ή έχουν σταματήσει.
-kube proxy        Το kube-proxy είναι ένα από τα βασικά components του Kubernetes και είναι υπεύθυνο για τη διαχείριση του δικτύου μέσα στο cluster.
+kube proxy        Το kube-proxy είναι ένα από τα βασικά components του Kubernetes και είναι υπεύθυνο για τη διαχείριση του δικτύου μέσα στο cluster etsi epikoinonoun oi nodes metaksi tous px app me db se alo node.
+Kathe worker exei.
+Το kube-proxy διασφαλίζει τη σωστή δρομολόγηση της κυκλοφορίας μέσα στο Kubernetes cluster, επιτρέποντας την επικοινωνία μεταξύ των pods και των services.
+Το kubelet διαχειρίζεται την εκτέλεση των pods σε κάθε node, παρακολουθώντας την κατάστασή τους και αλληλεπιδρώντας με το Kubernetes control plane και το container runtime.
+
 
 
 Enoies tou node
@@ -27,9 +37,7 @@ Deployments      : edw dilononde oi replica kai genika pws tha stithei to contai
 StateFullSets    : einai san ta deployments alla gia DBs. Kalitera an ksratame thn vash omos eksw apo to cluster ! afto einai pio efkolo
 
 
-Kathe worker exei.
-Το kube-proxy διασφαλίζει τη σωστή δρομολόγηση της κυκλοφορίας μέσα στο Kubernetes cluster, επιτρέποντας την επικοινωνία μεταξύ των pods και των services.
-Το kubelet διαχειρίζεται την εκτέλεση των pods σε κάθε node, παρακολουθώντας την κατάστασή τους και αλληλεπιδρώντας με το Kubernetes control plane και το container runtime.
+
 
 
 minikube

@@ -1,5 +1,7 @@
-git clone https://github.com/kodekloudhub/kubernetes-metrics-server.git
-cd kubernetes-metrics-server/
-kubectl apply -f .
+min pareis afto to git apo afto to repo
+git clone https://github.com/kubernetes-sigs/metrics-server.git
+
+cd metrics-server
+kubectl apply -f deploy/kubernetes/
 kubectl top node
 kubectl top pod

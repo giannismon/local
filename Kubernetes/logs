@@ -1,0 +1,8 @@
+
+ME TO -f kanei stream ta logs live
+docker logs -f dfsfsdfsdfs
+kubectl logs -f pod_name
+
+
+An to pod exei mesa perisotera container prepi na doume ta onomata twn container aftwn kai na tou dosoume aftou pou theloume na doume ta log tous
+kubectl logs -f pod_name onoma_container
