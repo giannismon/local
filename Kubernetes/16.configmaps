@@ -1,0 +1,65 @@
+Sta configmap mpainoun ta envs
+
+
+
+
+---------------------------------------------------------------
+
+vim configmap.yaml
+
+apiVersion: v1
+kind: ConfigMap
+metadata:
+  name: example-configmap
+data:
+  appcolor: blue
+  appmode: prod
+
+
+
+  kubectl apply -f configmap.yaml
+
+  kubectl get configmap
+
+
+
+
+
+
+  ---------------------------------------------------------------
+  H
+  kubectl create configmap webapp-config-map
+  kubectl create configmap  webapp-config-map --from-literal=APP_COLOR=darkblue --from-literal=APP_OTHER=disregard
+
+
+
+
+
+
+
+
+
+  
+kai sto pod dilonete
+---------------------
+apiVersion: v1
+kind: Pod
+metadata:
+  name: example-pod
+spec:
+  containers:
+  - name: example-container
+    image: alpine:latest
+    command: ["sh", "-c", "echo $MY_ENV_VAR"]
+    env:
+    - name: MY_ENV_VAR
+      valueFrom:
+        configMapKeyRef:
+          name: example-configmap
+          key: appcolor
+
+
+h an thelw na valw mono mia
+    env:
+    - name: MY_ENV_VAR
+      value: value1

@@ -1,3 +1,17 @@
+Ta services mas voithoun na epoikinonoun ta pods metaksi tous kai me tous telikous xristes
+Einai 3 hdwn
+me to selector leme afto to service se pia pods tha anatethei kathos  ston selector 
+vazoume ta labels pou exei to pod
+xrisimopoiite kai gia load balancer an anatithete se perisotera pods
+xrisimopiei enan random algorithm
+
+
+ClusterIP    (Default internall communication)
+NodePort     (external)
+LoadBalancer (external gia CLoud Provider)
+
+
+
 clusterIP
 Περιγραφή: Το προεπιλεγμένο είδος service που εκθέτει την υπηρεσία σε μια εσωτερική IP διεύθυνση μέσα στο cluster. Αυτό σημαίνει ότι η υπηρεσία είναι προσβάσιμη μόνο από άλλα pods μέσα στο ίδιο cluster.
 Χρήση: Χρησιμοποιείται για εσωτερική επικοινωνία μεταξύ των pods.

@@ -1,11 +1,23 @@
+me ta deployment mporoume na kanoume rollback
+Ta deployments kanoiun managed ta pods
+otan dimiourgite ena deployment dimiourgite kai ena replica set aftomata panw se afto
 
+
+
+
+
+
+
+-------------------------
 minikube stop
 minikube delete
 minikube start --force 
+-------------------------
 
 KATHE CONFIGOURATION EXEI 3 Parts
 EINAI SE yaml
-Ta deployments kanoiun managed ta pods
+
+
 1) metadata
 
 2) Spesification

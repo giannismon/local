@@ -1,0 +1,18 @@
+
+Ta labels mpainoun mesa sta pods
+metadata:
+    Labels:
+        app: App1
+        funtion: Front-end
+
+
+OI SELECTORS EINAI GIA NA TSIMPISOUME TA PODS ME TA LABELS
+kubectl get pods --selector app=App1
+
+
+
+Akoma Oi Selectors mpainoun mesa sta service h deployments me skopo na dilosw ta pods
+
+spec:
+    selector:
+        app: App1

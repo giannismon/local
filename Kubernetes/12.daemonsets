@@ -1,8 +1,15 @@
 einai san ta Replicaset kai to deployment
+h monh diafora einai oti ena copy tou pod se kathe node einai panda ekei
 
 gia na dimiourgisoume efkola ena deamonset dimiourgoume ena deployment kai meta alazoume to onoma se daemonsets
 
 kubectl create deployment elasticsearch --image=registry.k8s.io/fluentd-elasticsearch:1.20 -n kube-system --dry-run=client -o yaml > fluentd.yaml
+
+
+
+
+
+vim DaemonSet.yaml
 
 apiVersion: apps/v1
 kind: DaemonSet
@@ -31,20 +38,12 @@ spec:
 status: {}
 ~                   
 
+kubectl create -f DaemonSet.yaml
 
 
-kubectl create -f fluentd.yaml
+H
+
+kubectl get daemonsets
+kubectl describe daemonsets onoma_tou_daemonet
 
 
-
-
-
-Gia na vrw to StaticPod
------------------------
-
-ps -ef |  grep kubelet
-vriskw to config
---config=/var/lib/kubelet/config.yaml
-grep -i static /var/lib/kubelet/config.yaml
-opote einai se afton edw tron fakelo to yaml arxeio tou static pod
-/etc/just-to-mess-with-you

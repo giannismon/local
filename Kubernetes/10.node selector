@@ -1,13 +1,24 @@
 H epilogh gia to pou tha mpei to pod ginete mesw labels dld
+H diafora me to na dilosw to nodeName aplos einai oti to label Large mpori na to exoun 3 Server megaloi kai na thelw na mpei se enan apo tous 3 ekei
 
-NODE
+Dinw ena label mesa ston NODE
+-----------------------------
 kubectl label nodes <node-name> <label_key>=<label-value>
 kubectl label nodes node01 size=Large
 
+
+
+
 POD
 kai mesa sto pod
-modeSelector:
-  size: Large
+----------------
+spec:
+  nodeSelector:
+    size: Large
+
+
+
+An theloume pio periploka pragmata sthn epilogh xrisimopoioume ta Node infinity
 
 
   -----------------------------------------------------------
@@ -66,7 +77,7 @@ spec:
                     - key: size
                       operator: Exists
 
-
+To exist simenei oti psaxnei na dei an iparxei label aplos oxi to value tha exei px pairnei akoam kai ta kaina aplos na iparxei
 
 Psaxnei na vrei to pod kata to execution kai an den to vrei den sinexiszei alla an ginei h alagh to pod sinexizei na doulevei etsi mexri na termatistei         
 requiredDuringSchedulingIgnoredDuringExecution

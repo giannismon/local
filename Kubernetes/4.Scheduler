@@ -1,0 +1,31 @@
+O sceduler einai o ipefthinos gia to se poion node tha paei to kathw pod analoga me ta
+resouses tou kathe node pou exoum 
+mporoume na dilosoume manual kai emeis vevea se poion node tha treksei 
+to kathw pod me to na dilosoume to 
+"nodeName: node01"
+akomi mporoumen na dimiourgisoume kai ton diko mas scheduler kai oxi ton default
+
+SOS
+o scheduler paanda einai sto namespace kube-system
+kubectl get pods -n kube-system
+
+
+
+Manual schedule 
+Epilegoume emeis se poion node tha mpei ena Node kai den afinw ton default scheduler na to kanei
+
+
+spec :
+  nodeName : node02
+
+
+
+
+
+
+
+Mporoume na exoume Multiples schedulers kai oxi mono tous default
+dimiourgoume ena diaforetiko service arxika my_scheduler.service
+
+mesa sto pod to dilonw me to 
+schedulerName: my-scheduler

@@ -1,0 +1,43 @@
+otan dimiourgoume ena deployment dimiourgei ena rollout 
+otan dimiourgite ena rollout dimiourgite ena revision
+
+
+kubectl rollout status deployment/myapp-deployment
+kubectl rollout history deployment/myapp-deployment
+
+
+
+
+
+
+
+Deployment Strategy
+
+1. Recreate:       prota katastrefei ola ta pods kai meta ta kanei recreate (Afto exei Down Time)
+
+
+  strategy:
+    type: Recreate  # Change strategy to Recreate
+
+
+
+
+
+2. Rolling update: Afto einai rolling ena katevazei ena anevazei 
+
+  strategy:
+    type: RollingUpdate
+    rollingUpdate:
+      maxUnavailable: 1
+      maxSurge: 1
+
+
+
+
+
+Des me pia texnikh kanei to update
+kubectl describe deployment <name of deployment> | grep "StrategyType:"
+
+
+
+kubectl rollout undo deployment/frontend

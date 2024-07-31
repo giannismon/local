@@ -3,6 +3,14 @@
 δίνοντας τη δυνατότητα να διαχειρίζεσαι πόρους μεμονωμένα ανά ομάδες ή έργα.
 
 kubectl get namespaces
+
+Ola ta pods se ola ta namespace
+kubectl get pods -A
+
+mono ta pods sto namespace_A
+kubectl get pods -n namespace_A
+
+
 kubectl cluster-info
 
 
@@ -21,7 +29,9 @@ apiVersion: apps/v1
 kind: Deployment
 metadata:
   name: my-deployment
+  ############################
   namespace: my-namespace
+  ############################
 spec:
   replicas: 3
   selector:

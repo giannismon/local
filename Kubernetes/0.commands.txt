@@ -10,6 +10,30 @@ kubectl get nodes
 kubectl get pods
 kubectl get services
 
+
+
+
+
+
+gia na perasw ena command mesa sto pod otan ksekinaei "command:"
+apiVersion: v1
+kind: Pod 
+metadata:
+  name: ubuntu-sleeper-2
+spec:
+  containers:
+  - name: ubuntu
+    image: ubuntu
+    command:
+      - "sleep"
+      - "5000"
+
+
+
+
+
+
+
 DEPLOYMENTS
 Dimiourgia Deployment pou stin ousia einai pod
 kubectl create deployment nginx-deployment --image=nginx:latest

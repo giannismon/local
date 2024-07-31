@@ -1,9 +1,25 @@
 
-
 einai to mialo tou cluster kai einai se key value morfh
+einai key value store diladi den exei adeia shells
 
 
+Gia na valw mia metavlith
+./etcdctl set key1 value1
 
+Gia na parw mia metavlith
+./etcdctl get key1
+
+Gia na dw parapanw epiloges 
+./etcdctl
+
+./etcdctl --version
+
+Alazw to version se kathe entolh
+ETCDCTL_API=3 ./etcdctl version
+h to alazw genika
+export ETCDCTL_API=3 
+./etcdctl version
+./etcdctl
 
 
 or example ETCDCTL version 2 supports the following commands:

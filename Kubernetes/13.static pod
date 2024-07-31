@@ -1,0 +1,67 @@
+
+einai ta pods pou den dimiourgoune apo ton API server alla apo ton server tou kublet kai einai mesa 
+ston sigkekrimeno node diladi ton worker opote gia na to diagrapsoume prepei na mpoume me ssh
+
+
+
+
+To path gia ta static pod einai to /var/lib/kubelet/config.yaml pou periexei ola ta confs paths kai ta confs
+sinmithos ta yaml arxeia vriskonte mesa sto /etc/kublet/manifest alla mpori na einai kai alios dilomeno
+
+
+kubectl get pods -A
+NAMESPACE      NAME                                   READY   STATUS    RESTARTS   AGE
+kube-system    etcd-controlplane                      1/1     Running   0          5m37s
+
+to onoma tou pod deksia anaferete ston node kai apo ekei katalavenoume oti einai static
+etcd-controlplane 
+
+
+otan to deksia einai onoma apo node dld to controlplane simenei oti einai static pod kai vriskete mesa se afton ton node
+o pio sostos tropos omos na to dw einai to 
+get pods node01 -n kube-system -o yaml
+kai vlepw ton owner an einai node pou simenei oti einai static h an einai kati alo
+
+
+
+
+
+
+
+
+
+
+
+PWS DIAGRAFW ENA STATIC POD
+----------------------------
+px vlepw oti trexei afto to static pod ston node01
+ kubectl get pods --all-namespaces -o wide  | grep static-greenbox
+
+ ssh node01
+ ps -ef |  grep kubelet 
+--config=/var/lib/kubelet/config.yaml
+cat /var/lib/kubelet/config.yaml
+
+
+cat /var/lib/kubelet/config.yaml | grep static
+staticPodPath: /etc/just-to-mess-with-you
+
+ls -ltrh /etc/just-to-mess-with-you
+
+rm -rf  /etc/just-to-mess-with-you/greenbox.yaml 
+
+kubectl get pods --all-namespaces -o wide
+
+
+
+
+
+Gia na vrw to StaticPod
+-----------------------
+
+ps -ef |  grep kubelet
+vriskw to config
+--config=/var/lib/kubelet/config.yaml
+grep -i static /var/lib/kubelet/config.yaml
+opote einai se afton edw tron fakelo to yaml arxeio tou static pod
+/etc/just-to-mess-with-you

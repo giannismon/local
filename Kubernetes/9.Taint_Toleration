@@ -1,20 +1,45 @@
+
+Ta taints mpainoun sta nodes
+Ta tolerations sta pods
+O master exei apo monos tou taint na min ton plisiazoun ta pods kai na min dexete tpt
+afto to vlepw apo to
+kubectl describe node kubemaster | grep Taint
+
+Iparxoun tria idi taint
+NoSchedule      : pou simenei apo edw kai pera ta pod pou tha ftiaxnonte den tha mpenoun se afton ton node
+PrefeNoSchedule : pou simenei oti den tha protimate ta pod na mpainoun edw alla mpori kai na mpoun an den iparxei alh epiloges
+NoExecute       : pou simenei oti kai ta pod pou ipirxan apo prin tha figoun
+
 To taint einai san to autan pou dioxnei ta kounoupia 
-px ta kounoupia einai to pod kai emeis to node
+px ta kounoupia einai to pod kai emeis to node alla 
+
+an valoume aoutan den mas akoumpaei kanena pod
+opote leme oti mono ena pod mporei na mas akoumpisei san na tou dinoume anosia
+
 
 kubectl taint nodes <node-name> <key>=<value>:<effect>
+
+
 
 Αυτό θα κάνει το node node1 να μην δέχεται νέα pods εκτός αν αυτά τα pods έχουν την κατάλληλη toleration.
 kubectl taint nodes node1 key=value:NoSchedule
 
-remove taint from node 
+
+remove taint from node me thn pavla sto telos (-)
 kubectl taint nodes node1 environment=production:NoSchedule-
 
 
 
 
+
+
+1
 -----------------------------------------------------------
 prosthikh se Node 
 kubectl taint nodes node1 dedicated=web:NoSchedule
+
+2
+------------------------------------------------------------
 
 prosthikh taint se pod
 apiVersion: v1
