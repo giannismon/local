@@ -43,7 +43,8 @@ finally the kubelet.
 
 
 
-
+kubeadm
+-------
 
 vim /etc/apt/sources.list.d/kubernetes.list
 deb [signed-by=/etc/apt/keyrings/kubernetes-apt-keyring.gpg] https://pkgs.k8s.io/core:/stable:/v1.30/deb/ /
@@ -58,7 +59,10 @@ apt-get install kubeadm=1.30.0-1.1
 kubeadm upgrade plan v1.30.0
 kubeadm upgrade apply v1.30.0
 
-install tu kublet
+
+
+kublet
+------
 apt-get install kubelet=1.30.0-1.1
 systemctl daemon-reload
 systemctl restart kubelet
@@ -71,19 +75,25 @@ kubectl uncordon controlplane
 
 WORKER Node
 
-# kubectl drain node01 --ignore-daemonsets
-# kubectl get pods -o wide
-
-
-
 
 Upgrade the worker node to the exact version v1.30.0
 
 Make sure that the correct version of kubeadm is installed and then 
 proceed to upgrade the node01 node. 
 Once this is done, 
+
 upgrade the kubelet on the node.
 
+
+
+
+# kubectl drain node01 --ignore-daemonsets
+# kubectl get pods -o wide
+
+
+
+kubeadm
+-------
 ssh node01
 -----------------------------------------------
 vim /etc/apt/sources.list.d/kubernetes.list
