@@ -1,0 +1,105 @@
+GIA NA ALAKSW VERSION PREPI NA ALAZW ANA ENA VERSION TON API KAI OXI POLLA MAZI PX APO TO 1.20 gia na paw 1.40 prepi
+na paw
+1.20
+1.30
+1.40
+
+
+
+MASTER
+########################################################################################################################################################################################################
+--------------------------------------------------------------------------------------------
+Stin idia version pou exoume thn v1.29.0 mexri poso mporoume na to kanoume upgrade
+ssh ston masternode
+# kubeadm upgrade plan
+COMPONENT   CURRENT       TARGET
+kubelet     2 x v1.29.0   v1.29.7
+
+Upgrade to the latest version in the v1.29 series:
+
+COMPONENT                 CURRENT    TARGET
+kube-apiserver            v1.29.0    v1.29.7
+kube-controller-manager   v1.29.0    v1.29.7
+kube-scheduler            v1.29.0    v1.29.7
+kube-proxy                v1.29.0    v1.29.7
+CoreDNS                   v1.10.1    v1.11.1
+etcd                      3.5.10-0   3.5.10-0
+
+
+
+
+
+--------------------------------------------------------------------------------------------
+We will be upgrading the Master node first.
+Drain the master node of workloads and mark it UnSchedulable
+# kubectl drain controlplane --ignore-daemonsets
+# kubectl get pods -o wide
+
+Upgrade the controlplane components to exact version v1.30.0
+
+Upgrade the kubeadm tool (if not already),
+then the controlplane components,  
+finally the kubelet.
+
+
+
+
+
+vim /etc/apt/sources.list.d/kubernetes.list
+deb [signed-by=/etc/apt/keyrings/kubernetes-apt-keyring.gpg] https://pkgs.k8s.io/core:/stable:/v1.30/deb/ /
+
+
+apt update
+
+des poi ekdosh theleis egw px dialegw tin 1.30.0-1.1
+apt-cache madison kubeadm
+
+apt-get install kubeadm=1.30.0-1.1
+kubeadm upgrade plan v1.30.0
+kubeadm upgrade apply v1.30.0
+
+install tu kublet
+apt-get install kubelet=1.30.0-1.1
+systemctl daemon-reload
+systemctl restart kubelet
+
+
+
+kubectl uncordon controlplane
+
+################################################################################################################################################################################################################################################
+
+WORKER Node
+
+# kubectl drain node01 --ignore-daemonsets
+# kubectl get pods -o wide
+
+
+
+
+Upgrade the worker node to the exact version v1.30.0
+
+Make sure that the correct version of kubeadm is installed and then 
+proceed to upgrade the node01 node. 
+Once this is done, 
+upgrade the kubelet on the node.
+
+ssh node01
+-----------------------------------------------
+vim /etc/apt/sources.list.d/kubernetes.list
+apt update
+apt-cache madison kubeadm
+
+apt-get install kubeadm=1.30.0-1.1
+
+# Upgrade the node 
+kubeadm upgrade node
+
+kublet
+apt-get install kubelet=1.30.0-1.1
+systemctl daemon-reload
+systemctl restart kubelet
+exit
+-----------------------------------------------
+from the maste node
+kubectl uncordon node01

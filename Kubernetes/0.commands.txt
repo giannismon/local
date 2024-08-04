@@ -30,8 +30,8 @@ spec:
 
 
 
-
-
+ektelesh enolhs mesa sto container
+kubectl -n elastic-stack exec -it app -- cat /log/app.log
 
 
 DEPLOYMENTS

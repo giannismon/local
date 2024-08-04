@@ -1,0 +1,27 @@
+cordon
+(den ton adeiazei alla den prostithende nea pods)
+Η εντολή cordon χρησιμοποιείται για να σηματοδοτήσει έναν κόμβο ως μη διαθέσιμο για νέα Pods. 
+Αυτό σημαίνει ότι ο κόμβος θα παραμείνει μέρος του cluster, αλλά το Kubernetes Scheduler δεν θα προγραμματίζει νέα Pods σε αυτόν τον κόμβο.
+# kubectl cordon <node-name>
+
+
+
+drain
+(Ton adiazei kai den mpainoun alla pods)
+Η εντολή drain χρησιμοποιείται για να μετακινήσει όλα τα Pods από έναν κόμβο, 
+προκειμένου αυτός να μπορεί να συντηρηθεί, 
+να αναβαθμιστεί ή να αποσυρθεί από το cluster. 
+Η εντολή drain συνδυάζει το cordon και την εκκένωση (eviction) των Pods. 
+Μετά την εκτέλεση της εντολής drain, ο κόμβος θα είναι άδειος από Pods και δεν θα δέχεται νέα Pods 
+μέχρι να εκτελεστεί η εντολή uncordon.
+# kubectl drain node01 --ignore-daemonsets
+elenxw meta oti ta does pigan se alon node
+# kubectl get pods -o wide
+
+
+
+uncordon
+(ta kanei pali diathesima ola)
+Η εντολή uncordon χρησιμοποιείται για να αντιστρέψει την εντολή cordon kai drain, 
+κάνοντας τον κόμβο ξανά διαθέσιμο για τον προγραμματισμό νέων Pods.
+# kubectl uncordon <node-name>
