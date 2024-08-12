@@ -1,0 +1,10 @@
+How many clusters are exist
+ kubectl config view
+ kubectl config get-clusters
+NAME
+cluster1
+cluster2
+
+
+ alagh douleias se cluster1
+ kubectl config use-context cluster1

@@ -51,18 +51,15 @@ deb [signed-by=/etc/apt/keyrings/kubernetes-apt-keyring.gpg] https://pkgs.k8s.io
 
 
 apt update
-
-des poi ekdosh theleis egw px dialegw tin 1.30.0-1.1
 apt-cache madison kubeadm
-
 apt-get install kubeadm=1.30.0-1.1
 kubeadm upgrade plan v1.30.0
 kubeadm upgrade apply v1.30.0
 
 
 
-kublet
-------
+kublet AND KUBECTL
+-------------------
 apt-get install kubelet=1.30.0-1.1
 systemctl daemon-reload
 systemctl restart kubelet
@@ -97,15 +94,15 @@ kubeadm
 ssh node01
 -----------------------------------------------
 vim /etc/apt/sources.list.d/kubernetes.list
+deb [signed-by=/etc/apt/keyrings/kubernetes-apt-keyring.gpg] https://pkgs.k8s.io/core:/stable:/v1.30/deb/ /
+
 apt update
 apt-cache madison kubeadm
-
 apt-get install kubeadm=1.30.0-1.1
-
-# Upgrade the node 
 kubeadm upgrade node
 
-kublet
+kublet AND KUBECTL
+------------------
 apt-get install kubelet=1.30.0-1.1
 systemctl daemon-reload
 systemctl restart kubelet

@@ -1,0 +1,66 @@
+gia na dw pios xristis exei dikaioma na ektelesei afthn thn entolh
+kubectl exec ubuntu-sleeper -- whoami
+
+-------------------------------------
+
+gias na dilosw enan sigkekrimeno xristi oti mporei na trexei to pod prosthetw aftes tis grammes
+
+spec:
+  securityContext:
+    runAsUser: 1010
+
+
+    dld
+
+
+spec:
+  securityContext:
+    runAsUser: 1010
+  containers:
+  - command:
+    - sleep
+    - "4800"
+    image: ubuntu
+    imagePullPolicy: Always
+    name: ubuntu
+    resources: {}
+    terminationMessagePath: /dev/termination-log
+    terminationMessagePolicy: File
+    volumeMounts:
+    - mountPath: /var/run/secrets/kubernetes.io/serviceaccount
+      name: kube-api-access-jfh56
+      readOnly: true
+
+
+
+-------------------------------------
+
+
+
+Βασικές Ικανότητες
+Εδώ είναι μερικές κοινές ικανότητες (capabilities):
+
+CAP_NET_ADMIN: Επιτρέπει τη διαχείριση δικτύου.
+CAP_SYS_ADMIN: Χορηγεί ευρεία διαχειριστικά δικαιώματα.
+CAP_SYS_PTRACE: Επιτρέπει τη διαδικασία παρακολούθησης άλλων διαδικασιών.
+CAP_DAC_OVERRIDE: Παρακάμπτει ελέγχους πρόσβασης σε αρχεία (ανάγνωση, εγγραφή, εκτέλεση).
+CAP_CHOWN: Επιτρέπει την αλλαγή ιδιοκτησίας αρχείων.
+
+ADD capabilities
+
+---
+apiVersion: v1
+kind: Pod
+metadata:
+  name: ubuntu-sleeper
+  namespace: default
+spec:
+  containers:
+  - command:
+    - sleep
+    - "4800"
+    image: ubuntu
+    name: ubuntu-sleeper
+    securityContext:
+      capabilities:
+        add: ["SYS_TIME", "NET_ADMIN"]

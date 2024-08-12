@@ -1,0 +1,120 @@
+1. RBAC (Role-Based Access Control)
+Περιγραφή: Το RBAC είναι ο πιο κοινός μηχανισμός εξουσιοδότησης στο Kubernetes. Σου επιτρέπει να δημιουργείς ρόλους (Roles) και ρόλους σε επίπεδο cluster (ClusterRoles) που καθορίζουν ποια δικαιώματα έχουν οι χρήστες και οι υπηρεσίες.
+Στοιχεία:
+Roles/ClusterRoles: Ορίζουν ένα σύνολο δικαιωμάτων (permissions) για συγκεκριμένα resources.
+RoleBindings/ClusterRoleBindings: Συνδέουν τους ρόλους με συγκεκριμένους χρήστες, ομάδες ή service accounts, επιτρέποντας την πρόσβαση σε αυτούς τους πόρους.
+
+2. ABAC (Attribute-Based Access Control)
+Περιγραφή: Το ABAC χρησιμοποιεί πολιτικές βασισμένες σε χαρακτηριστικά (attributes) του χρήστη, του resource ή της αίτησης. Το Kubernetes δεν υποστηρίζει native ABAC out-of-the-box, αλλά μπορείς να το ρυθμίσεις μέσω επιπλέον εργαλείων ή custom plugins.
+Στοιχεία: Οι πολιτικές ABAC μπορούν να περιγράφουν κανόνες που βασίζονται σε διάφορα χαρακτηριστικά, όπως τα labels των resources ή τα attributes του χρήστη.
+
+3. Webhooks
+Περιγραφή: Οι Webhook Authorization Plugins επιτρέπουν την ενσωμάτωσή σου με εξωτερικούς ελέγχους εξουσιοδότησης μέσω HTTP. Μπορείς να δημιουργήσεις custom policies και να επαληθεύεις τις αιτήσεις για πρόσβαση μέσω μιας εξωτερικής υπηρεσίας.
+Στοιχεία: Απαιτεί μια HTTP endpoint που επιστρέφει αν η αίτηση πρέπει να επιτραπεί ή να απορριφθεί.
+
+4. Node Authorization
+Περιγραφή: Το Node Authorization επιτρέπει στα pods που εκτελούνται σε κόμβους να έχουν πρόσβαση μόνο στους πόρους που σχετίζονται με τον ίδιο τον κόμβο. Ελέγχει ότι οι αιτήσεις από pods έχουν δικαίωμα μόνο να δουν ή να τροποποιήσουν πόρους που σχετίζονται με τον κόμβο τους.
+Στοιχεία: Χρησιμοποιείται κυρίως για την ενίσχυση της ασφάλειας του cluster με τον περιορισμό της πρόσβασης στα pods.
+
+5. Identity and Access Management (IAM)
+Περιγραφή: Σε Kubernetes περιβάλλοντα που εκτελούνται σε cloud παρόχους όπως AWS, GCP, ή Azure, η ενσωμάτωσή τους με την υπηρεσία IAM του cloud provider μπορεί να χρησιμοποιηθεί για τον έλεγχο της πρόσβασης στους πόρους του Kubernetes.
+Στοιχεία: Επιτρέπει την ενσωμάτωσή σου με τους μηχανισμούς IAM του cloud provider για τον έλεγχο των δικαιωμάτων πρόσβασης.
+
+6. Service Accounts
+Περιγραφή: Τα Service Accounts είναι ειδικοί τύποι λογαριασμών χρηστών που χρησιμοποιούνται από τα pods για να αλληλεπιδρούν με το Kubernetes API. Μπορούν να έχουν συνδεδεμένα ρόλους (Roles) και δικαιώματα, επιτρέποντας την περιορισμένη πρόσβαση μόνο στους πόρους που χρειάζονται.
+Στοιχεία: Κάθε pod μπορεί να εκτελεί με ένα συγκεκριμένο service account που έχει καθορισμένα δικαιώματα.
+
+
+
+Check the authorization-mod 
+
+
+kubectl describe pod kube-apiserver-controlplane -n kube-system |grep "authorization-mode"
+      --authorization-mode=Node,RBAC
+h
+cat /etc/kubernetes/manifest/kube-apiserver.yaml
+
+
+Check roles
+kubectl get roles
+
+Check roles in all namespaces
+kubectl get roles -A
+
+inspect the role
+kubectl describe role kube-proxy -n kube-system
+
+kubectl get rolebinding -n kube-system
+kubectl describe rolebinding kube-proxy -n kube-system
+
+
+
+
+
+
+-----------------
+Check if has Access
+kubectl config view
+kubectl get pods --as dev-user
+
+Create role to list,create,delete pods
+kubectl create role developer --namespace=default --verb=list,create,delete --resource=pods
+kubectl describe role developer 
+
+Rolle binding
+kubectl create rolebinding dev-user-binding --namespace=default --role=developer --user=dev-user
+kubectl describe rolebinding dev-user-binding
+-----------------
+
+
+
+
+
+
+Add new rule
+
+- apiGroups:
+  - apps
+  resources:
+  - deployments
+  verbs:
+  - create
+
+kubectl get pods dark-blue-app --as dev-user -n blue
+kubectl get roles -n blue
+kubectl get rolebindings -n blue
+kubectl edit role developer -n blue
+
+# Please edit the object below. Lines beginning with a '#' will be ignored,
+# and an empty file will abort the edit. If an error occurs while saving this file will be
+# reopened with the relevant failures.
+#
+apiVersion: rbac.authorization.k8s.io/v1
+kind: Role
+metadata:
+  creationTimestamp: "2024-08-11T15:55:35Z"
+  name: developer
+  namespace: blue
+  resourceVersion: "3296"
+  uid: d2a2705f-129c-464f-a5b7-4d2d257a146b
+rules:
+- apiGroups:
+  - ""
+  resourceNames:
+  - dark-blue-app
+  resources:
+  - pods
+  verbs:
+  - get
+  - watch
+  - create
+  - delete
+- apiGroups:
+  - apps
+  resources:
+  - deployments
+  verbs:
+  - create
+
+check if that works
+kubectl describe role developer -n blue

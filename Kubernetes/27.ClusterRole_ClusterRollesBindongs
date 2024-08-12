@@ -1,0 +1,94 @@
+Ta cluster roles den anoikoun se kapoio namespace giati einai se olo to cluster
+
+kubectl get ClusterRoleBindings
+kubectl get ClusterRoles
+
+
+kubectl describe clusterrolebinding cluster-admin
+
+
+vim file.yaml
+
+---
+kind: ClusterRole
+apiVersion: rbac.authorization.k8s.io/v1
+metadata:
+  name: node-admin
+rules:
+- apiGroups: [""]
+  resources: ["nodes"]
+  verbs: ["get", "watch", "list", "create", "delete"]
+
+---
+kind: ClusterRoleBinding
+apiVersion: rbac.authorization.k8s.io/v1
+metadata:
+  name: michelle-binding
+subjects:
+- kind: User
+  name: michelle
+  apiGroup: rbac.authorization.k8s.io
+roleRef:
+  kind: ClusterRole
+  name: node-admin
+  apiGroup: rbac.authorization.k8s.io
+
+
+  kubectl apply -f file.yaml
+
+
+
+
+
+
+  OR 
+
+kubectl create clusterrole john_role --verb=get,list,watch --resource=nodes
+kubectl create clusterrollebinding john_role_binding --clusterrole=john_role --user=john
+kubectl auth can-i list storageclasses --as john
+
+---------------------------------------------------------------------------------------------------------
+kubectl api-resources
+
+
+  kai tou storage ipefthinos
+  vim file.yaml
+  ---
+kind: ClusterRole
+apiVersion: rbac.authorization.k8s.io/v1
+metadata:
+  name: storage-admin
+rules:
+- apiGroups: [""]
+  resources: ["persistentvolumes"]
+  verbs: ["get", "watch", "list", "create", "delete"]
+- apiGroups: ["storage.k8s.io"]
+  resources: ["storageclasses"]
+  verbs: ["get", "watch", "list", "create", "delete"]
+
+---
+kind: ClusterRoleBinding
+apiVersion: rbac.authorization.k8s.io/v1
+metadata:
+  name: michelle-storage-admin
+subjects:
+- kind: User
+  name: michelle
+  apiGroup: rbac.authorization.k8s.io
+roleRef:
+  kind: ClusterRole
+  name: storage-admin
+  apiGroup: rbac.authorization.k8s.io
+
+
+
+  kubectl apply -f file.yaml
+
+  kubectl auth can-i list storageclasses --as michelle
+
+
+
+
+
+
+  ---------------------------------------------------------------------------------------------------------

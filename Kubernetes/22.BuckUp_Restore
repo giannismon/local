@@ -1,0 +1,233 @@
+
+To etcd panda vriskete sto namespace "-n kube-system"
+kai to pod me to etcd to vriskoume 
+kubectl -n kube-system get pods
+
+export ETCDCTL_API=3
+
+Check version of etcd
+kubectl -n kube-system logs etcd-controlplane | grep -i 'etcd-version'
+kubectl -n kube-system describe pod etcd-controlplane | grep Image:
+
+Oles oi plirofories gia to etcd tis vriskw mesa apo to pod tou etcd stin prokimenh periptosh einai to etcd-controlplane
+
+
+what address can you reach the ETCD cluster from the controlplane node
+kubectl -n kube-system describe pod etcd-controlplane | grep '\--listen-client-urls'
+--listen-client-urls=https://127.0.0.1:2379,https://192.33.216.3:2379
+
+
+kubectl -n kube-system describe pod etcd-controlplane | grep '\--trusted-ca-file'
+--trusted-ca-file=/etc/kubernetes/pki/etcd/ca.crt
+
+server certificate file located
+kubectl -n kube-system describe pod etcd-controlplane | grep '\--cert-file'
+--cert-file=/etc/kubernetes/pki/etcd/server.crt
+
+kubectl -n kube-system describe pod etcd-controlplane | grep '\--key-file'
+--key-file=/etc/kubernetes/pki/etcd/server.key
+
+
+
+
+
+
+
+
+
+
+BUCKUP
+-------
+Take a snapshot of the ETCD database using the built-in snapshot functionality.
+Store the backup file at location /opt/snapshot-pre-boot.db
+
+
+
+
+kanw ssh edw 
+kubectl describe pods etcd-controlplane -n kube-system
+--listen-client-urls=https://127.0.0.1:2379,https://192.47.95.6:2379
+alla edw epidi einai localhost pernoume to buckup apo ton controlplane node pou eimaste twra
+
+
+ETCDCTL_API=3 etcdctl --endpoints=https://[127.0.0.1]:2379 \
+--cacert=/etc/kubernetes/pki/etcd/ca.crt \
+--cert=/etc/kubernetes/pki/etcd/server.crt \
+--key=/etc/kubernetes/pki/etcd/server.key \
+snapshot save /opt/snapshot-pre-boot.db
+
+
+--------------------------------------------------------------------------------------------------
+
+
+
+
+kubectl -n kube-system describe pod etcd-controlplane | grep 'data-dir'
+      --data-dir=/var/lib/etcd
+
+
+RESTORE
+-------
+tha ta valw gia arxh alou to arxeia tou buckup sto /var/lib/etcd-from-backup enw afto pou diavazei afthn thn stigmh einai to --data-dir=/var/lib/etcd
+
+ETCDCTL_API=3 etcdctl  --data-dir /var/lib/etcd-from-backup \
+snapshot restore /opt/snapshot-pre-boot.db
+
+ls -ltrh /var/lib/etcd-from-backup
+
+
+
+Next, epidi kserw oti einai static pod epidi einai mesa se ena pod tou -n kube-system kanw  update to /etc/kubernetes/manifests/etcd.yaml
+
+vim /etc/kubernetes/manifests/etcd.yaml
+  volumes:
+  - hostPath:
+      path: /var/lib/etcd-from-backup
+      type: DirectoryOrCreate
+    name: etcd-data
+
+When this file is updated, the ETCD pod is automatically re-created as this is a static pod placed under the /etc/kubernetes/manifests directory.
+
+
+Gia na parei tis alages
+
+systemctl restart kubelet
+kubectl -n kube-system describe pods
+kubectl get all -n kube-system
+
+$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$
+$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$
+$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$
+$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$
+$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$
+$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$
+$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$
+$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$
+$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$
+$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$
+$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$
+$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$
+$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$
+
+
+
+
+
+How many clusters are exist
+ kubectl config view
+ kubectl config get-clusters
+NAME
+cluster1
+cluster2
+
+
+ alagh douleias se cluster1
+ kubectl config use-context cluster1
+
+
+
+TIP 
+AN TO POD TOU ETCD EINAI STO -n kube-system tote einai stacked allio prepi na mpw me ssh ston control-plane kai na dw se pion external pod akouei to etcd
+
+
+
+
+
+
+
+
+------------------------------------------------------------------------------------------------------------------------------------------------------------
+
+
+
+
+STACKED ETCD TAKE BUCK UP
+#####################################################################################################################
+
+Take a backup of etcd on cluster1 and save it on the student-node at the path /opt/cluster1.db
+
+kubectl config use-context cluster1
+
+
+kubectl describe  pods -n kube-system etcd-cluster1-controlplane  | grep advertise-client-urls
+Annotations:          kubeadm.kubernetes.io/etcd.advertise-client-urls: https://192.46.41.24:2379
+      --advertise-client-urls=https://192.46.41.24:2379
+
+  
+
+kubectl describe  pods -n kube-system etcd-cluster1-controlplane  | grep pki
+      --cert-file=/etc/kubernetes/pki/etcd/server.crt
+      --key-file=/etc/kubernetes/pki/etcd/server.key
+      --peer-cert-file=/etc/kubernetes/pki/etcd/peer.crt
+      --peer-key-file=/etc/kubernetes/pki/etcd/peer.key
+      --peer-trusted-ca-file=/etc/kubernetes/pki/etcd/ca.crt
+      --trusted-ca-file=/etc/kubernetes/pki/etcd/ca.crt
+      /etc/kubernetes/pki/etcd from etcd-certs (rw)
+    Path:          /etc/kubernetes/pki/etcd
+
+
+ssh cluster1-controlplane
+ETCDCTL_API=3 etcdctl --endpoints=https://192.46.41.24:2379 --cacert=/etc/kubernetes/pki/etcd/ca.crt --cert=/etc/kubernetes/pki/etcd/server.crt --key=/etc/kubernetes/pki/etcd/server.key snapshot save /opt/cluster1.db
+exit
+scp cluster1-controlplane:/opt/cluster1.db /opt
+
+#####################################################################################################################
+
+
+
+
+
+
+
+EXTERNAL ETCD 
+------------------------------------------------------------------------------------------------------------------------------------------------------------
+
+
+ssh cluster2-controlplane
+kubectl get pods -n kube-system
+vlepw oti den iparxei pod me etcd mesa ston etcd server
+ps -ef | grep --color=auto etcd 
+--etcd-servers=https://192.46.41.15:2379
+
+gia na dw oti pliroforia thlw apo ton etcd
+ssh 192.46.41.15
+ps -ef | grep etcd
+
+
+check the members of cluster
+ETCDCTL_API=3 etcdctl \
+  --endpoints=https://127.0.0.1:2379 \
+  --cacert=/etc/etcd/pki/ca.pem \
+  --cert=/etc/etcd/pki/etcd.pem \
+  --key=/etc/etcd/pki/etcd-key.pem \
+   member list
+
+
+
+
+RESTORE
+TIP EDW EPIDI EINAI EXTERNAL SERVER KAI DEN EXEI KUBLET DEN THA ALAKSW TO /etc/kubernetes/manifests/etcd.yaml alla to service /etc/systemd/system/etcd.service giati den exei tipota alo edw mesa .
+vale to buckup pou exeis ston server tou etcd an einai se alon server
+scp /opt/cluster2.db etcd-server:/root
+mpes mesa ston server pou einai o etcd
+ssh etcd-server
+
+pare to buckup kai kanto extracked se ena neo path  /var/lib/etcd-data-new
+ETCDCTL_API=3 etcdctl --endpoints=https://127.0.0.1:2379 --cacert=/etc/etcd/pki/ca.pem --cert=/etc/etcd/pki/etcd.pem --key=/etc/etcd/pki/etcd-key.pem snapshot restore /root/cluster2.db --data-dir /var/lib/etcd-data-new
+
+Update the systemd service unit file for etcd by running vi /etc/systemd/system/etcd.service and add the new value for data-dir /var/lib/etcd-data-new:
+vim /etc/systemd/system/etcd.service
+
+chown -R etcd:etcd /var/lib/etcd-data-new
+ls -ld /var/lib/etcd-data-new/
+systemctl daemon-reload 
+systemctl restart etcd
+
+paw meta sto controle plain
+kubectl config use-context cluster1
+kubectl delete controller-manager scheduler 
+
+
+meta mpainw ston control-plain node kai kanw restart to kublet gia na parei to kainourio buckup
+ssh cluster2-controlplane
+systemctl restart kublet

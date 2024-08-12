@@ -1,0 +1,94 @@
+
+
+Check the authorization-mod 
+
+
+kubectl describe pod kube-apiserver-controlplane -n kube-system |grep "authorization-mode"
+      --authorization-mode=Node,RBAC
+h
+cat /etc/kubernetes/manifest/kube-apiserver.yaml
+
+
+Check roles
+kubectl get roles
+
+Check roles in all namespaces
+kubectl get roles -A
+
+inspect the role
+kubectl describe role kube-proxy -n kube-system
+
+kubectl get rolebinding -n kube-system
+kubectl describe rolebinding kube-proxy -n kube-system
+
+
+
+
+
+
+-----------------
+Check if has Access
+kubectl config view
+kubectl get pods --as dev-user
+
+Create role to list,create,delete pods
+kubectl create role developer --namespace=default --verb=list,create,delete --resource=pods
+kubectl describe role developer 
+
+Rolle binding
+kubectl create rolebinding dev-user-binding --namespace=default --role=developer --user=dev-user
+kubectl describe rolebinding dev-user-binding
+-----------------
+
+
+
+
+
+
+Add new rule
+
+- apiGroups:
+  - apps
+  resources:
+  - deployments
+  verbs:
+  - create
+
+kubectl get pods dark-blue-app --as dev-user -n blue
+kubectl get roles -n blue
+kubectl get rolebindings -n blue
+kubectl edit role developer -n blue
+
+# Please edit the object below. Lines beginning with a '#' will be ignored,
+# and an empty file will abort the edit. If an error occurs while saving this file will be
+# reopened with the relevant failures.
+#
+apiVersion: rbac.authorization.k8s.io/v1
+kind: Role
+metadata:
+  creationTimestamp: "2024-08-11T15:55:35Z"
+  name: developer
+  namespace: blue
+  resourceVersion: "3296"
+  uid: d2a2705f-129c-464f-a5b7-4d2d257a146b
+rules:
+- apiGroups:
+  - ""
+  resourceNames:
+  - dark-blue-app
+  resources:
+  - pods
+  verbs:
+  - get
+  - watch
+  - create
+  - delete
+- apiGroups:
+  - apps
+  resources:
+  - deployments
+  verbs:
+  - create
+
+check if that works
+kubectl describe role developer -n blue

@@ -1,3 +1,6 @@
+h porta tou einai h 2379
+
+
 
 einai to mialo tou cluster kai einai se key value morfh
 einai key value store diladi den exei adeia shells
@@ -22,7 +25,14 @@ export ETCDCTL_API=3
 ./etcdctl
 
 
-or example ETCDCTL version 2 supports the following commands:
+
+
+
+
+
+
+
+example ETCDCTL version 2 supports the following commands:
 
 etcdctl backup
 etcdctl cluster-health

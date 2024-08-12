@@ -1,0 +1,71 @@
+Ta paths einai sto 
+API serct file
+/etc/kubernetes/manifest/kube-apiserver.yml
+
+ETCD cert file
+/etc/kubernetes/manifest/etc.yml
+epidi einai static ta pods afta.
+
+
+gia na ta diavasw ena cert vazw to path tous
+openssl x509 -in /etc/kubernetes/pki/apiserver.crt -text -noout
+openssl x509 -in /etc/kubernetes/pki/etcd/server.crt -text -noout
+
+
+kubectl get pods -n kube-system
+kubectl describe pod  kube-apiserver-controlplane -n kube-system | grep ".crt"
+
+authenticate kube-apiserver as a client to ETCD Server
+--etcd-certfile=/etc/kubernetes/pki/apiserver-etcd-client.crt
+
+authenticate kubeapi-server to the kubelet server.
+--kubelet-client-key=/etc/kubernetes/pki/apiserver-kubelet-client.key
+
+
+
+-----------------------------------------------------
+ADD NEW MEMBER CERTS
+CertificateSigningRequest
+Use this command to generate the base64 encoded format as following: -
+
+# cat akshay.csr | base64 -w 0
+LS0tLS1CRUdJTiBDRVJUSUZJQ0FURSBSRVFVRVNULS0tLS0KTUlJQ1ZqQ0NBVDRDQVFBd0VURVBNQTBHQTFVRUF3d0dZV3R6YUdGNU1JSUJJakFOQmdrcWhraUc5dzBCQVFFRgpBQU9DQVE4QU1JSUJDZ0tDQVFFQXBlWnF4VkNWdjFlRGZTeHA0eHNENllMVDhweTBqOExCWStpL3NsTktqT3o0CnZmeUNzVzJMNEIwdG5KMGZSZHhybm4rN1NBelhNUWdJUzdHb1lHU3h1bW5EOS9GaTc4S0Z2dnVQNmpvTGxISm0KeTRRdFNLWGRLOVdMdlA2OTdhb2xrVUN0eXJXdURlQXI4Q3pCVkpCcGl6YWFTdkhiM3B1WUdveTlBTlpnVnhiYQpjcnJqMWdYVHEvRW4yQmhxRXcyVkpTSlFHN1VUUTBUczhHVDd0L2NLQ0NaWCtEYWlpdzRpZkJIWFRzbnVEM0kwCk5YK0FIcmpyNmx6RXg2SnhGSEh3M2tSS2M4b1czeGlYdkJCUkFxanVsUU40SVJuZjBCVXRqUFJYVlJpdFMvb3oKclA0dGc5a3grMUVZcUFNOEN1UDg2aENtVHduTjFJaUtSZzUyRFAvNzN3SURBUUFCb0FBd0RRWUpLb1pJaHZjTgpBUUVMQlFBRGdnRUJBRTBhcG9CQjA0ZjE2TklPem1ncFh4YUM3NWhFZkhwRlY1blJyS1BqWEdDalZ1ZzJOMjJuCmJPeUluclQ2V2dlUTBkK05OMHRLYjRhdWFDR2VlSlNqSWx0Ynh0dERTSTVVekIrNG11TWZ1UkNkSXVhOEo4aUMKeUFTTCtHZ2pSYTFOTWpiYjVsVThCYzZieHYzTnRvVGJyVXp2TjJWR08vYTRWQ1lXTjV2cG0zT0tiNzRLWk9HNwprVEl2WFBuM3FDcHhJMVlQdnc3TzkyT1RheHRxNXFVNTlaanVLMGFsWUpaMkNZa2pSTGxOTGkwdmxMMCtSaHpmClUyK256NFpObkMyRDN4eXlaR3h6NWNEdk9TQldVZDMzMHN0bVdlUVNJVVFPWHBWY0NlWnpmVTI4RVNOUkx3TnEKSUVpdGVwUGFTSXY4V0dYZG9nRHU5RVNmZTdJTUt2YTBmNmc9Ci0tLS0tRU5EIENFUlRJRklDQVRFIFJFUVVFU1QtLS0tLQo=
+
+
+
+
+vim akshay-csr.yaml
+---
+apiVersion: certificates.k8s.io/v1
+kind: CertificateSigningRequest
+metadata:
+  name: akshay
+spec:
+  groups:
+  - system:authenticated
+  request: LS0tLS1CRUdJTiBDRVJUSUZJQ0FURSBSRVFVRVNULS0tLS0KTUlJQ1ZqQ0NBVDRDQVFBd0VURVBNQTBHQTFVRUF3d0dZV3R6YUdGNU1JSUJJakFOQmdrcWhraUc5dzBCQVFFRgpBQU9DQVE4QU1JSUJDZ0tDQVFFQXBlWnF4VkNWdjFlRGZTeHA0eHNENllMVDhweTBqOExCWStpL3NsTktqT3o0CnZmeUNzVzJMNEIwdG5KMGZSZHhybm4rN1NBelhNUWdJUzdHb1lHU3h1bW5EOS9GaTc4S0Z2dnVQNmpvTGxISm0KeTRRdFNLWGRLOVdMdlA2OTdhb2xrVUN0eXJXdURlQXI4Q3pCVkpCcGl6YWFTdkhiM3B1WUdveTlBTlpnVnhiYQpjcnJqMWdYVHEvRW4yQmhxRXcyVkpTSlFHN1VUUTBUczhHVDd0L2NLQ0NaWCtEYWlpdzRpZkJIWFRzbnVEM0kwCk5YK0FIcmpyNmx6RXg2SnhGSEh3M2tSS2M4b1czeGlYdkJCUkFxanVsUU40SVJuZjBCVXRqUFJYVlJpdFMvb3oKclA0dGc5a3grMUVZcUFNOEN1UDg2aENtVHduTjFJaUtSZzUyRFAvNzN3SURBUUFCb0FBd0RRWUpLb1pJaHZjTgpBUUVMQlFBRGdnRUJBRTBhcG9CQjA0ZjE2TklPem1ncFh4YUM3NWhFZkhwRlY1blJyS1BqWEdDalZ1ZzJOMjJuCmJPeUluclQ2V2dlUTBkK05OMHRLYjRhdWFDR2VlSlNqSWx0Ynh0dERTSTVVekIrNG11TWZ1UkNkSXVhOEo4aUMKeUFTTCtHZ2pSYTFOTWpiYjVsVThCYzZieHYzTnRvVGJyVXp2TjJWR08vYTRWQ1lXTjV2cG0zT0tiNzRLWk9HNwprVEl2WFBuM3FDcHhJMVlQdnc3TzkyT1RheHRxNXFVNTlaanVLMGFsWUpaMkNZa2pSTGxOTGkwdmxMMCtSaHpmClUyK256NFpObkMyRDN4eXlaR3h6NWNEdk9TQldVZDMzMHN0bVdlUVNJVVFPWHBWY0NlWnpmVTI4RVNOUkx3TnEKSUVpdGVwUGFTSXY4V0dYZG9nRHU5RVNmZTdJTUt2YTBmNmc9Ci0tLS0tRU5EIENFUlRJRklDQVRFIFJFUVVFU1QtLS0tLQo=
+  signerName: kubernetes.io/kube-apiserver-client
+  usages:
+  - client auth
+
+
+
+
+
+
+  kubectl apply -f akshay-csr.yaml
+
+
+
+  kubectl get csr
+  kubectl certificate approve akshay
+
+
+  Gia na dw kapio alo csr ti exei mesa
+  kubectl get csr agent-smith -o yaml
+
+  an thelw na to aporipsw 
+  kubectl certificate deny agent-smith
+
+  diagrafh telios
+  kubectl delete csr agent-smith
