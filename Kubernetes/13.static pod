@@ -5,8 +5,16 @@ ston sigkekrimeno node diladi ton worker opote gia na to diagrapsoume prepei na 
 
 
 
-To path gia ta static pod einai to /var/lib/kubelet/config.yaml pou periexei ola ta confs paths kai ta confs
-sinmithos ta yaml arxeia vriskonte mesa sto /etc/kublet/manifest alla mpori na einai kai alios dilomeno
+To path gia na parrw plirofories gia ta static pod einai to 
+/var/lib/kubelet/config.yaml (tou kublet giati apo edw ipame dimiourgite ena static pod kai psaxnw gia to StaticPodPath:)
+
+pou periexei ola ta confs paths kai ta confs sinmithos ta yaml arxeia vriskonte mesa sto an svisw apo edw to yaml arxeio diagrafete to pod katefthian 
+oti alagh kanw sto .yaml arxeio to  pernei katefthian ! TO path afto mporei na einai diaforetiko kai orizete apo to --pod-manifest-path=/etc/kublet/manifests/ mesa sto service sto /etc/systemd/system/kublet.service
+/etc/kublet/manifests/
+
+alla mpori na einai kai alios dilomeno
+
+
 
 
 kubectl get pods -A
@@ -24,6 +32,8 @@ kai vlepw ton owner an einai node pou simenei oti einai static h an einai kati a
 
 
 
+mesa ston server gia na doume to pod den doulevei me API to stataic opote den exoume kai kubectl commands alla 
+docker ps
 
 
 
@@ -60,8 +70,14 @@ Gia na vrw to StaticPod
 -----------------------
 
 ps -ef |  grep kubelet
+
 vriskw to config
 --config=/var/lib/kubelet/config.yaml
+
 grep -i static /var/lib/kubelet/config.yaml
+
 opote einai se afton edw tron fakelo to yaml arxeio tou static pod
 /etc/just-to-mess-with-you
+
+Kai to diagrafw
+rm -rf  /etc/just-to-mess-with-you/greenbox.yaml 

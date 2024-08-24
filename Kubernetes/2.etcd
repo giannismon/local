@@ -1,5 +1,16 @@
+key value morfh
+----------------
+
 h porta tou einai h 2379
 
+
+-----------------------------------------------------------
+se kubeADM to path einai afto
+einai sto /etc/kubernetes/manifest/kube-apiserver.yaml
+
+Se hard way install se alon server einai sto service mesa 
+/etc/systemd/system/kube-apiserv
+-----------------------------------------------------------
 
 
 einai to mialo tou cluster kai einai se key value morfh

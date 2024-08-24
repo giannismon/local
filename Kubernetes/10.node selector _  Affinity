@@ -77,13 +77,21 @@ spec:
                     - key: size
                       operator: Exists
 
-To exist simenei oti psaxnei na dei an iparxei label aplos oxi to value tha exei px pairnei akoam kai ta kaina aplos na iparxei
+To exist simenei oti psaxnei na dei an iparxei label aplos 
+kai den xriazxete aparetita na exei to to sizekapio value px an einai kaino pali tha sinexisei .
 
-Psaxnei na vrei to pod kata to execution kai an den to vrei den sinexiszei alla an ginei h alagh to pod sinexizei na doulevei etsi mexri na termatistei         
+
+
+------------------------
+required
+Psaxnei na vrei to pod kata to execution kai an den to vrei den sinexiszei alla an ginei h alagh to pod sinexizei na doulevei etsi mexri na termatistei (dld den ginete live kapia alagah ala xriazete restart)   
 requiredDuringSchedulingIgnoredDuringExecution
 
-Psaxnei na vrei to pod kata to execution kai an den to vrei to vazei opou nane alla an ginei h alagh to pod sinexizei na doulevei etsi mexri na termatistei         
+prefered
+Psaxnei na vrei to pod kata to execution kai an den to vrei to vazei opou nane alla an ginei h alagh to pod sinexizei na doulevei etsi mexri na termatistei (dld den ginete live kapia alagah ala xriazete restart)   
 preferedDuringSchedulingIgnoredDuringExecution
 
-Psaxnei na vrei to pod kata to execution kai an den to vrei den sinexiszei alla an ginei h alagh to pod sinexizei na doulevei me tis kainouries alages kai kanei restart         
+required required
+Psaxnei na vrei to pod kata to execution kai an den to vrei den sinexiszei alla an ginei h alagh to pod sinexizei na doulevei me tis kainouries alages kai kanei restart  (dld  ginete live h opoia alagah kai den xriazete restart)   
 requiredDuringSchedulingrequiredDuringExecution
+------------------------

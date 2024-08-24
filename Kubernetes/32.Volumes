@@ -1,0 +1,157 @@
+
+Ta apla volumes aplos dimiourgoun topika enan fakelo mesa ston node mas kai apothikevoun ekei ta arxeia
+Ta PERSISTANT VOLUME sindeonte me PERSISTANT VOLUME CLAIMS kai apothikevonte ekei ta arxeia alla mporoun na xrisimopihthoun kai apo ta alla pods tou cluster
+
+
+Volumes mounts
+--------------------------------------------------
+ola ta mounts einai sto
+/var/lib/docker/volumes
+
+docker volume create my_volume
+docker run -v my_volume:/var/lib/mysql mysql
+--------------------------------------------------
+
+
+BIND MOUNTS
+--------------------------------------------------
+an den theloume na einai mesa sto 
+/var/lib/docker/volumes
+tote to dilonw me full path
+
+docker run -v /data/mysql:/var/lib/mysql mysql
+--------------------------------------------------
+
+
+
+TA apla volumes sindeoun to path aplos na grafei ola ta dedomena mesa sto node mas
+TA PERSISTEN VOLUMES XRIAZONTAI KAI TA PERSISTAN VOLUME CLAIMS GIA NA KANOUN BIND . ETSI OMOS TA DEDOMENA KAI SE CLUSTER NA EINAI PALI EPIKOINONOUN ME TA DEDOMENA OLOI OI NODES
+
+
+
+apiVersion: v1
+kind: Pod
+metadata:
+  name: mypod
+spec:
+  containers:
+    - name: myfrontend
+      image: nginx
+      volumeMounts:
+      - mountPath: "/var/www/html"
+        name: mypd
+  volumes:
+    - name: mypd
+      persistentVolumeClaim:
+        claimName: myclaim
+
+
+----------------------------------------------------
+
+
+kubectl exec webapp -- cat /log/app.log
+
+Configure a volume to store these logs at /var/log/webapp on the host.
+kubectl get pod webapp -o yaml > webapp.yaml
+kubectl delete pod webapp
+
+apiVersion: v1
+kind: Pod
+metadata:
+  name: webapp
+spec:
+  containers:
+  - name: event-simulator
+    image: kodekloud/event-simulator
+    env:
+    - name: LOG_HANDLERS
+      value: file
+    volumeMounts:
+    - mountPath: /log
+      name: log-volume
+
+  volumes:
+  - name: log-volume
+    hostPath:
+      # directory location on host
+      path: /var/log/webapp
+      # this field is optional
+      type: Directory
+
+kubectl apply -f web.yaml
+
+
+
+
+
+
+
+
+PERSISTANT VOLUME
+-------------------------------------------------------------------
+
+apiVersion: v1
+kind: PersistentVolume
+metadata:
+  name: pv-log
+spec:
+  persistentVolumeReclaimPolicy: Retain
+  accessModes:
+    - ReadWriteMany
+  capacity:
+    storage: 100Mi
+  hostPath:
+    path: /pv/log
+
+
+-------------------------------------------------------------------
+
+
+Persistent Volume Claim
+-------------------------------------------------------------------
+kind: PersistentVolumeClaim
+apiVersion: v1
+metadata:
+  name: claim-log-1
+spec:
+  accessModes:
+    - ReadWriteMany
+  resources:
+    requests:
+      storage: 50Mi
+
+
+
+
+
+
+
+apiVersion: v1
+kind: Pod
+metadata:
+  name: webapp
+spec:
+  containers:
+  - name: event-simulator
+    image: kodekloud/event-simulator
+    env:
+    - name: LOG_HANDLERS
+      value: file
+    volumeMounts:
+    - mountPath: /log
+      name: log-volume
+
+  volumes:
+  - name: log-volume
+    persistentVolumeClaim:
+      claimName: claim-log-1
+
+
+
+      
+
+STATUS
+kubectl get pvc
+-------------------------------------------------------------------
+
+kubectl get pv,pvc

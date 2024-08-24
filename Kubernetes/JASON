@@ -1,0 +1,30 @@
+kubectl get nodes -o json 
+kubectl get nodes -o json > /opt/outputs/nodes.json
+kubectl get node node01 -o json > /opt/outputs/node01.json
+
+
+
+
+Fetch data to txt
+kubectl get nodes -o json
+kubectl get nodes -o=jsonpath='{.items[*].metadata.name}' > /opt/outputs/node_names.txt
+
+OS image
+kubectl get nodes -o json
+kubectl get nodes -o jsonpath='{.items[*].status.nodeInfo.osImage}' > /opt/outputs/nodes_os.txt
+
+USERS
+kubectl config view --kubeconfig=my-kube-config  -o json
+kubectl config view --kubeconfig=my-kube-config  -o jsonpath="{.users[*].name}" > /opt/outputs/users.txt
+
+PV
+kubectl get pv -o json
+kubectl get pv --sort-by=.spec.capacity.storage > /opt/outputs/storage-capacity-sorted.txt
+
+PV me columns
+kubectl get pv -o json
+kubectl get pv --sort-by=.spec.capacity.storage -o=custom-columns=NAME:.metadata.name,CAPACITY:.spec.capacity.storage > /opt/outputs/pv-and-capacity-sorted.txt
+
+USERNAME O EWS
+kubectl config view --kubeconfig=my-kube-config -o json
+kubectl config view --kubeconfig=my-kube-config -o jsonpath="{.contexts[?(@.context.user=='aws-user')].name}" > /opt/outputs/aws-context-name

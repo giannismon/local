@@ -1,0 +1,66 @@
+Internal and external network 
+kubectl get nodes -o wide
+
+gia na dw me ip a
+thn internal ip kai thn MAC addres tou kathe node mpainw me ssh ston sigkekrimeno node
+
+
+gia na dw bridge interfaces
+ip link
+
+
+
+ip route show default
+controlplane ~ ➜  ip route show default
+default via 172.25.0.1 dev eth1 
+
+
+pou akouei o scheduler
+netstat -tnlpa | grep scheduler
+
+
+
+
+
+CNI
+--------
+Το CNI (Container Network Interface) στο Kubernetes είναι ένα πρότυπο για τη ρύθμιση της δικτύωσης των κοντέινερ. 
+Επιτρέπει στους πάροχους δικτύωσης (plugins) να διαχειρίζονται τη δημιουργία, 
+την παραμετροποίηση και την καταστροφή των δικτύων για τα pods που εκτελούνται μέσα στο Kubernetes cluster.
+
+Το CNI (Container Network Interface) στο Kubernetes είναι το στοιχείο που αναλαμβάνει τη 
+σύνδεση των pods με το δίκτυο. Εξασφαλίζει ότι κάθε pod μπορεί να επικοινωνεί 
+με άλλα pods και υπηρεσίες μέσα στο Kubernetes cluster. Ας δούμε βήμα-βήμα τι κάνει ακριβώς:
+
+
+
+Gia ta container run time panta mpainw me ps
+Inspect the kubelet service and identify the container runtime endpoint value is set for Kubernetes.
+ps -aux | grep kubelet | grep --color container-runtime-endpoint
+
+path configured with all binaries of CNI supported plugins
+plugins 
+/opt/cni/bin
+
+
+gia na dw poio Networking Solution used by this cluster
+ls -ltrh /etc/cni/net.d/
+
+
+gia na dw to rande ips ton node 
+ip a | grep eth0
+
+gia na dw ti ips range exoun ta pods
+kubectl logs weave-net-jw4gh -n kube-system | grep ip
+
+
+
+
+
+----------------
+Where is the CoreDNS located
+kubectl -n kube-system describe deployment coredns | grep -A2 Args | grep Corefile
+
+
+----------------
+

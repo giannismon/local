@@ -6,10 +6,15 @@ xrisimopoiite kai gia load balancer an anatithete se perisotera pods
 xrisimopiei enan random algorithm
 
 
-ClusterIP    (Default internall communication)
-NodePort     (external)
-LoadBalancer (external gia CLoud Provider)
+H IP ton internal Pods einai sto Range 10.244.0.0.
 
+-----------------------------------------------------
+ClusterIP    (Default internall communication)
+
+NodePort     (external)
+
+LoadBalancer (external gia CLoud Provider)
+-----------------------------------------------------
 
 
 clusterIP
@@ -36,31 +41,6 @@ spec:
 
 
 
-headless service
-υπάρχει επίσης και ο τύπος headless service στο Kubernetes. 
-Το headless service είναι μια παραλλαγή του ClusterIP service που δεν εκχωρεί μια ClusterIP διεύθυνση. 
-Χρησιμοποιείται συχνά για stateful εφαρμογές και επιτρέπει άμεση επικοινωνία με τα pods, 
-παρακάμπτοντας την εξισορρόπηση φόρτου (load balancing).
-Epilegei na epikoinonei me ena sigkekrimeno pod . afto sinithos xrisimopiite se statefull aplication DBs
-
-
-apiVersion: v1
-kind: Service
-metadata:
-  name: mongodb
-  namespace: my-namespace
-spec:
-  clusterIP: None
-  selector:
-    app: mongodb
-  ports:
-    - protocol: TCP
-      port: 27017
-      targetPort: 27017
-
-
-
-
 
 
 
@@ -74,7 +54,7 @@ metadata:
   name: my-nodeport-service
 spec:
   type: NodePort
-  selector:
+  selector: #sindeete to deployment me to pod mesw ton labels
     app: my-app
   ports:
     - protocol: TCP

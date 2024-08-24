@@ -1,7 +1,7 @@
 Ta Requirments einai ta elaxista 
 Ta limits einai ta megista
 
-
+BY default den iparxoun oria dld mporei na xrisimopieisei ola ta resourses tou node
 
 
 
@@ -29,6 +29,22 @@ An dw OOM einai out of memory
 An afisw anekselento apo resourses to pod mpori na xrisimopieisei oal tou node kai meta na krasaroun kai ta ala
 
 To kalitero einai na exw Requirments alla axi limits
+----------------------------------------------------
 
 
-An theloume na valoume genika oria iparxei kai to ResourceQuota pou einai san apothikh me resourses pou mporoun na xrisimopoiithoun
+An theloume na valoume genika oria iparxei kai to ResourceQuota pou einai san apothikh me resourses pou mporoun na xrisimopoiithoun kai dilonete me vasi to namespace pou anoikei
+namespace
+
+
+
+apiVersion: v1
+kind: ResourceQuota
+metadata:
+  name: example-quota
+  namespace: my-namespace
+spec:
+  hard:
+    requests.cpu: "4"
+    requests.memory: "8Gi"
+    limits.cpu: "8"
+    limits.memory: "16Gi"
