@@ -283,7 +283,8 @@ vlepoume ta services pou iparxoun mesa sto stack
 
 
 ---------------------------------------------------------------------------------------------------------------------
-
+RESTART ENA CONTAINER APO TO SERVICE
+docker container rm -f <container-id>
 
 RESTART SERVICE
 
