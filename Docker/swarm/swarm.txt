@@ -294,8 +294,9 @@ docker service ls
 
 # Προβολή της κατάστασης των tasks (containers) ενός συγκεκριμένου service
 docker service ps <SERVICE_NAME>
-H
-Rolling Update
+
+
+RESTART TOU SERVICE ME OLA TA CONTAINER MESA
 docker service update --update-parallelism 2 --update-delay 10s my_service
 
 # Αναγκαστική ενημέρωση (restart) του service
