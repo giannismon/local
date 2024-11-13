@@ -1,5 +1,5 @@
 otan dimiourgoume ena deployment dimiourgei ena rollout 
-otan dimiourgite ena rollout dimiourgite ena revision
+otan dimiourgite ena rollout dimiourgite ena revision (version)
 
 
 kubectl rollout status deployment/myapp-deployment
@@ -14,8 +14,6 @@ kubectl rollout history deployment/myapp-deployment
 Deployment Strategy
 
 1. Recreate:       prota katastrefei ola ta pods kai meta ta kanei recreate (Afto exei Down Time)
-
-
   strategy:
     type: Recreate  # Change strategy to Recreate
 
@@ -40,4 +38,6 @@ kubectl describe deployment <name of deployment> | grep "StrategyType:"
 
 
 
+
+{PAW STHN PROGOUMENH EKDOSH tou deploymnet}
 kubectl rollout undo deployment/frontend

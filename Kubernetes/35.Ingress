@@ -1,16 +1,18 @@
 kubectl get all -A
 kubectl get ingress --all-namespaces
 
-
+gia na kanei redirect metaksi twn rules pou exoume /pay px vazw ta annotations katw
 ---
 apiVersion: networking.k8s.io/v1
 kind: Ingress
 metadata:
   name: test-ingress
   namespace: critical-space
+  ################################################################
   annotations:
     nginx.ingress.kubernetes.io/rewrite-target: /
     nginx.ingress.kubernetes.io/ssl-redirect: "false"
+  ################################################################
 spec:
   rules:
   - http:

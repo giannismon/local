@@ -1,0 +1,79 @@
+####################
+STATS
+####################
+
+Yparxei o 
+METRIC SERVER
+alla den apothikevei ta dedomena opote den iparxei history
+
+# git clone https://github.com/kubernetes-incubator/metrics-server
+# kubectl create -f .
+
+# kubectl top node
+# kubectl top pod
+
+
+
+####################
+logs
+####################
+
+kubectl logs -f pod01
+kubectl logs -f pod01 my_second_container
+
+############################################################################################################################################
+
+
+
+
+TROBLESHOOTING 
+
+Checklist
+---------------------
+1. Check with curl
+    curl http://web-app:node_port
+
+2. Check service (endpoints - Selector)
+    kubectl describe service web_service
+
+3. Check pod
+    kubectl get pod
+    kubectl describe pod web
+    kubectl logs web
+
+4. Check service of describe
+    kubectl describe service db_service
+
+5.  Check DB pod
+    kubectl get pod
+    kubectl describe pod db
+    kubectl logs db
+
+
+LOGS API
+--------
+kubectl logs kube-apiserver -n kube-system
+sudo journalctl -u kube-apiserver
+
+
+
+AN ENA POD EINAI SE WAITING TOTE KATA PASA PITHANOTITA DEN EINAI ASSIGN ME KAPIO NODE
+OPOTE EFTHINETE O SHEDULER
+
+AN EXW PROVLIMA ME TA CERTS KOITA KAI TA VOLUMES AN EINAI KALA KATANEMIMENA
+
+
+WORKER NODES FAILURE
+---------------
+kubectl get nodes
+kubectl describe node node01
+top 
+df -h
+service kublet status
+journalctl -u kubelet
+
+check Validity of .crt
+openssl x509 -in /var/lib/kubelet/worker-1.cert -text
+
+mesa ston worker
+cat /var/lib/kubelet.config.yaml

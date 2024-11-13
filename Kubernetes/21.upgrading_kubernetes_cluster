@@ -5,12 +5,16 @@ na paw
 1.40
 
 
-
+ALAGH EKDOSHS STON
 MASTER
 ########################################################################################################################################################################################################
 --------------------------------------------------------------------------------------------
-Stin idia version pou exoume thn v1.29.0 mexri poso mporoume na to kanoume upgrade
+Stin idia version pou exoume thn v1.29.0 
+mexri poso mporoume na to kanoume upgrade
 ssh ston masternode
+
+
+gia na dw to kubeadm poso mporei na ginei upgrade (an thelw megaliterh ekdrosh akomh tote prepi na alaksw thn ekdosh tou kubadm oloklirh)
 # kubeadm upgrade plan
 COMPONENT   CURRENT       TARGET
 kubelet     2 x v1.29.0   v1.29.7
@@ -27,13 +31,17 @@ etcd                      3.5.10-0   3.5.10-0
 
 
 
-
+# kubeadm upgrad apply v1.11.1
 
 --------------------------------------------------------------------------------------------
 We will be upgrading the Master node first.
 Drain the master node of workloads and mark it UnSchedulable
+
 # kubectl drain controlplane --ignore-daemonsets
 # kubectl get pods -o wide
+
+
+
 
 Upgrade the controlplane components to exact version v1.30.0
 
@@ -70,6 +78,8 @@ kubectl uncordon controlplane
 
 ################################################################################################################################################################################################################################################
 
+
+INSTALL NEW VERSION ON
 WORKER Node
 
 

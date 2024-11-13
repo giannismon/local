@@ -1,6 +1,8 @@
 
 To etcd panda vriskete sto namespace "-n kube-system"
-kai to pod me to etcd to vriskoume 
+kai to pod me to etcd to vriskoume
+
+
 kubectl -n kube-system get pods
 
 export ETCDCTL_API=3
@@ -34,7 +36,7 @@ kubectl -n kube-system describe pod etcd-controlplane | grep '\--key-file'
 
 
 
-
+------------------------------------------------------------------------------------------------------------------------------------
 
 BUCKUP
 -------
@@ -60,15 +62,17 @@ snapshot save /opt/snapshot-pre-boot.db
 --------------------------------------------------------------------------------------------------
 
 
-
-
 kubectl -n kube-system describe pod etcd-controlplane | grep 'data-dir'
       --data-dir=/var/lib/etcd
 
 
+
+
+
+
 RESTORE
 -------
-tha ta valw gia arxh alou to arxeia tou buckup sto /var/lib/etcd-from-backup enw afto pou diavazei afthn thn stigmh einai to --data-dir=/var/lib/etcd
+tha ta valw gia arxh alou to arxeia tou buckup sto /var/lib/etcd-from-backup apo to buckup pou pira prin to snapshot-pre-boot.db enw afto pou diavazei afthn thn stigmh einai to --data-dir=/var/lib/etcd
 
 ETCDCTL_API=3 etcdctl  --data-dir /var/lib/etcd-from-backup \
 snapshot restore /opt/snapshot-pre-boot.db
@@ -110,12 +114,12 @@ $$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$
 $$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$
 
 
-
+An den vriskw pod ston master me ETCD tote koitaw to pod tou api na dw an to exei dilmeno alou  --etcd-servers
 
 
 How many clusters are exist
- kubectl config view
- kubectl config get-clusters
+ # kubectl config view
+ # kubectl config get-clusters
 NAME
 cluster1
 cluster2
@@ -171,6 +175,9 @@ ETCDCTL_API=3 etcdctl --endpoints=https://192.46.41.24:2379 --cacert=/etc/kubern
 exit
 scp cluster1-controlplane:/opt/cluster1.db /opt
 
+
+
+
 #####################################################################################################################
 
 
@@ -192,6 +199,7 @@ ps -ef | grep --color=auto etcd
 gia na dw oti pliroforia thlw apo ton etcd
 ssh 192.46.41.15
 ps -ef | grep etcd
+--data-dir=.......................
 
 
 check the members of cluster
@@ -206,7 +214,7 @@ ETCDCTL_API=3 etcdctl \
 
 
 RESTORE
-TIP EDW EPIDI EINAI EXTERNAL SERVER KAI DEN EXEI KUBLET DEN THA ALAKSW TO /etc/kubernetes/manifests/etcd.yaml alla to service /etc/systemd/system/etcd.service giati den exei tipota alo edw mesa .
+TIP EDW EPIDI EINAI EXTERNAL SERVER KAI DEN EXEI STACKED POD DEN THA ALAKSW TO /etc/kubernetes/manifests/etcd.yaml alla to service /etc/systemd/system/etcd.service giati den exei tipota alo edw mesa .
 vale to buckup pou exeis ston server tou etcd an einai se alon server
 scp /opt/cluster2.db etcd-server:/root
 mpes mesa ston server pou einai o etcd

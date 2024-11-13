@@ -1,3 +1,17 @@
+SIGRISH ME Kubernetes
+service    --> Pods
+containers --> containers
+Στο Docker Swarm, κάθε task είναι ένα container που εκτελείται για ένα service.
+
+Στο Kubernetes, τα pods εκτελούν την ίδια λειτουργία, με τη διαφορά ότι το Kubernetes μπορεί να διαχειρίζεται pods με πολλαπλά containers, και όχι απλά με ένα container ανά pod.
+
+Συνοπτικά:
+Το Docker Swarm είναι πιο απλό και προορίζεται για μικρότερα setups ή περιβάλλοντα όπου η ευχρηστία είναι πιο σημαντική από την πολυπλοκότητα.
+Το Kubernetes είναι πιο ισχυρό και προσφέρει πληθώρα δυνατοτήτων για την κλιμάκωση, την αυτόματη ανάκτηση, την παρακολούθηση, και τη διαχείριση εφαρμογών σε μεγάλη κλίμακα.
+
+
+
+
 2 Types of Nodes 
 Manager: Maintain CLuster, Management Task, Knows the status off all nodes.
 Worker : Recieve and Execute tasks from manager node
@@ -14,9 +28,22 @@ When a task is assigne to a node it canot assigned to another node (1 task = 1 n
 
 Mporoun na iparxoun poloi manager alla enas tha einai o primary kai oi ypolipoi tha einai oi secondary
 
+Genika sto swarm iparxei ena
+- Stack pou periexei ta services 
+ ένα stack είναι μια συλλογή από υπηρεσίες που συνεργάζονται για να υλοποιήσουν μια εφαρμογή. 
+ Είναι σαν ένα σύνολο από containers που εκτελούνται σε διάφορους κόμβους (nodes) του Swarm cluster και επικοινωνούν μεταξύ τους. 
+ Κάθε υπηρεσία (service) μέσα στο stack αντιστοιχεί σε ένα container που εκτελείται με βάση ένα συγκεκριμένο 
+ image και έχει τις δικές του ρυθμίσεις δικτύου, όγκου αποθήκευσης, και άλλων παραμέτρων.
+
+Αν για παράδειγμα έχεις ένα service στο stack με replicas: 3, 
+το Swarm θα ξεκινήσει τρία tasks (άρα τρία containers) 
+και θα τα τοποθετήσει σε διαθέσιμους nodes. Οι containers 
+μπορούν να τρέχουν σε διαφορετικούς workers ή managers, αλλά δεν αντιγράφεται το ίδιο το stack.
+
+
 --------------------------------------------------------------------------------
 ELEGXOS AN YPRXEI DOCKER SWARM STON NODE
----------------------------------------
+-----------------------------------------
 # docker info | grep Swarm
 # docker node ls
 # docker node inspect j4kqtur871xdolh10lebf94o0
@@ -31,6 +58,7 @@ ELEGXOS AN YPRXEI DOCKER SWARM STON NODE
 --------------------------------------------------------------------------------
 MANAGER H WORKER
 Gia na dw an yparxei swarm egkatestimeno
+
 docker info
 
 Swarm: active
@@ -44,7 +72,7 @@ Swarm: active
 --------------------------------------------------------------------------------
 
 
-MANAGER
+SETUP MANAGER
 --------------------------------------------------------------------------------
 Αρχικοποιεί έναν νέο Swarm και καθορίζει τον τρέχοντα Docker host ως manager.
 # sudo docker swarm init --advertise-addr <MANAGER-IP>
@@ -67,13 +95,18 @@ PAW STON NODE POU THELW  EINAI O WORKER KAI TO EKTELW GIA NA GINEI O WORKER NODE
 An den thimame to token tou worker paw ston manager kai grafw afto  docker swarm join-token worker kai pairnw to token
 # docker swarm join --token SWMTKN-1-208rlpxbo6jg4z4k10a9bx9rcyso178w7skofjmkqpbio3m5b8-a5fyxznr56r39ujo8mdab3foo 192.168.1.100:2377
 
+
+gia na ton dioksw apo to cluster
 # docker swarm leave
 
+kai meta ston master server paw kai trexw to 
+# docker node rm node1
 
 
-
-
-
+--------------------------------------------------------------------------------
+GIA NA DW TA TOKEN 
+# docker swarm join-token master
+# docker swarm join-token worker
 
 
 
@@ -91,7 +124,7 @@ gia enan node
 
 
 
-# docker container ls
+# docker container ls einai idia me thn docker ps.
 # docker service ls
 # docker service inspect lxbfk2z0au52 --pretty
 # docker service ps lxbfk2z0au52
@@ -126,6 +159,13 @@ Pernw to ID aftou pou thelw na ton kanw master molis to kanw tha doksei oti eina
 # docker node demote j4kqtur871xdolh10lebf94o0
 --------------------------------------------------------------------------------
 
+AN PESOUN TA PANDA APO MASTER
+dilonw enan master oti aftos einai to neo cuorum dld enas master
+# docker swarm init --force-new-cluster --advertice--addr 192.168.1.155:2377
+
+--------------------------------------------------------------------------------
+DRAIN TON NODE na min exei instances mesa tou
+docker node update --availability drain <node_name>
 
 --------------------------------------------------------------------------------
 PROSTHETW LABLES
@@ -203,8 +243,9 @@ networks:
 
 
 
-
+##################################################
 docker stack deploy -c nginx.yml my-nginx-stack
+##################################################
 docker network ls 
 docker stack ls
 docker stack ps my-nginx-stack
@@ -218,6 +259,8 @@ SICRET
 
 echo "your_secret_password" | docker secret create nginx_secret_value -
 docker secret ls
+
+me afton ton tropo h metavlith sicret nginx_secret_value vriksete mesa sto path tou container /run/secrets/nginx_secret_value
 
 [root@docker ~]# vim docker-compose2.yml
 version: '3.8'
@@ -251,6 +294,13 @@ docker ps
 docker inspect <name of container>
 kai vlepw oti einai se secret
 
+
+
+Tip : to 
+    environment:
+      SECRET_VALUE_FILE: /run/secrets/nginx_secret_value
+
+simenei oti to SECRET_VALUE_FILE tha oristei san metavlith mesa sto container ws env variable kai tha diavazete apo to path /run/secrets/nginx_secret_value gioafto exei kai to epithema _FILE
 -------------------------------------------------------------------------------------------------------------------------------------
 -------------------
 
@@ -306,3 +356,13 @@ docker service update --force <SERVICE_NAME>
 
 # Προβολή των logs ενός service
 docker service logs <SERVICE_NAME>
+
+
+
+
+
+
+AN THELW NA ALAKSW TO VALUE MIAS METAVLITHS TOTE THN DILONW PROTA STO DOCKER NA THN THIMATE GIATI THA THN DIAGRAPSW META THN DIAGRAFW TREXW TON CHEF AN EXW H ANSIBLE NA PAREI TA KAINOURIA VALUE KAI TELOS RESTART TO SERVICE
+docker service update --remove-config <stack_name>_<service_name> <config_name>
+docker config rm <config_name>
+docker service update --force <SERVICE_NAME>

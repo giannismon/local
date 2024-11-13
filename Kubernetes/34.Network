@@ -30,7 +30,7 @@ CNI
 
 Το CNI (Container Network Interface) στο Kubernetes είναι το στοιχείο που αναλαμβάνει τη 
 σύνδεση των pods με το δίκτυο. Εξασφαλίζει ότι κάθε pod μπορεί να επικοινωνεί 
-με άλλα pods και υπηρεσίες μέσα στο Kubernetes cluster. Ας δούμε βήμα-βήμα τι κάνει ακριβώς:
+με άλλα pods και υπηρεσίες μέσα στο Kubernetes cluster
 
 
 
@@ -60,7 +60,5 @@ kubectl logs weave-net-jw4gh -n kube-system | grep ip
 ----------------
 Where is the CoreDNS located
 kubectl -n kube-system describe deployment coredns | grep -A2 Args | grep Corefile
-
-
 ----------------
 

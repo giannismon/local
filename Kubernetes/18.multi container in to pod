@@ -17,3 +17,9 @@ spec:
     The first  : side car pattern. 
     The second : adapter 
     The third  : ambassador pattern.
+
+
+
+
+    gia na treksw mia entolh mesa sto pod
+    kubectl -n <<namespace_pou_thelw>> exec -it <<To pod mou>> -- cat <<Afto pou thelw na dw px /var/lib/apt.log>>

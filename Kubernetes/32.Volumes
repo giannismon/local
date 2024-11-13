@@ -3,6 +3,22 @@ Ta apla volumes aplos dimiourgoun topika enan fakelo mesa ston node mas kai apot
 Ta PERSISTANT VOLUME sindeonte me PERSISTANT VOLUME CLAIMS kai apothikevonte ekei ta arxeia alla mporoun na xrisimopihthoun kai apo ta alla pods tou cluster
 
 
+
+
+____________________________________________________________________________________________________________________
+VOLUME MOUNTS
+____________________________________________________________________________________________________________________
+
+
+
+Create volume 
+--------------
+docker volume create data_volume
+( kai to apothikevei edw mesa  /var/lib/docker/volumes )
+meta ekinish tou container me to volume 
+
+docker run -v data_volume:/var/lib/my_sql mysql:latest
+
 Volumes mounts
 --------------------------------------------------
 ola ta mounts einai sto
@@ -13,8 +29,21 @@ docker run -v my_volume:/var/lib/mysql mysql
 --------------------------------------------------
 
 
+
+
+
+
+
+____________________________________________________________________________________________________________________
 BIND MOUNTS
---------------------------------------------------
+____________________________________________________________________________________________________________________
+
+tip :
+to -v gia na kanoume to bind einai o palios tropos alla yparxei kai to --mount pou einai o klainourios kai einai kaliteros
+--mount type=bind,sourse=/data/mysql,target=/var/lib/mysql mysql:latests
+
+
+
 an den theloume na einai mesa sto 
 /var/lib/docker/volumes
 tote to dilonw me full path
@@ -25,7 +54,19 @@ docker run -v /data/mysql:/var/lib/mysql mysql
 
 
 TA apla volumes sindeoun to path aplos na grafei ola ta dedomena mesa sto node mas
-TA PERSISTEN VOLUMES XRIAZONTAI KAI TA PERSISTAN VOLUME CLAIMS GIA NA KANOUN BIND . ETSI OMOS TA DEDOMENA KAI SE CLUSTER NA EINAI PALI EPIKOINONOUN ME TA DEDOMENA OLOI OI NODES
+
+
+
+
+
+
+
+____________________________________________________________________________________________________________________
+PERSISTANT VOLUMES
+____________________________________________________________________________________________________________________
+
+TA PERSISTEN VOLUMES XRIAZONTAI KAI TA PERSISTAN VOLUME CLAIMS GIA NA KANOUN BIND . 
+ETSI OMOS TA DEDOMENA KAI SE CLUSTER NA EINAI PALI EPIKOINONOUN ME TA DEDOMENA OLOI OI NODES
 
 
 
@@ -46,6 +87,12 @@ spec:
         claimName: myclaim
 
 
+----------------------------------------------------
+----------------------------------------------------
+----------------------------------------------------
+----------------------------------------------------
+----------------------------------------------------
+----------------------------------------------------
 ----------------------------------------------------
 
 
@@ -85,10 +132,12 @@ kubectl apply -f web.yaml
 
 
 
-
-
+Τα Persistent Volume Claims (PVCs) επιτρέπει στα pods να ζητήσουν δυναμικά αποθηκευτικό χώρο, 
+ενώ τα Persistent Volumes (PVs) είναι τα πραγματικά storage resources. 
+Αυτά τα δύο δουλεύουν μαζί για να προσφέρουν μόνιμη αποθήκευση (persistent storage) στο Kubernetes.
+----------------------------------------------------
 PERSISTANT VOLUME
--------------------------------------------------------------------
+---------------------------------------------------
 
 apiVersion: v1
 kind: PersistentVolume
@@ -105,8 +154,6 @@ spec:
 
 
 -------------------------------------------------------------------
-
-
 Persistent Volume Claim
 -------------------------------------------------------------------
 kind: PersistentVolumeClaim
@@ -155,3 +202,9 @@ kubectl get pvc
 -------------------------------------------------------------------
 
 kubectl get pv,pvc
+
+
+
+
+Ta service class (SC)
+pernoun thn thesh tou PV kai einai sto cloud aplos tipota parapanw

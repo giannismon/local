@@ -1,4 +1,5 @@
 gia na dw pios xristis exei dikaioma na ektelesei afthn thn entolh
+
 kubectl exec ubuntu-sleeper -- whoami
 
 -------------------------------------
@@ -14,8 +15,10 @@ spec:
 
 
 spec:
+############################
   securityContext:
     runAsUser: 1010
+############################
   containers:
   - command:
     - sleep
@@ -39,6 +42,7 @@ spec:
 
 Βασικές Ικανότητες
 Εδώ είναι μερικές κοινές ικανότητες (capabilities):
+Ta CAPABILITIES AN MPOUNE MESA STO CONATINER EINIA MONO GIA TA CONTAINER KAI OXI GIA TA PODS
 
 CAP_NET_ADMIN: Επιτρέπει τη διαχείριση δικτύου.
 CAP_SYS_ADMIN: Χορηγεί ευρεία διαχειριστικά δικαιώματα.
@@ -61,6 +65,8 @@ spec:
     - "4800"
     image: ubuntu
     name: ubuntu-sleeper
+##################################################
     securityContext:
       capabilities:
         add: ["SYS_TIME", "NET_ADMIN"]
+##################################################

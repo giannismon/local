@@ -6,6 +6,8 @@ kubectl get ClusterRoles
 
 kubectl describe clusterrolebinding cluster-admin
 
+Vlepw edw oti den mporei na ta dei ontos opote
+kubectl get nodes --as michelle
 
 vim file.yaml
 
@@ -48,6 +50,7 @@ kubectl create clusterrollebinding john_role_binding --clusterrole=john_role --u
 kubectl auth can-i list storageclasses --as john
 
 ---------------------------------------------------------------------------------------------------------
+ME AFTO VLEPW TA SHORTCATS
 kubectl api-resources
 
 

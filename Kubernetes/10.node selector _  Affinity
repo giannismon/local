@@ -18,7 +18,8 @@ spec:
 
 
 
-An theloume pio periploka pragmata sthn epilogh xrisimopoioume ta Node infinity
+An theloume pio periploka pragmata sthn epilogh xrisimopoioume ta Node anfinity
+to anfinity leei pou na mpoun s epio node ola ta pods me to sigkekrimeno label h na min mpoune alla mporei na mpoune kai asxeta pods xoris afto to label
 
 
   -----------------------------------------------------------
@@ -92,6 +93,6 @@ Psaxnei na vrei to pod kata to execution kai an den to vrei to vazei opou nane a
 preferedDuringSchedulingIgnoredDuringExecution
 
 required required
-Psaxnei na vrei to pod kata to execution kai an den to vrei den sinexiszei alla an ginei h alagh to pod sinexizei na doulevei me tis kainouries alages kai kanei restart  (dld  ginete live h opoia alagah kai den xriazete restart)   
+Psaxnei na vrei to pod kata to execution kai an den to vrei den sinexiszei alla an ginei h alagh to pod sinexizei na doulevei me tis kainouries alages kai den kanei restart  (dld  ginete live h opoia alagah kai den xriazete restart)   
 requiredDuringSchedulingrequiredDuringExecution
 ------------------------

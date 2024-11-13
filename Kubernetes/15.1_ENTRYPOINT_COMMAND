@@ -1,0 +1,22 @@
+TO ENTRYPOINT GRAFETE STO DOCKERFILE kai tou leei otan ekinisei to pod ti na ektelesei san entolh 
+afto mporei na ginei overrigth mesa apo to deployment me thn entolh command diladi
+
+
+
+DOCKERFILE
+----------
+ENTRYPOINT ["sleep"]
+CMD ["5"]
+
+Pod
+---
+command:["sleep.02"]
+args:["5"]
+
+telefteo pianete afto tou pod kai to kanei overwrite afta tou DOCKERFILE
+
+
+
+DLD TO command antikathista to ENTRYPOINT kai to args to CMD
+command ---> ENTRYPOINT
+args    ---> CMD

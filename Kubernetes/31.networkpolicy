@@ -4,7 +4,7 @@ kubectl get networkpolicy
 
 
 px
-
+kanoume ena network policy na mporei na exei ingress kai egress mono apo sigkekrimena pods
 
 apiVersion: networking.k8s.io/v1
 kind: NetworkPolicy

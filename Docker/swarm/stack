@@ -1,0 +1,8 @@
+Dimiourgia tou docker-compose.yml me ta services mesa tou gia na anoikoun mesa sto stack
+# docker stack deploy --compose-file docker-compose.yml my_stack
+
+Μπορείς να ελέγξεις αν τα services δημιουργήθηκαν σωστά με την εντολή:
+# docker stack services my_stack
+
+Και αν θέλεις να δεις τα containers που σχετίζονται με το stack:
+# docker stack ps my_stack

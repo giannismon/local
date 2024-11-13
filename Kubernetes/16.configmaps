@@ -33,12 +33,23 @@ data:
 
 
 
+Mesa sto POD
+-------------------------------
+   env:
+    - name: MY_ENV_VAR
+      valueFrom:
+        configMapKeyRef:
+          name: example-configmap
+          key: appcolor
+-------------------------------
+h
+OLES TIS METAVLITES
+-------------------------------
+  - envFrom:
+      - ConfigMapRef:
+          name: example-configmap
 
-
-
-
-
-
+-------------------------------
   
 kai sto pod dilonete
 ---------------------

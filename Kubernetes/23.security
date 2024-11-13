@@ -2,6 +2,8 @@ Ta paths einai sto
 API serct file
 /etc/kubernetes/manifest/kube-apiserver.yml
 
+
+
 ETCD cert file
 /etc/kubernetes/manifest/etc.yml
 epidi einai static ta pods afta.
@@ -22,9 +24,10 @@ authenticate kubeapi-server to the kubelet server.
 --kubelet-client-key=/etc/kubernetes/pki/apiserver-kubelet-client.key
 
 
-
+CertificateSigningRequest (CSR)
 -----------------------------------------------------
 ADD NEW MEMBER CERTS
+--------------------
 CertificateSigningRequest
 Use this command to generate the base64 encoded format as following: -
 
