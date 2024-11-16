@@ -363,6 +363,7 @@ docker service logs <SERVICE_NAME>
 
 
 AN THELW NA ALAKSW TO VALUE MIAS METAVLITHS TOTE THN DILONW PROTA STO DOCKER NA THN THIMATE GIATI THA THN DIAGRAPSW META THN DIAGRAFW TREXW TON CHEF AN EXW H ANSIBLE NA PAREI TA KAINOURIA VALUE KAI TELOS RESTART TO SERVICE
-docker service update --remove-config <stack_name>_<service_name> <config_name>
-docker config rm <config_name>
-docker service update --force <SERVICE_NAME>
+# docker service update --remove-config <config_name> <service_name>
+# docker config rm <config_name>
+resatrt to service
+# docker service update --force <SERVICE_NAME>
